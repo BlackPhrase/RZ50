@@ -1,6 +1,6 @@
 #include "Input.hpp"
 
-bool CInput::Init()
+bool CInput::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
 };

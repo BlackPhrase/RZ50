@@ -1,6 +1,6 @@
 #include "System.hpp"
 
-bool CSystem::Init()
+bool CSystem::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
 };

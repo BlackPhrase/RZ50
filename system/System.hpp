@@ -8,7 +8,7 @@ public:
 	CSystem() = default;
 	~CSystem() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

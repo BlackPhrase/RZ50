@@ -8,7 +8,7 @@ public:
 	CLoggedInput(const IInput &aImpl) : mpImpl(*aImpl){}
 	~CLoggedInput() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

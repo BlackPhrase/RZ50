@@ -8,7 +8,7 @@ public:
 	CNetwork() = default;
 	~CNetwork() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

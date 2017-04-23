@@ -1,6 +1,6 @@
 #include "Physics.hpp"
 
-bool CPhysics::Init()
+bool CPhysics::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
 };

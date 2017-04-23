@@ -8,7 +8,7 @@ public:
 	CLoggedNetwork(const INetwork &aImpl) : mpImpl(*aImpl){}
 	~CLoggedNetwork() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

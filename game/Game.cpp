@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-bool CGame::Init()
+bool CGame::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
 };

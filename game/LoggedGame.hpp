@@ -8,7 +8,7 @@ public:
 	CLoggedGame(const IGame &aImpl) : mpImpl(*aImpl){}
 	~CLoggedGame() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

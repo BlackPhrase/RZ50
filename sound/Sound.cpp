@@ -1,6 +1,6 @@
 #include "Sound.hpp"
 
-bool CSound::Init()
+bool CSound::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
 };

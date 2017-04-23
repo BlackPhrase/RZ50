@@ -8,7 +8,7 @@ public:
 	CSound() = default;
 	~CSound() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

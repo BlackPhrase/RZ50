@@ -1,6 +1,6 @@
 #include "Network.hpp"
 
-bool CNetwork::Init()
+bool CNetwork::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
 };

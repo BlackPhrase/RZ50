@@ -1,16 +1,19 @@
 #include "LoggedSound.hpp"
 
-bool CLoggedSound::Init()
+bool CLoggedSound::Init(const TCoreEnvironment &aCoreEnv)
 {
-	return mpImpl->Init();
+	aCoreEnv.pLog->Write("Initializing the sound module...");
+	return mpImpl->Init(aCoreEnv);
 };
 
 void CLoggedSound::Shutdown()
 {
+	aCoreEnv.pLog->Write("Shutting down the sound module...");
 	mpImpl->Shutdown();
 };
 
 void CLoggedSound::Update()
 {
+	aCoreEnv.pLog->Write("Updating the sound module...");
 	mpImpl->Update();
 };

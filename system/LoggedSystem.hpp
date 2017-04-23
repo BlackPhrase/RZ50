@@ -8,7 +8,7 @@ public:
 	CLoggedSystem(const ISystem &aImpl) : mpImpl(*aImpl){}
 	~CLoggedSystem() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

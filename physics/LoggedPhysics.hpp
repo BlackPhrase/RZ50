@@ -8,7 +8,7 @@ public:
 	CLoggedPhysics(const IPhysics &aImpl) : mpImpl(*aImpl){}
 	~CLoggedPhysics() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

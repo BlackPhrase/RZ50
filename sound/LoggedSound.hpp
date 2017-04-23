@@ -8,7 +8,7 @@ public:
 	CLoggedSound(const ISound &aImpl) : mpImpl(*aImpl){}
 	~CLoggedSound() = default;
 	
-	bool Init();
+	bool Init(const TCoreEnvironment &aCoreEnv);
 	void Shutdown();
 	
 	void Update();
