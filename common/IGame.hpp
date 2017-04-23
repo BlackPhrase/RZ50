@@ -2,7 +2,7 @@
 
 struct TCoreEnvironment;
 
-struct IPhysics
+struct IGame
 {
 	virtual bool Init(const TCoreEnvironment &aCoreEnv) = 0;
 	virtual void Shutdown() = 0;

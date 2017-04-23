@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "IInput.hpp"
+#include "input/IInput.hpp"
 
 struct IInputDevice;
 using tInputDeviceList = std::list<IInputDevice*>;

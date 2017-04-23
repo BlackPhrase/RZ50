@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IInput.hpp"
+#include "input/IInput.hpp"
 
 class CLoggedInput : public IInput
 {
