@@ -1,4 +1,4 @@
-#include "System.hpp"
+#include "LoggedSystem.hpp"
 
 bool CLoggedSystem::Init()
 {
