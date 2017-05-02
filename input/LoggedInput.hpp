@@ -1,8 +1,9 @@
 #pragma once
 
+#include "ISubSystem.hpp"
 #include "input/IInput.hpp"
 
-class CLoggedInput : public IInput
+class CLoggedInput : public ISubSystem<IInput>
 {
 public:
 	CLoggedInput(const IInput &aImpl) : mpImpl(*aImpl){}

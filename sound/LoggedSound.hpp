@@ -1,8 +1,9 @@
 #pragma once
 
-#include "ISound.hpp"
+#include "ISubSystem.hpp"
+#include "sound/ISound.hpp"
 
-class CLoggedSound : public ISound
+class CLoggedSound : public ISubSystem<ISound>
 {
 public:
 	CLoggedSound(const ISound &aImpl) : mpImpl(*aImpl){}
@@ -12,6 +13,8 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Sound";}
 private:
 	ISound *mpImpl{nullptr};
 };

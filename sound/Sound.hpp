@@ -1,8 +1,11 @@
 #pragma once
 
-#include "ISound.hpp"
+#include "ISubSystem.hpp"
+#include "sound/ISound.hpp"
 
-class CSound : public ISound
+using tSoundChannelVec = std::vector<ISoundChannel*>;
+
+class CSound : public ISubSystem<ISound>
 {
 public:
 	CSound() = default;
@@ -12,4 +15,10 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	ISoundChannel *CreateChannel();
+	
+	const char *GetSubSystemName() const {return "Sound";}
+private:
+	tSoundChannelVec mvChannels;
 };

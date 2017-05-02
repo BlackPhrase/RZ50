@@ -1,9 +1,11 @@
 #include "SubSystemManager.hpp"
 
-bool CSubSystemManager::Init()
+bool CSubSystemManager::Init(const TCoreEnvironment &aCoreEnv)
 {
+	mpLog = aCoreEnv.pLog;
+	
 	for(auto It : mlstSubSystems)
-		if(!It->Init(mCoreEnv))
+		if(!It->Init(aCoreEnv))
 		{
 			mpLog->Write("Cannot init the engine because of the %s subsystem!", It->GetName());
 			return false;

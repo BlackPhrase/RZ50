@@ -15,7 +15,7 @@ bool CCore::Init()
 	mCoreEnv.pMemory = mpMemory.get();
 	mCoreEnv.pLog = mpLog.get();
 	
-	if(!mpSubSystemManager->Init())
+	if(!mpSubSystemManager->Init(mCoreEnv))
 		return false;
 	
 	mbInitialized = true;

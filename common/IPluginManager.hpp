@@ -1,8 +1,8 @@
 #pragma once
 
-struct ISubsystem;
+struct ISubSystem;
 
 struct IPluginManager
 {
-	virtual ISubsystem *GetSubsystem(const char *asName) = 0;
+	virtual ISubSystem *GetSubsystem(const char *asName) = 0;
 };

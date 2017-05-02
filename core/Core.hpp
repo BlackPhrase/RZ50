@@ -26,7 +26,7 @@ class CCore : public ICore
 	
 	void Frame();
 	
-	bool AddSubSystem(ISubSystem *apSubSystem);
+	bool RegisterSubSystem(ISubSystem *apSubSystem);
 	ISubSystem *GetSubSystem(const char *asName);
 	
 	void GetStatistics(TEngineStatistics &aStatistics);
