@@ -1,8 +1,9 @@
 #pragma once
 
-#include "IPhysics.hpp"
+#include "ISubSystem.hpp"
+#include "physics/IPhysics.hpp"
 
-class CLoggedPhysics : public IPhysics
+class CLoggedPhysics : public ISubSystem<IPhysics>
 {
 public:
 	CLoggedPhysics(const IPhysics &aImpl) : mpImpl(*aImpl){}
@@ -12,6 +13,8 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Physics;}
 private:
 	IPhysics *mpImpl{nullptr};
 };

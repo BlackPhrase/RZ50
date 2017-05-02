@@ -1,8 +1,9 @@
 #pragma once
 
-#include "ISystem.hpp"
+#include "ISubSystem.hpp"
+#include "system/ISystem.hpp"
 
-class CSystem : public ISystem
+class CSystem : public ISubSystem<ISystem>
 {
 public:
 	CSystem() = default;
@@ -12,4 +13,6 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "System";}
 };

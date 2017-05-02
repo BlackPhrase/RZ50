@@ -1,8 +1,9 @@
 #pragma once
 
-#include "IGame.hpp"
+#include "ISubSystem.hpp"
+#include "game/IGame.hpp"
 
-class CLoggedGame : public IGame
+class CLoggedGame : public ISubSystem<IGame>
 {
 public:
 	CLoggedGame(const IGame &aImpl) : mpImpl(*aImpl){}
@@ -12,6 +13,8 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Game";}
 private:
 	IGame *mpImpl{nullptr};
 };

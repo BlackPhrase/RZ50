@@ -1,8 +1,9 @@
 #pragma once
 
-#include "IPhysics.hpp"
+#include "ISubSystem.hpp"
+#include "physics/IPhysics.hpp"
 
-class CPhysics : public IPhysics
+class CPhysics : public ISubSystem<IPhysics>
 {
 public:
 	CPhysics() = default;
@@ -12,4 +13,6 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Physics";}
 };

@@ -13,6 +13,8 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Input";}
 private:
 	IInput *mpImpl{nullptr};
 };

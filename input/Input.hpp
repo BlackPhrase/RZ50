@@ -1,12 +1,13 @@
 #pragma once
 
 #include <list>
+#include "ISubSystem.hpp"
 #include "input/IInput.hpp"
 
 struct IInputDevice;
 using tInputDeviceList = std::list<IInputDevice*>;
 
-class CInput : public IInput
+class CInput : public ISubSystem<IInput>
 {
 public:
 	CInput() = default;
@@ -16,6 +17,8 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Input";}
 private:
 	tInputDeviceList mlstDevices;
 };

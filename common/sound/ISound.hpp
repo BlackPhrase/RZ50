@@ -1,11 +1,8 @@
 #pragma once
 
-struct TCoreEnvironment;
+struct ISoundChannel;
 
 struct ISound
 {
-	virtual bool Init(const TCoreEnvironment &aCoreEnv) = 0;
-	virtual void Shutdown() = 0;
-	
-	virtual void Update() = 0;
+	ISoundChannel *CreateChannel() = 0;
 };

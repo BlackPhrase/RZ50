@@ -1,8 +1,9 @@
 #pragma once
 
-#include "IGame.hpp"
+#include "ISubSystem.hpp"
+#include "game/IGame.hpp"
 
-class CGame : public IGame
+class CGame : public ISubSystem<IGame>
 {
 public:
 	CGame() = default;
@@ -12,4 +13,6 @@ public:
 	void Shutdown();
 	
 	void Update();
+	
+	const char *GetSubSystemName() const {return "Game";}
 };
