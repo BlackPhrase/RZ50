@@ -11,4 +11,11 @@ void CSound::Shutdown()
 
 void CSound::Update()
 {
+	for(auto It : mvChannels)
+		It->Update();
+};
+
+ISoundChannel *CSound::CreateChannel()
+{
+	return mvChannels.emplace_back();
 };

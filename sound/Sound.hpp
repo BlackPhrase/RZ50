@@ -18,6 +18,11 @@ public:
 	
 	ISoundChannel *CreateChannel();
 	
+	void PlaySound(const char *asSample);
+	
+	void SetMasterVolume(float afVolume);
+	float GetMasterVolume() const;
+	
 	const char *GetSubSystemName() const {return "Sound";}
 private:
 	tSoundChannelVec mvChannels;
