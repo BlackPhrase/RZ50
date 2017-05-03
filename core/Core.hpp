@@ -16,15 +16,15 @@ struct TEngineStatistics
 	int nFPS{0};
 };
 
-class CCore : public ICore
+class CCore final : public ICore
 {
 	CCore() = default;
 	~CCore() = default;
 	
-	bool Init();
-	void Shutdown();
+	bool Init() override;
+	void Shutdown() override;
 	
-	void Frame();
+	void Frame() override;
 	
 	bool RegisterSubSystem(ISubSystem *apSubSystem);
 	ISubSystem *GetSubSystem(const char *asName);
@@ -36,9 +36,9 @@ private:
 	TCoreEnvironment mCoreEnv;
 	TEngineStatistics mStats;
 	
-	std::unique_ptr<CSubSystemManager> mpSubSystemManager{nullptr};
-	std::unique_ptr<CMemory> mpMemory{nullptr};
-	std::unique_ptr<CLog> mpLog{nullptr};
+	std::unique_ptr<CSubSystemManager> mpSubSystemManager;
+	std::unique_ptr<CMemory> mpMemory;
+	std::unique_ptr<CLog> mpLog;
 	
 	bool mbInitialized{false};
 };

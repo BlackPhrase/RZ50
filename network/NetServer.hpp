@@ -5,15 +5,15 @@
 struct IRemoteClient;
 using tRemoteClientVec = std::vector<IRemoteClient*>;
 
-class CNetServer : public INetServer
+class CNetServer final : public INetServer
 {
 public:
-	bool SendData(byte *apData, int anSize);
+	bool SendData(byte *apData, int anSize) override;
 	
-	IRemoteClient *GetClientById(int anID) const;
+	IRemoteClient *GetClientById(int anID) const override;
 	
-	void ReconnectAll();
-	void DisconnectAll();
+	void ReconnectAll() override;
+	void DisconnectAll() override;
 private:
 	tRemoteClientVec mvClients;
 };

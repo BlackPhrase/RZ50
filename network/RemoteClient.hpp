@@ -4,16 +4,16 @@
 
 // Remote client/connection
 
-class CRemoteClient : public IRemoteClient
+class CRemoteClient final : public IRemoteClient
 {
 public:
-	void SetState(int anState){mnState = anState;}
-	int GetState() const {return mnState;} // Will return it's current state (connecting/reconnecting/etc)
+	void SetState(int anState) override {mnState = anState;}
+	int GetState() const override {return mnState;} // Will return it's current state (connecting/reconnecting/etc)
 	
-	void Reconnect();
-	void Disconnect();
+	void Reconnect() override;
+	void Disconnect() override;
 	
-	bool IsConnected() const;
+	bool IsConnected() const override;
 private:
 	int mnState{0};
 };

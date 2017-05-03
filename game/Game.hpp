@@ -3,16 +3,16 @@
 #include "ISubSystem.hpp"
 #include "game/IGame.hpp"
 
-class CGame : public ISubSystem<IGame>
+class CGame final : public ISubSystem<IGame>
 {
 public:
 	CGame() = default;
 	~CGame() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	const char *GetSubSystemName() const {return "Game";}
+	const char *GetSubSystemName() const override {return "Game";}
 };

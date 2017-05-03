@@ -7,18 +7,18 @@
 struct IInputDevice;
 using tInputDeviceList = std::list<IInputDevice*>;
 
-class CInput : public ISubSystem<IInput>
+class CInput final : public ISubSystem<IInput>
 {
 public:
 	CInput() = default;
 	~CInput() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	const char *GetSubSystemName() const {return "Input";}
+	const char *GetSubSystemName() const override {return "Input";}
 private:
 	tInputDeviceList mlstDevices;
 };

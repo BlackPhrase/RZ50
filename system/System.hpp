@@ -3,16 +3,16 @@
 #include "ISubSystem.hpp"
 #include "system/ISystem.hpp"
 
-class CSystem : public ISubSystem<ISystem>
+class CSystem final : public ISubSystem<ISystem>
 {
 public:
 	CSystem() = default;
 	~CSystem() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	const char *GetSubSystemName() const {return "System";}
+	const char *GetSubSystemName() const override {return "System";}
 };

@@ -3,18 +3,18 @@
 #include "ISubSystem.hpp"
 #include "system/ISystem.hpp"
 
-class CLoggedSystem : public ISubSystem<ISystem>
+class CLoggedSystem final : public ISubSystem<ISystem>
 {
 public:
 	CLoggedSystem(const ISystem &aImpl) : mpImpl(*aImpl){}
 	~CLoggedSystem() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	const char *GetSubSystemName() const {return "System";}
+	const char *GetSubSystemName() const override {return "System";}
 private:
 	ISystem *mpImpl{nullptr};
 };

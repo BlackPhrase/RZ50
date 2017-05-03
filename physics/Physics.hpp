@@ -3,16 +3,16 @@
 #include "ISubSystem.hpp"
 #include "physics/IPhysics.hpp"
 
-class CPhysics : public ISubSystem<IPhysics>
+class CPhysics final : public ISubSystem<IPhysics>
 {
 public:
 	CPhysics() = default;
 	~CPhysics() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	const char *GetSubSystemName() const {return "Physics";}
+	const char *GetSubSystemName() const override {return "Physics";}
 };

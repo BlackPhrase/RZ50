@@ -3,14 +3,14 @@
 #include "ISubSystem.hpp"
 #include "fs/IFileSystem.hpp"
 
-class CFileSystem : public ISubSystem<IFileSystem>
+class CFileSystem final : public ISubSystem<IFileSystem>
 {
 public:
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	IFile *OpenFile(const char *asPath, const char *asMode);
-	void CloseFile(IFile *apFile);
+	IFile *OpenFile(const char *asPath, const char *asMode) override;
+	void CloseFile(IFile *apFile) override;
 	
-	const char *GetSubSystemName() const {return "FileSystem";}
+	const char *GetSubSystemName() const override {return "FileSystem";}
 };

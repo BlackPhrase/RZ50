@@ -2,9 +2,9 @@
 
 #include "fs/IFile.hpp"
 
-class CFile : public IFile
+class CFile final : public IFile
 {
 public:
-	const char *GetName() const;
-	const char *GetPath() const;
+	const char *GetName() const override;
+	const char *GetPath() const override;
 };

@@ -2,7 +2,9 @@
 
 #include "IMemory.hpp"
 
-class CMemory : public IMemory
+class CMemory final : public IMemory
 {
 public:
+	void *Alloc(size_t anSize) override;
+	void Free(void *apData) override;
 };

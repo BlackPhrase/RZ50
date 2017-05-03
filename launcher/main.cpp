@@ -1,3 +1,16 @@
+ICore *LoadEngineCore()
+{
+	return new CCore();
+};
+
+bool UnloadEngineCore(ICore *apCore)
+{
+	if(apCore)
+		delete apCore;
+	apCore = nullptr;
+	return true;
+};
+
 int main(int argc, char **argv)
 {
 	// TODO: load the engine core module
@@ -6,7 +19,7 @@ int main(int argc, char **argv)
 	// Run it
 	// Shutdown
 	
-	ICore *pCore = new CCore();
+	ICore *pCore = LoadEngineCore();
 	
 	ISubSystem *pSystem = new CSystem();
 	ISubSystem *pSound = new CSound();
@@ -14,16 +27,16 @@ int main(int argc, char **argv)
 	pCore->AddSubSystem(pSystem);
 	pCore->AddSubSystem(pSound);
 	
-	pCore->Init(); // init the core and all registered subsystems
+	// Init the core and all registered subsystems
+	if(!pCore->Init())
+		return EXIT_FAILURE;
 	
 	while(!pCore->WantQuit())
 		pCore->Frame(); // update the core and each registered subsystem
 	
 	pCore->Shutdown(); // shutdown all
 	
-	if(pCore)
-		delete pCore;
-	pCore = nullptr;
+	UnloadEngineCore();
 	
 	return EXIT_SUCCESS;
 };

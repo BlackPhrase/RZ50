@@ -1,6 +1,8 @@
 #include "LoggedSound.hpp"
 #include "Sound.hpp"
 
+//DECLARE_SUBSYSTEM("Sound", GetSoundSubSystem)
+
 #ifndef RZ_STATIC_SOUND
 	extern "C" EXPORT
 #endif // RZ_STATIC_SOUND

@@ -3,18 +3,18 @@
 #include "ISubSystem.hpp"
 #include "physics/IPhysics.hpp"
 
-class CLoggedPhysics : public ISubSystem<IPhysics>
+class CLoggedPhysics final : public ISubSystem<IPhysics>
 {
 public:
 	CLoggedPhysics(const IPhysics &aImpl) : mpImpl(*aImpl){}
 	~CLoggedPhysics() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	const char *GetSubSystemName() const {return "Physics;}
+	const char *GetSubSystemName() const override {return "Physics;}
 private:
 	IPhysics *mpImpl{nullptr};
 };
