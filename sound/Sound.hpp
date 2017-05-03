@@ -18,6 +18,8 @@ public:
 	
 	ISoundChannel *CreateChannel();
 	
+	ISoundWorld *CreateWorld();
+	
 	void PlaySound(const char *asSample);
 	
 	void SetMasterVolume(float afVolume);

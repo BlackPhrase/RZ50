@@ -14,6 +14,8 @@ public:
 	
 	void Update();
 	
+	ISoundWorld *CreateWorld();
+	
 	const char *GetSubSystemName() const {return "Sound";}
 private:
 	ISound *mpImpl{nullptr};
