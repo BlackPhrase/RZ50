@@ -1,5 +1,8 @@
 #pragma once
 
+namespace rz
+{
+
 struct ILog
 {
 	virtual void Write(const char *asMsg, ...) = 0;
@@ -7,3 +10,5 @@ struct ILog
 	virtual void Warning(const char *asMsg, ...) = 0;
 	virtual void Error(const char *asMsg, ...) = 0;
 };
+
+}; // namespace rz

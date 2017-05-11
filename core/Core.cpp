@@ -3,6 +3,9 @@
 #include "Memory.hpp"
 #include "Log.hpp"
 
+namespace rz
+{
+
 bool CCore::Init()
 {
 	if(mbInitialized)
@@ -75,3 +78,5 @@ void CCore::PrintStats()
 				 mStats.fMaxFPS,
 				 mStats.fAvgFPS);
 };
+
+}; // namespace rz

@@ -2,6 +2,9 @@
 
 #include <list>
 
+namespace rz
+{
+
 struct ISubSystem;
 using tSubSystemList = std::list<ISubSystem*>;
 
@@ -23,3 +26,5 @@ public:
 private:
 	tSubSystemList mlstSubSystems;
 };
+
+}; // namespace rz

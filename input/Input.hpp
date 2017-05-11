@@ -4,6 +4,9 @@
 #include "ISubSystem.hpp"
 #include "input/IInput.hpp"
 
+namespace rz
+{
+
 struct IInputDevice;
 using tInputDeviceList = std::list<IInputDevice*>;
 
@@ -22,3 +25,5 @@ public:
 private:
 	tInputDeviceList mlstDevices;
 };
+
+}; // namespace rz

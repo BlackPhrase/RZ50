@@ -1,5 +1,8 @@
 #pragma once
 
+namespace rz
+{
+
 struct IRemoteClient;
 
 struct INetServer
@@ -14,3 +17,5 @@ struct INetServer
 	/// Causes any connected client to be disconnected
 	virtual void DisconnectAll() = 0; // BroadcastDisconnect
 };
+
+}; // namespace rz

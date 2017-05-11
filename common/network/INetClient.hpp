@@ -1,5 +1,8 @@
 #pragma once
 
+namespace rz
+{
+
 struct INetClient
 {
 	/// Tries to connect to specified hostname
@@ -14,3 +17,5 @@ struct INetClient
 	/// @return true if currently connected to any server
 	virtual bool IsConnected() const = 0;
 };
+
+}; // namespace rz

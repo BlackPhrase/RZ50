@@ -1,5 +1,8 @@
 #pragma once
 
+namespace rz
+{
+
 struct IFile
 {
 	virtual void Write() = 0;
@@ -8,3 +11,5 @@ struct IFile
 	virtual const char *GetName() const = 0;
 	virtual const char *GetPath() const = 0;
 };
+
+}; // namespace rz

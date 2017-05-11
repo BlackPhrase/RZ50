@@ -1,6 +1,9 @@
 #include "LoggedInput.hpp"
 #include "Input.hpp"
 
+namespace rz
+{
+
 //DECLARE_SUBSYSTEM(CInput, GetInputSubSystem)
 
 #ifndef RZ_STATIC_INPUT
@@ -23,3 +26,5 @@ ISubSystem *GetInputSubSystem()
 	
 	return pInput;
 };
+
+}; // namespace rz

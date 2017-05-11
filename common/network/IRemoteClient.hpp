@@ -1,5 +1,8 @@
 #pragma once
 
+namespace rz
+{
+
 enum class eRemoteClientState : int
 {
 	Disconnected = 0, ///< Disconnect and not active
@@ -25,3 +28,5 @@ struct IRemoteClient
 	/// @return true if currently connected to any server
 	virtual bool IsConnected() const = 0;
 };
+
+}; // namespace rz

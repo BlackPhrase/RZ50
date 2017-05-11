@@ -1,5 +1,8 @@
 #include "SubSystemManager.hpp"
 
+namespace rz
+{
+
 bool CSubSystemManager::Init(const TCoreEnvironment &aCoreEnv)
 {
 	mpLog = aCoreEnv.pLog;
@@ -49,3 +52,5 @@ ISubSystem *GetByName(const char *asName)
 	
 	return nullptr;
 };
+
+}; // namespace rz

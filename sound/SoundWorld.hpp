@@ -2,6 +2,9 @@
 
 #include "sound/ISoundWorld.hpp"
 
+namespace rz
+{
+
 struct TSoundComponent; // CSoundEntity?
 using tSoundComponentVec = std::vector<TSoundComponent*>;
 
@@ -26,3 +29,5 @@ private:
 	tSoundComponentVec mvSounds;
 	tSoundComponentVec mvActiveSounds;
 };
+
+}; // namespace rz

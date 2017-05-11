@@ -1,5 +1,8 @@
 #pragma once
 
+namespace rz
+{
+
 struct IInputDevice
 {
 	virtual const char *GetName() const = 0;
@@ -7,3 +10,5 @@ struct IInputDevice
 	
 	virtual void Update() = 0;
 };
+
+}; // namespace rz

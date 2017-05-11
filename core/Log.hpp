@@ -2,6 +2,9 @@
 
 #include "ILog.hpp"
 
+namespace rz
+{
+
 class CLog final : public ILog
 {
 public:
@@ -13,3 +16,5 @@ public:
 	void Warning(const char *asMsg, ...) override;
 	void Error(const char *asMsg, ...) override;
 };
+
+}; // namespace rz

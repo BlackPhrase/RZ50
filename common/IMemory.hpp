@@ -7,6 +7,9 @@
 // because we using the memory from the single crt of the core
 // module
 
+namespace rz
+{
+
 struct IMemory
 {
 	/// Alloc specified memory size
@@ -15,3 +18,5 @@ struct IMemory
 	/// Free the allocated memory
 	virtual void Free(void *apData) = 0;
 };
+
+}; // namespace rz

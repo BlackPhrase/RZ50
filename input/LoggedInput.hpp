@@ -3,6 +3,9 @@
 #include "ISubSystem.hpp"
 #include "input/IInput.hpp"
 
+namespace rz
+{
+
 class CLoggedInput final : public ISubSystem<IInput>
 {
 public:
@@ -18,3 +21,5 @@ public:
 private:
 	IInput *mpImpl{nullptr};
 };
+
+}; // namespace rz

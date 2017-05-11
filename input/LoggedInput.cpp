@@ -1,5 +1,8 @@
 #include "LoggedInput.hpp"
 
+namespace rz
+{
+
 bool CLoggedInput::Init(const TCoreEnvironment &aCoreEnv)
 {
 	aCoreEnv.pLog->Write("Initializing the input module...");
@@ -17,3 +20,5 @@ void CLoggedInput::Update()
 	aCoreEnv.pLog->Write("Updating the input module...");
 	mpImpl->Update();
 };
+
+}; // namespace rz
