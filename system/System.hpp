@@ -3,6 +3,9 @@
 #include "ISubSystem.hpp"
 #include "system/ISystem.hpp"
 
+namespace rz
+{
+
 class CSystem final : public ISubSystem<ISystem>
 {
 public:
@@ -16,3 +19,5 @@ public:
 	
 	const char *GetSubSystemName() const override {return "System";}
 };
+
+}; // namespace rz

@@ -2,6 +2,9 @@
 
 #include "network/INetClient.hpp"
 
+namespace rz
+{
+
 class CNetClient final : public INetClient
 {
 public:
@@ -14,3 +17,5 @@ public:
 	bool IsConnected() const override;
 private:
 };
+
+}; // namespace rz

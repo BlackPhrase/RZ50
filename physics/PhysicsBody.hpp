@@ -2,6 +2,9 @@
 
 #include "physics/IPhysicsBody.hpp"
 
+namespace rz
+{
+
 class CPhysicsBody : public IPhysicsBody
 {
 public:
@@ -17,3 +20,5 @@ public:
 	void AddForce();
 private:
 };
+
+}; // namespace rz

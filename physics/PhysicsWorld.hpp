@@ -2,6 +2,9 @@
 
 #include "physics/IPhysicsWorld.hpp"
 
+namespace rz
+{
+
 using tPhysicsBodyList = std::list<IPhysicsBody*>;
 
 class CPhysicsWorld : public IPhysicsWorld
@@ -18,3 +21,5 @@ public:
 private:
 	tPhysicsBodyList mlstBodies;
 };
+
+}; // namespace rz

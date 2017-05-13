@@ -3,6 +3,9 @@
 #include "ISubSystem.hpp"
 #include "fs/IFileSystem.hpp"
 
+namespace rz
+{
+
 class CFileSystem final : public ISubSystem<IFileSystem>
 {
 public:
@@ -14,3 +17,5 @@ public:
 	
 	const char *GetSubSystemName() const override {return "FileSystem";}
 };
+
+}; // namespace rz

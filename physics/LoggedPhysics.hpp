@@ -3,6 +3,9 @@
 #include "ISubSystem.hpp"
 #include "physics/IPhysics.hpp"
 
+namespace rz
+{
+
 class CLoggedPhysics final : public ISubSystem<IPhysics>
 {
 public:
@@ -18,3 +21,5 @@ public:
 private:
 	IPhysics *mpImpl{nullptr};
 };
+
+}; // namespace rz

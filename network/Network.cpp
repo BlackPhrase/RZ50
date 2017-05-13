@@ -2,6 +2,9 @@
 #include "NetServer.hpp"
 #include "NetClient.hpp"
 
+namespace rz
+{
+
 bool CNetwork::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
@@ -31,3 +34,5 @@ INetClient *CNetwork::StartClient()
 	mpNetClient = std::make_unique<CNetClient>();
 	return mpNetClient.get();
 };
+
+}; // namespace rz

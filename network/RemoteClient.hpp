@@ -2,6 +2,9 @@
 
 #include "network/IRemoteClient.hpp"
 
+namespace rz
+{
+
 // Remote client/connection
 
 class CRemoteClient final : public IRemoteClient
@@ -17,3 +20,5 @@ public:
 private:
 	int mnState{0};
 };
+
+}; // namespace rz

@@ -1,5 +1,8 @@
 #include "LoggedPhysics.hpp"
 
+namespace rz
+{
+
 bool CLoggedPhysics::Init(const TCoreEnvironment &aCoreEnv)
 {
 	aCoreEnv.pLog->Write("Initializing the physics module...");
@@ -17,3 +20,5 @@ void CLoggedPhysics::Update()
 	aCoreEnv.pLog->Write("Updating the physics module...");
 	mpImpl->Update();
 };
+
+}; // namespace rz

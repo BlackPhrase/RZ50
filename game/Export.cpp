@@ -7,15 +7,15 @@
 	extern "C" EXPORT
 #endif // RZ_STATIC_GAME
 
-ISubSystem *GetGameSubSystem()
+rz::ISubSystem *GetGameSubSystem()
 {
-	static ISubSystem *pGame = 
+	static rz::ISubSystem *pGame = 
 	
 #ifdef RZ_LOGGED_GAME
-	new CLoggedGame(
+	new rz::CLoggedGame(
 #endif
 
-	new CGame()
+	new rz::CGame()
 	
 #ifdef RZ_LOGGED_GAME
 	);

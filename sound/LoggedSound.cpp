@@ -1,5 +1,8 @@
 #include "LoggedSound.hpp"
 
+namespace rz
+{
+
 bool CLoggedSound::Init(const TCoreEnvironment &aCoreEnv)
 {
 	aCoreEnv.pLog->Write("Initializing the sound module...");
@@ -17,3 +20,5 @@ void CLoggedSound::Update()
 	aCoreEnv.pLog->Write("Updating the sound module...");
 	mpImpl->Update();
 };
+
+}; // namespace rz

@@ -1,5 +1,8 @@
 #include "FileSystem.hpp"
 
+namespace rz
+{
+
 CLoggedFileSystem::Init(const TCoreEnvironment &aCoreEnv)
 {
 	aCoreEnv.pLog->Write("Initializing the fs module...");
@@ -23,3 +26,5 @@ void CLoggedFileSystem::CloseFile(IFile *apFile)
 	aCoreEnv.pLog->Write("Closing the file %s (%p)", apFile->GetName(), apFile);
 	mpImpl->CloseFile(apFile);
 };
+
+}; // namespace rz

@@ -3,7 +3,10 @@
 #include "ISubSystem.hpp"
 #include "fs/IFileSystem.hpp"
 
-class CFileSystem final : public ISubSystem<IFileSystem>
+namespace rz
+{
+
+class CLoggedFileSystem final : public ISubSystem<IFileSystem>
 {
 public:
 	bool Init(const TCoreEnvironment &aCoreEnv) override;
@@ -14,3 +17,5 @@ public:
 	
 	const char *GetSubSystemName() const override {return "FileSystem";}
 };
+
+}; // namespace rz

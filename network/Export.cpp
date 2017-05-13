@@ -7,15 +7,15 @@
 	extern "C" EXPORT
 #endif // RZ_STATIC_NETWORK
 
-ISubSystem *GetNetworkSubSystem()
+rz::ISubSystem *GetNetworkSubSystem()
 {
-	static ISubSystem *pNetwork = 
+	static rz::ISubSystem *pNetwork = 
 	
 #ifdef RZ_LOGGED_NETWORK
-	new CLoggedNetwork(
+	new rz::CLoggedNetwork(
 #endif
 
-	new CNetwork()
+	new rz::CNetwork()
 	
 #ifdef RZ_LOGGED_NETWORK
 	);

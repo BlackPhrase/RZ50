@@ -1,5 +1,8 @@
 #include "FileSystem.hpp"
 
+namespace rz
+{
+
 CFileSystem::Init(const TCoreEnvironment &aCoreEnv)
 {
 	return true;
@@ -17,3 +20,5 @@ IFile *CFileSystem::OpenFile(const char *asName, const char *asMode)
 void CFileSystem::CloseFile(IFile *apFile)
 {
 };
+
+}; // namespace rz

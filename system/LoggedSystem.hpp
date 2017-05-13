@@ -3,6 +3,9 @@
 #include "ISubSystem.hpp"
 #include "system/ISystem.hpp"
 
+namespace rz
+{
+
 class CLoggedSystem final : public ISubSystem<ISystem>
 {
 public:
@@ -18,3 +21,5 @@ public:
 private:
 	ISystem *mpImpl{nullptr};
 };
+
+}; // namespace rz

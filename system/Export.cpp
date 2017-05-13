@@ -7,15 +7,15 @@
 	extern "C" EXPORT
 #endif // RZ_STATIC_SYSTEM
 
-ISubSystem *GetSystemSubSystem()
+rz::ISubSystem *GetSystemSubSystem()
 {
-	static ISubSystem *pSystem = 
+	static rz::ISubSystem *pSystem = 
 	
 #ifdef RZ_LOGGED_SYSTEM
-	new CLoggedSystem(
+	new rz::CLoggedSystem(
 #endif
 
-	new CSystem()
+	new rz::CSystem()
 	
 #ifdef RZ_LOGGED_SYSTEM
 	);

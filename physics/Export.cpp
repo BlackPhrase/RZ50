@@ -7,15 +7,15 @@
 	extern "C" EXPORT
 #endif // RZ_STATIC_PHYSICS
 
-ISubSystem *GetSystemSubSystem()
+rz::ISubSystem *GetSystemSubSystem()
 {
-	static ISubSystem *pPhysics = 
+	static rz::ISubSystem *pPhysics = 
 	
 #ifdef RZ_LOGGED_PHYSICS
-	new CLoggedPhysics(
+	new rz::CLoggedPhysics(
 #endif
 
-	new CPhysics()
+	new rz::CPhysics()
 	
 #ifdef RZ_LOGGED_PHYSICS
 	);

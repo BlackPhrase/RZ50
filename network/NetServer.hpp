@@ -2,6 +2,9 @@
 
 #include "network/INetServer.hpp"
 
+namespace rz
+{
+
 struct IRemoteClient;
 using tRemoteClientVec = std::vector<IRemoteClient*>;
 
@@ -17,3 +20,5 @@ public:
 private:
 	tRemoteClientVec mvClients;
 };
+
+}; // namespace rz

@@ -7,15 +7,15 @@
 	extern "C" EXPORT
 #endif // RZ_STATIC_FILESYSTEM
 
-ISubSystem *GetFileSystemSubSystem()
+rz::ISubSystem *GetFileSystemSubSystem()
 {
-	static ISubSystem *pFileSystem = 
+	static rz::ISubSystem *pFileSystem = 
 	
 #ifdef RZ_LOGGED_FILESYSTEM
-	new CLoggedFileSystem(
+	new rz::CLoggedFileSystem(
 #endif
 
-	new CFileSystem()
+	new rz::CFileSystem()
 	
 #ifdef RZ_LOGGED_FILESYSTEM
 	);

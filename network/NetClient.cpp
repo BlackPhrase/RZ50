@@ -1,5 +1,8 @@
 #include "NetClient.hpp"
 
+namespace rz
+{
+
 bool CNetClient::Connect()
 {
 	return true;
@@ -13,3 +16,5 @@ bool CNetClient::Reconnect()
 void CNetClient::Disconnect()
 {
 };
+
+}; // namespace rz

@@ -7,15 +7,15 @@
 	extern "C" EXPORT
 #endif // RZ_STATIC_SOUND
 
-ISubSystem *GetSoundSubSystem()
+rz::ISubSystem *GetSoundSubSystem()
 {
-	static ISubSystem *pSoundSystem = 
+	static rz::ISubSystem *pSoundSystem = 
 	
 #ifdef RZ_LOGGED_SOUND
-	new CLoggedSound(
+	new rz::CLoggedSound(
 #endif
 
-	new CSound()
+	new rz::CSound()
 	
 #ifdef RZ_LOGGED_SOUND
 	);
