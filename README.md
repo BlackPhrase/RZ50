@@ -2,6 +2,10 @@
 
 ## INSTALLATION
 
-## CONTRIBUTORS
+## CONTRIBUTING
+
+See [CONTRIBUTORS](CONTRIBUTORS.md) file for additional info
 
 ## LICENSE
+
+See [LICENSE](LICENSE) file

@@ -37,6 +37,8 @@ void CCore::Shutdown()
 
 void CCore::Frame()
 {
+	//assert(mbInitialized);
+	
 	float fFPS = 0.0f;
 	
 	// Begin frame profiling

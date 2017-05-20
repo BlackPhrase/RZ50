@@ -26,7 +26,7 @@ class CCore final : public ICore
 	
 	void Frame() override;
 	
-	bool RegisterSubSystem(ISubSystem *apSubSystem);
+	bool RegisterSubSystem(ISubSystem &apSubSystem);
 	ISubSystem *GetSubSystem(const char *asName);
 	
 	void GetStatistics(TEngineStatistics &aStatistics);
