@@ -3,8 +3,15 @@
 namespace rz
 {
 
+struct TCoreInitParams
+{
+	char sConfigName[32]; ///< Name of the config to use
+};
+
 struct ICore
 {
+	//virtual bool Init(const TCoreInitParams &aParams) = 0;
+	
 	//virtual void Frame() = 0;
 	//virtual void Run() = 0;
 	//virtual bool IsCloseRequested() const = 0; // WantQuit
@@ -14,7 +21,7 @@ struct ICore
 	//virtual IEventManager *GetEventManager() const = 0;
 	//virtual IFileSystem *GetFileSystem() const = 0;
 	
-	virtual void GetEnv(TCoreEnvironment &aCoreEnv) = 0;
+	virtual void GetEnv(TCoreEnv &aCoreEnv) = 0;
 	
 	virtual void RegisterSubSystem(ISubSystem &apSubSystem) = 0;
 	virtual ISubSystem *GetSubSystem(const char *asName) const = 0;

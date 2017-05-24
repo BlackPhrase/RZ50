@@ -9,4 +9,6 @@ file(GLOB PROJECT_SOURCES
 )
 
 # Build as executable app
-add_executable(${PROJECT_OUTPUT_NAME} ${PROJECT_SOURCES})
+add_executable(${PROJECT_OUTPUT_NAME}
+	${PROJECT_SOURCES}
+)

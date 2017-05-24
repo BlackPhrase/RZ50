@@ -9,4 +9,9 @@ file(GLOB_RECURSE PROJECT_SOURCES
 )
 
 # Build as shared lib
-add_library(${PROJECT_OUTPUT_NAME} SHARED ${PROJECT_SOURCES})
+add_library(${PROJECT_OUTPUT_NAME} MODULE ${PROJECT_SOURCES})
+
+# Set properties
+set_target_properties(${PROJECT_OUTPUT_NAME} PROPERTIES
+	PREFIX ""
+)

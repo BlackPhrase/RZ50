@@ -5,7 +5,7 @@ ICore *CLauncher::Init()
 	return nullptr;
 };
 
-void CLauncher::Run(ICore *apCore)
+void CLauncher::Run(const ICore &apCore)
 {
 	while(!apCore->IsCloseRequested())
 		apCore->Frame();

@@ -3,7 +3,7 @@
 namespace rz
 {
 
-bool CSubSystemManager::Init(const TCoreEnvironment &aCoreEnv)
+bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
 {
 	mpLog = aCoreEnv.pLog;
 	

@@ -8,10 +8,10 @@ public:
 	CLauncher() = default;
 	~CLauncher() = default;
 	
-	ICore *Init();
+	ICore *Init(); // core will be initialized already by the time it's returned
 	//void Shutdown();
 	
-	void Run(ICore *apCore);
+	void Run(const ICore &apCore); // after all the core post-init routines you can run it
 private:
 	ICore *mpCore{nullptr};
 };
