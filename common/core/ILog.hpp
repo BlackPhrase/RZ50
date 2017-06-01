@@ -22,6 +22,12 @@ struct ILog
 	
 	/// Writes a formatted message into the log with "FATAL" prepended
 	virtual void FatalError(const char *asMsg, ...) = 0;
+	
+	///
+	virtual void TraceInit(const char *asMsg) = 0;
+	
+	///
+	virtual void TraceShutdown(const char *asMsg) = 0;
 };
 
 }; // namespace rz

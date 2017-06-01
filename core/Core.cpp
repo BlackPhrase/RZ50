@@ -44,9 +44,8 @@ void CCore::Frame()
 	// Begin frame profiling
 	// Start timing
 	
-	//CEvent Event = mpEventHandler->PollEvent();
-	
-	//mpEventHandler->QueueEvent(Event);
+	//mpEventHandler->Enqueue(Event);
+	mpEventHandler->Update();
 	
 	mpSubSystemManager->Update();
 	
