@@ -1,17 +1,21 @@
 #pragma once
 
-#include "ISubSystem.hpp"
+#include <vector>
+#include "core/ISubSystem.hpp"
 #include "sound/ISound.hpp"
+
+namespace rz
+{
 
 using tSoundChannelVec = std::vector<ISoundChannel*>;
 
-class CSound : public ISubSystem<ISound>
+class CSound : public ISubSystem, ISound
 {
 public:
 	CSound() = default;
 	~CSound() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
+	bool Init(const TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	void Update();
@@ -29,3 +33,5 @@ public:
 private:
 	tSoundChannelVec mvChannels;
 };
+
+}; // namespace rz

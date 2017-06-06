@@ -1,9 +1,17 @@
-ICore *LoadEngineCore()
+#include <cstdlib>
+
+#include "core/ICore.hpp"
+
+#include "Core.hpp"
+#include "sound/Sound.hpp"
+#include "system/System.hpp"
+
+rz::ICore *LoadEngineCore()
 {
-	return new CCore();
+	return new rz::CCore();
 };
 
-bool UnloadEngineCore(ICore *apCore)
+bool UnloadEngineCore(rz::ICore *apCore)
 {
 	if(apCore)
 		delete apCore;
@@ -19,24 +27,26 @@ int main(int argc, char **argv)
 	// Run it
 	// Shutdown
 	
-	ICore *pCore = LoadEngineCore();
+	rz::ICore *pCore = LoadEngineCore();
 	
-	ISubSystem *pSystem = new CSystem();
-	ISubSystem *pSound = new CSound();
+	rz::ISubSystem *pSystem = new rz::CSystem();
+	rz::ISubSystem *pSound = new rz::CSound();
 	
-	pCore->AddSubSystem(pSystem);
-	pCore->AddSubSystem(pSound);
+	pCore->RegisterSubSystem(*pSystem);
+	pCore->RegisterSubSystem(*pSound);
+	
+	rz::TCoreInitParams InitParams{};
 	
 	// Init the core and all registered subsystems
-	if(!pCore->Init())
+	if(!pCore->Init(InitParams))
 		return EXIT_FAILURE;
 	
-	while(!pCore->WantQuit())
+	//while(!pCore->WantQuit())
 		pCore->Frame(); // update the core and each registered subsystem
 	
 	pCore->Shutdown(); // shutdown all
 	
-	UnloadEngineCore();
+	UnloadEngineCore(pCore);
 	
 	return EXIT_SUCCESS;
 };

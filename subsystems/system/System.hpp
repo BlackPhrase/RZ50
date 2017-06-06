@@ -1,18 +1,18 @@
 #pragma once
 
-#include "ISubSystem.hpp"
+#include "core/ISubSystem.hpp"
 #include "system/ISystem.hpp"
 
 namespace rz
 {
 
-class CSystem final : public ISubSystem<ISystem>
+class CSystem final : public ISubSystem, ISystem
 {
 public:
 	CSystem() = default;
 	~CSystem() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv) override;
+	bool Init(const TCoreEnv &aCoreEnv) override;
 	void Shutdown() override;
 	
 	void Update() override;

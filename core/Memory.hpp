@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "IMemory.hpp"
+#include "core/IMemory.hpp"
 
 namespace rz
 {
@@ -11,11 +11,14 @@ using tMemPoolList = std::list<IMemPool*>;
 class CMemory final : public IMemory
 {
 public:
+	CMemory() = default;
+	~CMemory() = default;
+	
 	void *Alloc(size_t anSize) override;
 	void Free(void *apData) override;
 	
 	IMemPool *AllocPool(const char *asName, size_t anSize) override;
-	void FreePool(IMemPool *apPool) override;
+	void FreePool(IMemPool &apPool) override;
 private:
 	tMemPoolList mlstPools;
 };

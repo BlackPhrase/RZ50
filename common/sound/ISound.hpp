@@ -8,8 +8,8 @@ struct ISoundChannel;
 
 struct ISound
 {
-	ISoundWorld *CreateWorld() = 0;
-	ISoundChannel *CreateChannel() = 0;
+	virtual ISoundWorld *CreateWorld() = 0;
+	virtual ISoundChannel *CreateChannel() = 0;
 };
 
 }; // namespace rz

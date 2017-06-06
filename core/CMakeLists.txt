@@ -1,7 +1,7 @@
 project(RZ-Core)
 
 # Set the output name for this lib
-set(PROJECT_OUTPUT_NAME RZCore)
+set(PROJECT_TARGET_CORE RZCore)
 
 # Generate a list of project sources
 file(GLOB_RECURSE PROJECT_SOURCES
@@ -9,9 +9,9 @@ file(GLOB_RECURSE PROJECT_SOURCES
 )
 
 # Build as shared lib
-add_library(${PROJECT_OUTPUT_NAME} MODULE ${PROJECT_SOURCES})
+add_library(${PROJECT_TARGET_CORE} MODULE ${PROJECT_SOURCES})
 
 # Set properties
-set_target_properties(${PROJECT_OUTPUT_NAME} PROPERTIES
+set_target_properties(${PROJECT_TARGET_CORE} PROPERTIES
 	PREFIX ""
 )

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "ISubSystem.hpp"
+#include "core/ISubSystem.hpp"
 #include "sound/ISound.hpp"
 
-class CLoggedSound : public ISubSystem<ISound>
+class CLoggedSound : public ISubSystem, ISound
 {
 public:
 	CLoggedSound(const ISound &aImpl) : mpImpl(*aImpl){}
 	~CLoggedSound() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
+	bool Init(const TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	void Update();

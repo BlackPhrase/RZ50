@@ -1,10 +1,10 @@
-#cmake_minimum_required(VERSION ??)
+cmake_minimum_required(VERSION 3.6) # 3.8
 project(RZ-50)
 
 # Setup version
 set(RZ_VERSION_MAJOR 0)
 set(RZ_VERSION_MINOR 1)
-set(RZ_VERSION_PATCH 2)
+set(RZ_VERSION_PATCH 3)
 
 # Detect the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -20,6 +20,9 @@ endif()
 # Set CMake modules path
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 14) # 17
+
 # Set compiled binaries output directory
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
@@ -31,7 +34,7 @@ include_directories(
 
 # Add subdirectories
 add_subdirectory(tests)
-add_subdirectory(launcher)
+#add_subdirectory(launcher)
 add_subdirectory(core)
 add_subdirectory(subsystems)
 add_subdirectory(game)

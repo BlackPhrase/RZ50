@@ -6,7 +6,9 @@
 namespace rz
 {
 
-bool CCore::Init()
+CCore::CCore() = default;
+
+bool CCore::Init(const TCoreInitParams &aParams)
 {
 	if(mbInitialized)
 		return true;
@@ -15,10 +17,10 @@ bool CCore::Init()
 	mpLog = std::make_unique<CLog>();
 	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
-	mCoreEnv.pMemory = mpMemory.get();
-	mCoreEnv.pLog = mpLog.get();
+	mEnv.pMemory = mpMemory.get();
+	mEnv.pLog = mpLog.get();
 	
-	if(!mpSubSystemManager->Init(mCoreEnv))
+	if(!mpSubSystemManager->Init(mEnv))
 		return false;
 	
 	mbInitialized = true;
@@ -44,8 +46,8 @@ void CCore::Frame()
 	// Begin frame profiling
 	// Start timing
 	
-	//mpEventHandler->Enqueue(Event);
-	mpEventHandler->Update();
+	//mpEventHandler->Que(Event);
+	//mpEventHandler->Update();
 	
 	mpSubSystemManager->Update();
 	
@@ -59,12 +61,12 @@ void CCore::Frame()
 		mStats.fMaxFPS = fFPS;
 };
 
-bool CCore::AddSubSystem(ISubSystem *apSubSystem)
+bool CCore::RegisterSubSystem(const ISubSystem &apSubSystem)
 {
 	return mpSubSystemManager->Add(apSubSystem);
 };
 
-ISubSystem *CCore::GetSubSystem(const char *asName)
+ISubSystem *CCore::GetSubSystem(const char *asName) const
 {
 	return mpSubSystemManager->GetByName(asName);
 };

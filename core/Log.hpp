@@ -1,9 +1,11 @@
 #pragma once
 
-#include "ILog.hpp"
+#include "core/ILog.hpp"
 
 namespace rz
 {
+
+class CLogFile;
 
 class CLog final : public ILog
 {
@@ -21,6 +23,9 @@ public:
 	
 	void TraceInit(const char *asMsg) override;
 	void TraceShutdown(const char *asMsg) override;
+private:
+	//ILogDirector *mpDirector{nullptr}; // to be able to change the receiever
+	CLogFile *mpFile{nullptr};
 };
 
 }; // namespace rz

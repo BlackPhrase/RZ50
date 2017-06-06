@@ -7,11 +7,11 @@ void CEventHandler::Update()
 {
 	CEvent Event;
 	
-	while(Poll(Event)) HasEvents
+	while(Poll(Event)) // HasEvents
 		Broadcast(Event);
 };
 
-void CEventHandler::Enqueue(const CEvent &aEvent)
+void CEventHandler::Que(const CEvent &aEvent)
 {
 	mEventQueue.push_back(aEvent);
 };

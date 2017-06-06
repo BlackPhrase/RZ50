@@ -1,6 +1,11 @@
 #pragma once
 
 #include <memory>
+#include "core/ICore.hpp"
+#include "core/TCoreEnv.hpp"
+
+namespace rz
+{
 
 class CSubSystemManager;
 class CMemory;
@@ -18,23 +23,24 @@ struct TEngineStatistics
 
 class CCore final : public ICore
 {
-	CCore() = default;
+public:
+	CCore(); //= default;
 	~CCore() = default;
 	
-	bool Init() override;
+	bool Init(const TCoreInitParams &aParams) override;
 	void Shutdown() override;
 	
 	void Frame() override;
 	
-	bool RegisterSubSystem(ISubSystem &apSubSystem);
-	ISubSystem *GetSubSystem(const char *asName);
+	bool RegisterSubSystem(const ISubSystem &apSubSystem);
+	ISubSystem *GetSubSystem(const char *asName) const;
 	
 	void GetStatistics(TEngineStatistics &aStatistics);
 private:
 	void PrintStats();
 	
-	TCoreEnvironment mCoreEnv;
-	TEngineStatistics mStats;
+	TCoreEnv mEnv{};
+	TEngineStatistics mStats{};
 	
 	std::unique_ptr<CSubSystemManager> mpSubSystemManager;
 	std::unique_ptr<CMemory> mpMemory;
@@ -42,3 +48,5 @@ private:
 	
 	bool mbInitialized{false};
 };
+
+}; // namespace rz
