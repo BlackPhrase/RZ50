@@ -17,7 +17,7 @@ public:
 	void *Alloc(size_t anSize) override;
 	void Free(void *apData) override;
 	
-	IMemPool *AllocPool(const char *asName, size_t anSize) override;
+	IMemPool *AllocPool(const char *asName, uint anBlockCount, size_t anSize) override;
 	void FreePool(IMemPool &apPool) override;
 private:
 	tMemPoolList mlstPools;
@@ -37,7 +37,8 @@ struct TMemBlock
 class CMemPool final : public IMemPool
 {
 public:
-	CMemPool(const char *asName, size_t anSize) : msName(asName){}
+	CMemPool(const char *asName, size_t anSize)
+		: msName(asName), mnSize(anSize){}
 	~CMemPool(){Clear();}
 	
 	void *Alloc(size_t anSize) override;
@@ -46,12 +47,15 @@ public:
 	void Clear() override;
 	
 	size_t GetUsedSize() const override;
-	size_t GetTotalSize() const override;
+	size_t GetTotalSize() const override {return mnSize;}
 private:
 	const char *msName{""};
+	
 	//void *mpData{nullptr};
+	
 	TMemBlock *mpFreeHead{nullptr};
 	TMemBlock *mpInUseHead{nullptr};
+	
 	size_t mnSize{0};
 };
 

@@ -3,13 +3,16 @@
 namespace rz
 {
 
-CLogFile::CLogFile(const tString &asName) : msName(asName), mpHandle(std::fopen(msName.c_str(), "a+"))
+CLogFile::CLogFile(const string &asName) : msName(asName), mpHandle(std::fopen(msName.c_str(), "a+"))
 {
 	if(!mpHandle)
-		throw std::runtime_error("Cannot open the file %s", msName.c_str());
+	{
+		string sError{"Cannot open the file " + msName};
+		throw std::runtime_error(sError);
+	};
 };
 
-void CLogFile::Write(const tString &asMsg, ...)
+void CLogFile::Write(const string &asMsg, ...)
 {
 	assert(mpHandle);
 	
@@ -17,7 +20,7 @@ void CLogFile::Write(const tString &asMsg, ...)
 	va_list lstArgs;
 	
 	va_start(lstArgs, asMsg);
-	vsprintf(sMsg, asMsg, lstArgs);
+	vsprintf(sMsg, asMsg.c_str(), lstArgs);
 	va_end(lstArgs);
 	
 	fputs(sMsg, mpHandle);

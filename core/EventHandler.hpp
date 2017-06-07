@@ -1,7 +1,20 @@
 #pragma once
 
+#include <deque>
+#include <list>
+
 namespace rz
 {
+
+struct CEvent
+{
+	//
+};
+
+using tEventQueue = std::deque<CEvent*>;
+
+struct IEventListener;
+using tEventListenerList = std::list<IEventListener*>;
 
 class CEventHandler final
 {
@@ -11,12 +24,16 @@ public:
 	
 	void Update();
 	
-	void Enqueue(const CEvent &aEvent);
+	void Que(const CEvent &aEvent);
 private:
-	void Poll(CEvent &aEvent);
-	void Get(CEvent &aEvent);
+	CEvent *Poll();
+	CEvent *Get();
 	
 	void Broadcast(const CEvent &aEvent);
+	
+	tEventQueue mEventQueue;
+	
+	tEventListenerList mlstListeners;
 };
 
 }; // namespace rz

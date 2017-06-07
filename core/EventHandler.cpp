@@ -5,38 +5,39 @@ namespace rz
 
 void CEventHandler::Update()
 {
-	CEvent Event;
+	CEvent *pEvent = nullptr;
 	
-	while(Poll(Event)) // HasEvents
-		Broadcast(Event);
+	//while(pEvent = Poll()) // HasEvents
+		//Broadcast(Event);
 };
 
 void CEventHandler::Que(const CEvent &aEvent)
 {
-	mEventQueue.push_back(aEvent);
+	//mEventQueue.push_back(aEvent);
 };
 
-bool CEventHandler::Poll(CEvent &aEvent)
+CEvent *CEventHandler::Poll()
 {
 	auto It = mEventQueue.begin();
 	
-	if(It)
+	//if(It)
 	{
-		aEvent = *It;
-		return true;
+		//aEvent = *It;
+		return *It;
 	};
 	
-	return false;
+	return nullptr;
 };
 
-void CEventHandler::Get(CEvent &aEvent)
+CEvent *CEventHandler::Get()
 {
+	return nullptr;
 };
 
 void CEventHandler::Broadcast(const CEvent &aEvent)
 {
-	for(auto It : mlstListeners)
-		It->OnEvent(aEvent);
+	//for(auto It : mlstListeners)
+		//It->OnEvent(aEvent);
 };
 
 }; // namespace rz

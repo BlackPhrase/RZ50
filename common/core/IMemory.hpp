@@ -1,10 +1,11 @@
 #pragma once
 
 #include <cstring>
+#include "CoreTypes.hpp"
 
 // Internal core allocator shared between the modules
-// Using it the we can improve portability of the dlls
-// because we using the memory from the single crt of the core
+// By using it we can improve portability of the dlls
+// because we're using the memory from the single crt of the core
 // module
 
 namespace rz

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/CoreTypes.hpp"
+
 namespace rz
 {
 
@@ -8,19 +10,19 @@ class CLogFile final
 {
 public:
 	CLogFile() = default;
-	CLogFile(const tString &asName);
+	CLogFile(const string &asName);
 	
 	~CLogFile(){Close();}
 	
-	//bool Open(const tString &asName);
+	//bool Open(const string &asName);
 	
-	void Write(const tString &asMsg, ...);
+	void Write(const string &asMsg, ...);
 	
-	const tString &GetName() const {return msName;}
+	const string &GetName() const {return msName;}
 private:
 	void Close();
 	
-	tString msName{""};
+	string msName{""};
 	
 	FILE *mpHandle{nullptr};
 };

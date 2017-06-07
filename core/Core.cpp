@@ -41,12 +41,11 @@ void CCore::Frame()
 {
 	//assert(mbInitialized);
 	
-	float fFPS = 0.0f;
+	static float fFPS = 0.0f;
 	
 	// Begin frame profiling
 	// Start timing
 	
-	//mpEventHandler->Que(Event);
 	//mpEventHandler->Update();
 	
 	mpSubSystemManager->Update();
@@ -73,7 +72,7 @@ ISubSystem *CCore::GetSubSystem(const char *asName) const
 
 void CCore::PrintStats()
 {
-	mpLog->Write("Statistics:"
+	mpLog->Info("Statistics:"
 				 "Min. FPS: %f"
 				 "Max. FPS: %f"
 				 "Avg. FPS: %f",
