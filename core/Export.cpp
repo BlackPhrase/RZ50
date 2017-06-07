@@ -5,8 +5,8 @@
 
 C_EXPORT rz::ICore *GetCore()
 {
-	static std::unique_ptr<rz::CCore> Core = std::make_unique<rz::CCore>();
-	return Core.get();
+	static rz::CCore Core;
+	return &Core;
 };
 
 #endif

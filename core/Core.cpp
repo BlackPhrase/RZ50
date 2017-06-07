@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Core.hpp"
 #include "SubSystemManager.hpp"
 #include "Memory.hpp"
@@ -16,8 +15,10 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 		return true;
 	
 	mpMemory = std::make_unique<CMemory>();
+	
+	// TODO: memory init?
+	
 	mpLog = std::make_unique<CLog>();
-	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
 	if(!mpLog->Init())
 		return false;
@@ -27,8 +28,13 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	mEnv.pMemory = mpMemory.get();
 	mEnv.pLog = mpLog.get();
 	
+	mpSubSystemManager = std::make_unique<CSubSystemManager>();
+	
 	if(!mpSubSystemManager->Init(mEnv))
 		return false;
+	
+	// TODO: check that we should use plugins (read the config setting)
+	// and if should then init plugin manager here
 	
 	mbInitialized = true;
 	return true;
@@ -50,8 +56,11 @@ void CCore::Frame()
 {
 	//assert(mbInitialized);
 	
+	if(!mbInitialized || mbWantQuit) // we can check for current state
+		return;
+	
 	static int nFrame = 0;
-	mpLog->Info("Core frame #%d", nFrame + 1);
+	mpLog->Debug("Core frame #%d", nFrame + 1);
 	// should be some generic interface which will work as redirector
 	// it should broadcast the messages to its listeners (log/console/etc which could be
 	// optionally dynamically connected)
@@ -64,6 +73,7 @@ void CCore::Frame()
 	
 	// Begin frame profiling
 	// Start timing
+	// TODO: time point here - a
 	
 	//mpEventHandler->Update();
 	
@@ -73,6 +83,10 @@ void CCore::Frame()
 	
 	// Gather statistics
 	// End frame profiling
+	// TODO: time point here - b
+	
+	// TODO: frametime = b - a -> statistics
+	// TODO: avg. frametime?
 	
 	if(fFPS < mStats.fMinFPS)
 		mStats.fMinFPS = fFPS;
@@ -97,10 +111,13 @@ ISubSystem *CCore::GetSubSystem(const char *asName) const
 
 void CCore::PrintStats()
 {
+	// Print final stats
 	mpLog->Info("Statistics:\n"
 				 "\t- Min. FPS: %.2f\n"
 				 "\t- Max. FPS: %.2f\n"
 				 "\t- Avg. FPS: %.2f",
+				 // TODO: UPS per core
+				 // TODO: Cores?
 				 mStats.fMinFPS,
 				 mStats.fMaxFPS,
 				 mStats.fAvgFPS);

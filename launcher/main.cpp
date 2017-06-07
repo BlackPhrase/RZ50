@@ -14,6 +14,8 @@
 #include "sound/Sound.hpp"
 #include "system/System.hpp"
 
+// TODO: EngineCoreHelper class?
+
 rz::ICore *LoadEngineCore()
 {
 #ifndef RZ_CORE_STATIC
@@ -37,6 +39,8 @@ bool UnloadEngineCore(rz::ICore *apCore)
 {
 #ifndef RZ_CORE_STATIC
 	// TODO: unload the core module
+	// NOTE: Currently handled by shiftutil::CSharedLib which will 
+	// free the lib at destruction
 #else
 	if(apCore)
 		delete apCore;
@@ -48,20 +52,22 @@ bool UnloadEngineCore(rz::ICore *apCore)
 
 int main(int argc, char **argv)
 {
-	// TODO: load the engine core module
-	// Init it
-	// Register subsystems and init them
-	// Run it
-	// Shutdown
-	
 	rz::ICore *pCore = LoadEngineCore();
 	
 	// TODO: error handling (open an error message box?)
 	
 	if(!pCore)
+	{
+		printf("pCore is invalid! (%p)\n", pCore);
 		return EXIT_FAILURE;
+	};
 	
 	// TODO: fix this crap below
+	
+	// Engine subsystems should be registered from the config file
+	// (EngineConfig.ini->[SubSystems] section or something)
+	// Different config file names can be used for various configurations
+	// (Example: dedicated server/headless mode)
 	
 	//rz::ISubSystem *pSystem = new rz::CSystem();
 	//rz::ISubSystem *pSound = new rz::CSound();

@@ -2,6 +2,9 @@
 #include "Log.hpp"
 #include "LogFile.hpp"
 
+// TODO: optimization
+// TODO: remove dups
+
 namespace rz
 {
 
@@ -36,13 +39,14 @@ void CLog::Info(const char *asMsg, ...)
 	char sMsg[256] = {};
 	va_list lstArgs;
 	
-	strcpy(sMsg, "[INFO] ");
-	
 	va_start(lstArgs, asMsg);
 	vsprintf(sMsg, asMsg, lstArgs);
 	va_end(lstArgs);
 	
-	Write(sMsg);
+	string sFullMsg("[INFO] ");
+	sFullMsg.append(sMsg);
+	
+	Write(sFullMsg.c_str());
 };
 
 void CLog::Debug(const char *asMsg, ...)
@@ -50,13 +54,14 @@ void CLog::Debug(const char *asMsg, ...)
 	char sMsg[256] = {};
 	va_list lstArgs;
 	
-	strcpy(sMsg, "[DEBUG] ");
-	
 	va_start(lstArgs, asMsg);
 	vsprintf(sMsg, asMsg, lstArgs);
 	va_end(lstArgs);
 	
-	Write(sMsg);
+	string sFullMsg("[DEBUG] ");
+	sFullMsg.append(sMsg);
+	
+	Write(sFullMsg);
 };
 
 void CLog::Warning(const char *asMsg, ...)
@@ -64,13 +69,14 @@ void CLog::Warning(const char *asMsg, ...)
 	char sMsg[256] = {};
 	va_list lstArgs;
 	
-	strcpy(sMsg, "[WARNING] ");
-	
 	va_start(lstArgs, asMsg);
 	vsprintf(sMsg, asMsg, lstArgs);
 	va_end(lstArgs);
 	
-	Write(sMsg);
+	string sFullMsg("[WARNING] ");
+	sFullMsg.append(sMsg);
+	
+	Write(sFullMsg);
 };
 
 void CLog::Error(const char *asMsg, ...)
@@ -78,13 +84,14 @@ void CLog::Error(const char *asMsg, ...)
 	char sMsg[256] = {};
 	va_list lstArgs;
 	
-	strcpy(sMsg, "[ERROR] ");
-	
 	va_start(lstArgs, asMsg);
 	vsprintf(sMsg, asMsg, lstArgs);
 	va_end(lstArgs);
 	
-	Write(sMsg);
+	string sFullMsg("[ERROR] ");
+	sFullMsg.append(sMsg);
+	
+	Write(sFullMsg);
 };
 
 void CLog::FatalError(const char *asMsg, ...)
@@ -92,13 +99,14 @@ void CLog::FatalError(const char *asMsg, ...)
 	char sMsg[256] = {};
 	va_list lstArgs;
 	
-	strcpy(sMsg, "[FATAL] ");
-	
 	va_start(lstArgs, asMsg);
 	vsprintf(sMsg, asMsg, lstArgs);
 	va_end(lstArgs);
 	
-	Write(sMsg);
+	string sFullMsg("[FATAL] ");
+	sFullMsg.append(sMsg);
+	
+	Write(sFullMsg);
 };
 
 void CLog::TraceInit(const char *asMsg)
