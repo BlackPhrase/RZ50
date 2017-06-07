@@ -3,9 +3,9 @@
 namespace rz
 {
 
-CLogFile::CLogFile(const string &asName) : msName(asName), mpHandle(std::fopen(msName.c_str(), "a+"))
+CLogFile::CLogFile(const string &asName) : msName(asName + ".log"), mpHandle(std::fopen(msName.c_str(), "w+"))
 {
-	if(!mpHandle)
+	if(!mpHandle) // probably never happen
 	{
 		string sError{"Cannot open the file " + msName};
 		throw std::runtime_error(sError);

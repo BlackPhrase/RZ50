@@ -7,17 +7,17 @@ struct ISubSystem;
 
 struct TCoreInitParams
 {
-	char sConfigName[32]; ///< Name of the config to use
+	char sConfigName[32] = {}; ///< Name of the config file to use
 };
 
 struct ICore
 {
-	virtual bool Init(const TCoreInitParams &aParams) = 0;
+	virtual bool Init(const TCoreInitParams &aInitParams) = 0;
 	virtual void Shutdown() = 0;
 	
 	virtual void Frame() = 0;
 	//virtual void Run() = 0;
-	//virtual bool IsCloseRequested() const = 0; // WantQuit
+	virtual bool IsCloseRequested() const = 0; // WantQuit
 	
 	//virtual ILog *GetLog() const = 0;
 	//virtual IMemory *GetMemory() const = 0;
@@ -29,5 +29,7 @@ struct ICore
 	virtual bool RegisterSubSystem(const ISubSystem &apSubSystem) = 0;
 	virtual ISubSystem *GetSubSystem(const char *asName) const = 0;
 };
+
+typedef ICore *(*pfnGetCore)();
 
 }; // namespace rz

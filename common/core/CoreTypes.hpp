@@ -10,6 +10,16 @@
 
 #include <string>
 
+#ifdef _MSC_VER
+	#define EXPORT __declspec(dllexport)
+#elif __GNUC__
+	#define EXPORT __attribute__((visibility("default")))
+#else
+	#error "Unsupported compiler!"
+#endif
+
+#define C_EXPORT extern "C" EXPORT
+
 namespace rz
 {
 

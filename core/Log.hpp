@@ -10,8 +10,11 @@ class CLogFile;
 class CLog final : public ILog
 {
 public:
-	CLog() = default;
-	~CLog() = default;
+	CLog(); //= default;
+	~CLog(); //= default;
+	
+	bool Init();
+	void Shutdown();
 	
 	void Write(const char *asMsg) override;
 	
@@ -25,7 +28,7 @@ public:
 	void TraceShutdown(const char *asMsg) override;
 private:
 	//ILogDirector *mpDirector{nullptr}; // to be able to change the receiever
-	CLogFile *mpFile{nullptr};
+	std::unique_ptr<CLogFile> mpFile;
 };
 
 }; // namespace rz

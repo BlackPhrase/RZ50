@@ -27,3 +27,9 @@
 *.exe
 *.out
 *.app
+
+# Local environment
+[Bb]in/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/

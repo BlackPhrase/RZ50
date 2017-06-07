@@ -25,12 +25,13 @@ class CCore final : public ICore
 {
 public:
 	CCore(); //= default;
-	~CCore() = default;
+	~CCore(); //= default;
 	
-	bool Init(const TCoreInitParams &aParams) override;
+	bool Init(const TCoreInitParams &aInitParams) override;
 	void Shutdown() override;
 	
 	void Frame() override;
+	bool IsCloseRequested() const override {return mbWantQuit;}
 	
 	bool RegisterSubSystem(const ISubSystem &apSubSystem);
 	ISubSystem *GetSubSystem(const char *asName) const;
@@ -47,6 +48,7 @@ private:
 	std::unique_ptr<CLog> mpLog;
 	
 	bool mbInitialized{false};
+	bool mbWantQuit{false};
 };
 
 }; // namespace rz

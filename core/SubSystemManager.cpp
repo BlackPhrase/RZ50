@@ -12,6 +12,8 @@ bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
 	mpCoreEnv = const_cast<TCoreEnv*>(&aCoreEnv);
 	mpLog = aCoreEnv.pLog;
 	
+	mpLog->TraceInit("SubSystemManager");
+	
 	for(auto It : mlstSubSystems)
 		if(!It->Init(aCoreEnv))
 		{
@@ -24,6 +26,8 @@ bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
 
 void CSubSystemManager::Shutdown()
 {
+	mpLog->TraceShutdown("SubSystemManager");
+	
 	for(auto It : mlstSubSystems)
 		It->Shutdown();
 };
