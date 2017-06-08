@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ILog.hpp"
+
 namespace rz
 {
 

@@ -43,6 +43,9 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mEnv.pPluginManager = mpPluginManager.get();
 	
+	if(!mpPluginManager->LoadPlugin("TestPlugin"))
+		return false;
+	
 	mbInitialized = true;
 	return true;
 };
@@ -74,7 +77,7 @@ void CCore::Frame()
 	// optionally dynamically connected)
 	// but in that case there wouldn't be possible to access the log from the core environment...
 	
-	if(nFrame >= 1000)
+	if(nFrame >= 100)
 		mbWantQuit = true;
 	
 	static float fFPS = 0.0f;
