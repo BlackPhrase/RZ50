@@ -6,7 +6,7 @@ namespace rz
 struct ILog;
 struct IMemory;
 struct IPluginManager;
-//struct IProfiler;
+struct IProfiler;
 struct IScheduler;
 
 struct TCoreEnv
@@ -15,7 +15,7 @@ struct TCoreEnv
 	IMemory *pMemory{nullptr}; // ref/GetMemory
 	IPluginManager *pPluginManager{nullptr}; // ref/GetPluginManager
 	//IProfiler *pProfiler{nullptr}; // ref/GetProfiler
-	IScheduler *pScheduler{nullptr}; // ref/GetScheduler
+	//IScheduler *pScheduler{nullptr}; // ref/GetScheduler
 };
 
 }; // namespace rz

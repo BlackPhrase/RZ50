@@ -1,6 +1,7 @@
 #pragma once
 
 // TODO: move them somewhere else
+#include <cstdlib>
 #include <cstdio>
 #include <cstdarg>
 #include <cassert>
@@ -9,6 +10,7 @@
 #include <type_traits>
 
 #include <string>
+#include <chrono>
 
 #ifdef _MSC_VER
 	#define EXPORT __declspec(dllexport)

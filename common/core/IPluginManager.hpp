@@ -8,13 +8,13 @@ struct ISubSystem;
 struct IPluginManager
 {
 	///
-	virtual void RegisterSubsystem(const ISubSystem &aSubSystem) = 0;
+	virtual void RegisterSubSystem(const ISubSystem &aSubSystem) = 0;
 	
 	///
 	virtual void UnregisterSubSystem(const ISubSystem &aSubSystem) = 0;
 	
 	///
-	//virtual ISubSystem *GetSuSsystem(const char *asName) const = 0;
+	//virtual ISubSystem *GetSubSsystem(const char *asName) const = 0;
 	virtual void *GetSubSystem(const char *asName) const = 0;
 	
 	///

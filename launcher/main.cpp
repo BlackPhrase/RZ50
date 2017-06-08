@@ -1,6 +1,4 @@
-#include <cstdlib>
-#include <cstdio>
-
+#include "core/CoreTypes.hpp"
 #include "core/ICore.hpp"
 
 #ifndef RZ_CORE_STATIC
@@ -13,6 +11,21 @@
 
 #include "sound/Sound.hpp"
 #include "system/System.hpp"
+
+// Indicates to hybrid graphics systems to prefer the discrete part by default
+// Has to be .exe module to be correctly detected
+extern "C"
+{
+
+// http://developer.download.nvidia.com/devzone/devcenter/gamegraphics/files/OptimusRenderingPolicies.pdf
+// The following line is to favor the high performance NVIDIA GPU if there are multiple GPUs
+// enable NVIDIA High Performance Graphics while using Integrated Graphics
+EXPORT unsigned long NvOptimusEnablement = 0x00000001;
+
+// enable AMD discrete card if both discrete and integrated are present
+EXPORT int AmdPowerXpressRequestHighPerformance = 1;
+
+};
 
 // TODO: EngineCoreHelper class?
 

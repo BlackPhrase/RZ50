@@ -61,7 +61,7 @@ void CLog::Debug(const char *asMsg, ...)
 	string sFullMsg("[DEBUG] ");
 	sFullMsg.append(sMsg);
 	
-	Write(sFullMsg);
+	Write(sFullMsg.c_str());
 };
 
 void CLog::Warning(const char *asMsg, ...)
@@ -76,7 +76,7 @@ void CLog::Warning(const char *asMsg, ...)
 	string sFullMsg("[WARNING] ");
 	sFullMsg.append(sMsg);
 	
-	Write(sFullMsg);
+	Write(sFullMsg.c_str());
 };
 
 void CLog::Error(const char *asMsg, ...)
@@ -91,7 +91,7 @@ void CLog::Error(const char *asMsg, ...)
 	string sFullMsg("[ERROR] ");
 	sFullMsg.append(sMsg);
 	
-	Write(sFullMsg);
+	Write(sFullMsg.c_str());
 };
 
 void CLog::FatalError(const char *asMsg, ...)
@@ -106,7 +106,7 @@ void CLog::FatalError(const char *asMsg, ...)
 	string sFullMsg("[FATAL] ");
 	sFullMsg.append(sMsg);
 	
-	Write(sFullMsg);
+	Write(sFullMsg.c_str());
 };
 
 void CLog::TraceInit(const char *asMsg)

@@ -8,6 +8,7 @@ namespace rz
 {
 
 class CSubSystemManager;
+class CPluginManager;
 class CMemory;
 class CLog;
 
@@ -44,6 +45,7 @@ private:
 	TEngineStatistics mStats{};
 	
 	std::unique_ptr<CSubSystemManager> mpSubSystemManager;
+	std::unique_ptr<CPluginManager> mpPluginManager;
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
 	

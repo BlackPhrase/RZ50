@@ -1,5 +1,6 @@
 #include "Core.hpp"
 #include "SubSystemManager.hpp"
+#include "PluginManager.hpp"
 #include "Memory.hpp"
 #include "Log.hpp"
 
@@ -30,11 +31,17 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
+	// TODO: check that we should use plugins (read the config setting)
+	// and if should then init plugin manager here
 	if(!mpSubSystemManager->Init(mEnv))
 		return false;
 	
-	// TODO: check that we should use plugins (read the config setting)
-	// and if should then init plugin manager here
+	mpPluginManager = std::make_unique<CPluginManager>();
+	
+	if(!mpPluginManager->Init(mEnv))
+		return false;
+	
+	mEnv.pPluginManager = mpPluginManager.get();
 	
 	mbInitialized = true;
 	return true;
@@ -45,6 +52,7 @@ void CCore::Shutdown()
 	if(!mbInitialized)
 		return;
 	
+	mpPluginManager->Shutdown();
 	mpSubSystemManager->Shutdown();
 	
 	mpLog->TraceShutdown("Core");
@@ -73,7 +81,8 @@ void CCore::Frame()
 	
 	// Begin frame profiling
 	// Start timing
-	// TODO: time point here - a
+	
+	auto TimePreFrame = std::chrono::steady_clock::now();
 	
 	//mpEventHandler->Update();
 	
@@ -83,9 +92,14 @@ void CCore::Frame()
 	
 	// Gather statistics
 	// End frame profiling
-	// TODO: time point here - b
 	
-	// TODO: frametime = b - a -> statistics
+	auto TimePostFrame = std::chrono::steady_clock::now();
+	
+	auto FrameTime = std::chrono::duration_cast<std::chrono::duration<double>>(TimePostFrame - TimePreFrame);
+	
+	mpLog->Debug("FrameTime: %f", FrameTime.count());
+	
+	// TODO: frametime -> statistics
 	// TODO: avg. frametime?
 	
 	if(fFPS < mStats.fMinFPS)
