@@ -1,15 +1,18 @@
 #pragma once
 
-#include <memory>
-#include "INetwork.hpp"
+#include "core/ISubSystem.hpp"
+#include "network/INetwork.hpp"
 
-class CNetwork : public INetwork
+namespace rz
+{
+
+class CNetwork : public ISubSystem, INetwork
 {
 public:
 	CNetwork() = default;
 	~CNetwork() = default;
 	
-	bool Init(const TCoreEnvironment &aCoreEnv);
+	bool Init(const TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	void Update();
@@ -19,4 +22,8 @@ public:
 private:
 	std::unique_ptr<INetServer> mpServer;
 	std::unique_ptr<INetClient> mpClient;
+	
+	const TCoreEnv *mpCoreEnv{nullptr};
 };
+
+}; // namespace rz

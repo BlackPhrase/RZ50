@@ -16,7 +16,9 @@ struct TEngineStatistics
 {
 	float fMinFPS{0.0f};
 	float fMaxFPS{0.0f};
+	
 	float fAvgFPS{0.0f};
+	float fAvgFrameTime{0.0f};
 	
 	int nUPS{0};
 	int nFPS{0};

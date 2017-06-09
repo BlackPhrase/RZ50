@@ -1,25 +1,10 @@
-#include "LoggedFileSystem.hpp"
+#include "core/CoreTypes.hpp"
 #include "FileSystem.hpp"
 
 //DECLARE_SUBSYSTEM(CFileSystem, GetFileSystemSubSystem)
 
-#ifndef RZ_STATIC_FILESYSTEM
-	extern "C" EXPORT
-#endif // RZ_STATIC_FILESYSTEM
-
-rz::ISubSystem *GetFileSystemSubSystem()
+C_EXPORT rz::ISubSystem *GetFileSystemSubSystem()
 {
-	static rz::ISubSystem *pFileSystem = 
-	
-#ifdef RZ_LOGGED_FILESYSTEM
-	new rz::CLoggedFileSystem(
-#endif
-
-	new rz::CFileSystem()
-	
-#ifdef RZ_LOGGED_FILESYSTEM
-	);
-#endif
-	
-	return pFileSystem;
+	static rz::CFileSystem FileSystem;
+	return &FileSystem;
 };

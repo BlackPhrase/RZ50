@@ -29,7 +29,7 @@ public:
 private:
 	tSubSystemList mlstSubSystems;
 	
-	TCoreEnv *mpCoreEnv{nullptr};
+	const TCoreEnv *mpCoreEnv{nullptr};
 	ILog *mpLog{nullptr};
 };
 

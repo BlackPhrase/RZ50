@@ -1,25 +1,10 @@
-#include "LoggedNetwork.hpp"
+#include "core/CoreTypes.hpp"
 #include "Network.hpp"
 
 //DECLARE_SUBSYSTEM(CNetwork, GetNetworkSubSystem)
 
-#ifndef RZ_STATIC_NETWORK
-	extern "C" EXPORT
-#endif // RZ_STATIC_NETWORK
-
-rz::ISubSystem *GetNetworkSubSystem()
+C_EXPORT rz::ISubSystem *GetNetworkSubSystem()
 {
-	static rz::ISubSystem *pNetwork = 
-	
-#ifdef RZ_LOGGED_NETWORK
-	new rz::CLoggedNetwork(
-#endif
-
-	new rz::CNetwork()
-	
-#ifdef RZ_LOGGED_NETWORK
-	);
-#endif
-	
-	return pNetwork;
+	static rz::CNetwork Network;
+	return &Network;
 };

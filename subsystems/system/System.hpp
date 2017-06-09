@@ -18,6 +18,8 @@ public:
 	void Update() override;
 	
 	const char *GetSubSystemName() const override {return "System";}
+private:
+	const TCoreEnv *mpCoreEnv{nullptr};
 };
 
 }; // namespace rz

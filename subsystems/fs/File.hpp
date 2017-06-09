@@ -10,6 +10,7 @@ class CFile final : public IFile
 public:
 	const char *GetName() const override;
 	const char *GetPath() const override;
+private:
 };
 
 }; // namespace rz

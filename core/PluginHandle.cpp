@@ -1,4 +1,6 @@
 #include "PluginHandle.hpp"
+#include "PluginManager.hpp"
+#include "core/IPlugin.hpp"
 
 namespace rz
 {

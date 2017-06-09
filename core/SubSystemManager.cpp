@@ -9,17 +9,21 @@ namespace rz
 
 bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
 {
-	mpCoreEnv = const_cast<TCoreEnv*>(&aCoreEnv);
+	mpCoreEnv = &aCoreEnv;
 	mpLog = aCoreEnv.pLog;
 	
 	mpLog->TraceInit("SubSystemManager");
 	
 	for(auto It : mlstSubSystems)
+	{
+		mpLog->TraceInit(It->GetSubSystemName());
+		
 		if(!It->Init(aCoreEnv))
 		{
 			mpLog->Error("Cannot init the engine because of the %s subsystem!", It->GetSubSystemName());
 			return false;
 		};
+	};
 	
 	return true;
 };
@@ -29,13 +33,19 @@ void CSubSystemManager::Shutdown()
 	mpLog->TraceShutdown("SubSystemManager");
 	
 	for(auto It : mlstSubSystems)
+	{
+		mpLog->TraceShutdown(It->GetSubSystemName());
 		It->Shutdown();
+	};
 };
 
 void CSubSystemManager::Update()
 {
 	for(auto It : mlstSubSystems)
+	{
+		//mpUpdateLog->TraceUpdate(It->GetSubSystemName());
 		It->Update();
+	};
 };
 
 bool CSubSystemManager::Add(const ISubSystem &apSubSystem)

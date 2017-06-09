@@ -32,6 +32,8 @@ public:
 	const char *GetSubSystemName() const {return "Sound";}
 private:
 	tSoundChannelVec mvChannels;
+	
+	const TCoreEnv *mpCoreEnv{nullptr};
 };
 
 }; // namespace rz

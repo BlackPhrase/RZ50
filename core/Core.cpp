@@ -70,8 +70,8 @@ void CCore::Frame()
 	if(!mbInitialized || mbWantQuit) // we can check for current state
 		return;
 	
-	static int nFrame = 0;
-	mpLog->Debug("Core frame #%d", nFrame + 1);
+	static int nFrame = 1;
+	mpLog->Debug("Core frame #%d", nFrame);
 	// should be some generic interface which will work as redirector
 	// it should broadcast the messages to its listeners (log/console/etc which could be
 	// optionally dynamically connected)
@@ -100,10 +100,13 @@ void CCore::Frame()
 	
 	auto FrameTime = std::chrono::duration_cast<std::chrono::duration<double>>(TimePostFrame - TimePreFrame);
 	
+	// Accumulated count of frametimes
+	static double FrameTimeAcc{0.0f};
+	FrameTimeAcc += FrameTime.count();
+	
 	mpLog->Debug("FrameTime: %f", FrameTime.count());
 	
 	// TODO: frametime -> statistics
-	// TODO: avg. frametime?
 	
 	if(fFPS < mStats.fMinFPS)
 		mStats.fMinFPS = fFPS;
@@ -114,6 +117,8 @@ void CCore::Frame()
 	// FrameEnd() event;
 	
 	nFrame++;
+	
+	mStats.fAvgFrameTime = FrameTimeAcc / nFrame;
 };
 
 bool CCore::RegisterSubSystem(const ISubSystem &apSubSystem)
@@ -132,12 +137,14 @@ void CCore::PrintStats()
 	mpLog->Info("Statistics:\n"
 				 "\t- Min. FPS: %.2f\n"
 				 "\t- Max. FPS: %.2f\n"
-				 "\t- Avg. FPS: %.2f",
+				 "\t- Avg. FPS: %.2f\n"
+				 "\t- Avg. FrameTime %.2f",
 				 // TODO: UPS per core
 				 // TODO: Cores?
 				 mStats.fMinFPS,
 				 mStats.fMaxFPS,
-				 mStats.fAvgFPS);
+				 mStats.fAvgFPS,
+				 mStats.fAvgFrameTime);
 };
 
 }; // namespace rz
