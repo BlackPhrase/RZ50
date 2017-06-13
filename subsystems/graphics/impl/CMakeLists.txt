@@ -1,0 +1,16 @@
+if(WIN32)
+	set(PLATFORM_TYPE win)
+elseif(UNIX)
+	set(PLATFORM_TYPE unix)
+else()
+endif()
+
+file(GLOB IMPL_SOURCES
+	${CMAKE_CURRENT_SOURCE_DIR}/${PLATFORM_TYPE}/*.cpp
+)
+
+set(PROJECT_SOURCES
+	${PROJECT_SOURCES}
+	${IMPL_SOURCES}
+	PARENT_SCOPE
+)

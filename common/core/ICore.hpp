@@ -3,13 +3,21 @@
 namespace rz
 {
 
+#ifdef _WIN32
+	//using tWinHandle = HWND; // TODO: fix
+#else
+	using tWinHandle = void *;
+#endif
+
 struct ISubSystem;
 
 /// Core initialization parameters
 struct TCoreInitParams
 {
-	char sConfigName[32] = {}; ///< Name of the config file to use
-	const char *sCmdLine{""};  ///< Application command line
+	char sConfigName[32] = {};  ///< Name of the config file to use
+	const char *sCmdLine{""};   ///< Application command line
+
+	//tWinHandle hCustomWindow{}; ///< Custom application window
 };
 
 struct ICore

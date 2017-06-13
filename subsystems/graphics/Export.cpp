@@ -1,27 +1,22 @@
-/*
-#include "LoggedGraphics.hpp"
+#include "core/CoreTypes.hpp"
 #include "Graphics.hpp"
+
+#ifdef _WIN32
+	#include "impl/win/GraphicsWin.hpp"
+#else
+	#include "impl/unix/GraphicsUnix.hpp"
+#endif
 
 //DECLARE_SUBSYSTEM(CGraphics, GetGraphicsSubSystem)
 
-#ifndef RZ_STATIC_GRAPHICS
-	extern "C" EXPORT
-#endif // RZ_STATIC_GRAPHICS
-
-ISubSystem *GetGraphicsSubSystem()
+C_EXPORT rz::ISubSystem *GetGraphics()
 {
-	static ISubSystem *pGraphics = 
-	
-#ifdef RZ_LOGGED_GRAPHICS
-	new CLoggedGraphics(
-#endif
-
-	new CGraphics()
-	
-#ifdef RZ_LOGGED_GRAPHICS
-	);
+#ifdef _WIN32
+	static rz::CGraphicsWin GraphicsImpl;
+#elif
+	static rz::CGraphicsUnix GraphicsImpl;
 #endif
 	
-	return pGraphics;
+	static rz::CGraphics Graphics(&GraphicsImpl);
+	return &Graphics;
 };
-*/

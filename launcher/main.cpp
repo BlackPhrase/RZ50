@@ -2,6 +2,7 @@
 #include "core/ICore.hpp"
 #include "input/IInput.hpp"
 #include "fs/IFileSystem.hpp"
+#include "graphics/IGraphics.hpp"
 
 #include "shiftutil/SharedLib.hpp"
 
@@ -15,6 +16,10 @@
 
 #ifndef RZ_FS_STATIC
 	shiftutil::CSharedLib gFSLib;
+#endif
+
+#ifndef RZ_GRAPHICS_STATIC
+	shiftutil::CSharedLib gGraphicsLib;
 #endif
 
 // Indicates to hybrid graphics systems to prefer the discrete part by default
@@ -103,6 +108,25 @@ rz::ISubSystem *LoadFSModule()
 	return fnGetFS();
 };
 
+rz::ISubSystem *LoadGraphicsModule()
+{
+#ifndef RZ_GRAPHICS_STATIC
+	rz::pfnGetGraphics fnGetGraphics{nullptr};
+	
+	if(!gGraphicsLib.Open("RZGraphics"))
+		return nullptr;
+	
+	fnGetGraphics = gGraphicsLib.GetExportFunc<rz::pfnGetGraphics>("GetGraphics");
+	
+	if(!fnGetGraphics)
+		return nullptr;
+#else
+	extern rz::ISubSystem *fnGetGraphics();
+#endif
+
+	return fnGetGraphics();
+};
+
 int main(int argc, char **argv)
 {
 	rz::ICore *pCore = LoadEngineCore();
@@ -135,9 +159,11 @@ int main(int argc, char **argv)
 	
 	rz::ISubSystem *pInput = LoadInputModule();
 	rz::ISubSystem *pFS = LoadFSModule();
+	rz::ISubSystem *pGraphics = LoadGraphicsModule();
 	
 	pCore->RegisterSubSystem(*pInput);
 	pCore->RegisterSubSystem(*pFS);
+	pCore->RegisterSubSystem(*pGraphics);
 	
 	while(!pCore->IsCloseRequested()) //WantQuit())
 		pCore->Frame(); // update the core and each registered subsystem

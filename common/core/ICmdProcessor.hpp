@@ -11,7 +11,10 @@ struct ICmdProcessor
 	/// Append to the command text to the end of the buffer
 	virtual void Append(const char *asCmd) = 0;
 	
-	///
+	/// Execute the specified text immediately
+	virtual void ExecText(const char *asText) = 0;
+	
+	/// Execute the command buffer immediately
 	virtual void Exec() = 0;
 };
 

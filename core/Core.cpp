@@ -9,6 +9,10 @@
 
 #include "EchoEventListener.hpp"
 
+// TODO: rewrite subsystems to use the core environment in their export funcs
+// (pfnGetSubSystem(const TCoreEnv &aCoreEnv) <- pass the env here)
+// This way it would be possible to store the reference to env inside the class members
+
 namespace rz
 {
 
@@ -17,6 +21,8 @@ CCore::~CCore() = default;
 
 bool CCore::Init(const TCoreInitParams &aInitParams)
 {
+	// TODO: remove local usage of core env
+	
 	if(mbInitialized)
 		return true;
 	
@@ -38,10 +44,14 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpEventManager = std::make_unique<CEventManager>(mEnv);
 	
-	static CEchoEventListener EchoEventListener(mEnv);
-	mpEventManager->AddListener(EchoEventListener);
+	mEnv.pEventManager = mpEventManager.get();
 	
-	mpCmdProcessor = std::make_unique<CCmdProcessor>();
+	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix
+	//mpEventManager->AddListener(EchoEventListener);
+	
+	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv, this);
+	
+	mEnv.pCmdProcessor = mpCmdProcessor.get();
 	
 	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
@@ -84,20 +94,19 @@ void CCore::Frame()
 	if(!mbInitialized || mbWantQuit) // we can check for current state
 		return;
 	
-	TFrameNumEvent FrameNumEvent;
+	TFrameBeginEvent FrameBeginEvent;
+	mpEventManager->BroadcastEvent(FrameBeginEvent); // NOTE: potential timing issues?
 	
-	mpEventManager->BroadcastEvent(FrameNumEvent);
-	
-	static int nFrame = 1;
+	static int nFrame = 1; // NOTE: move to stats?
 	mpLog->Debug("Core frame #%d", nFrame);
+	
+	TFrameNumEvent FrameNumEvent; //(nFrame); // TODO: move it to the event que
+	mpEventManager->BroadcastEvent(FrameNumEvent);
 	
 	// should be some generic interface which will work as redirector
 	// it should broadcast the messages to its listeners (log/console/etc which could be
 	// optionally dynamically connected)
 	// but in that case there wouldn't be possible to access the log from the core environment...
-	
-	if(nFrame >= 50)
-		mbWantQuit = true;
 	
 	static float fFPS = 0.0f;
 	
@@ -110,8 +119,6 @@ void CCore::Frame()
 	
 	mpEventManager->DispatchEvents(); //Update();
 	
-	//FrameBegin() event;
-	
 	mpSubSystemManager->Update();
 	
 	// Gather statistics
@@ -120,12 +127,14 @@ void CCore::Frame()
 	auto TimePostFrame = std::chrono::steady_clock::now();
 	
 	auto FrameTime = std::chrono::duration_cast<std::chrono::duration<double>>(TimePostFrame - TimePreFrame);
+	auto FrameTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(TimePostFrame - TimePreFrame);
+	auto FrameTimeNs = std::chrono::duration_cast<std::chrono::nanoseconds>(TimePostFrame - TimePreFrame);
 	
 	// Accumulated count of frametimes
 	static double FrameTimeAcc{0.0f};
 	FrameTimeAcc += FrameTime.count();
 	
-	mpLog->Debug("FrameTime: %f", FrameTime.count());
+	mpLog->Debug("FrameTime: %fs (%dms / %dns)", FrameTime.count(), FrameTimeMs.count(), FrameTimeNs.count());
 	
 	// TODO: frametime -> statistics
 	
@@ -135,11 +144,17 @@ void CCore::Frame()
 	if(fFPS > mStats.fMaxFPS)
 		mStats.fMaxFPS = fFPS;
 	
-	// FrameEnd() event;
+	TFrameEndEvent FrameEndEvent;
+	mpEventManager->BroadcastEvent(FrameEndEvent); // NOTE: potential timing issues?
 	
 	nFrame++;
 	
 	mStats.fAvgFrameTime = FrameTimeAcc / nFrame;
+};
+
+void CCore::RequestClose()
+{
+	mbWantQuit = true;
 };
 
 bool CCore::RegisterSubSystem(const ISubSystem &apSubSystem)

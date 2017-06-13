@@ -21,6 +21,7 @@ public:
 	void Update(); // TODO: updateable component interface
 	
 	void BroadcastEvent(const TEvent &aEvent) override;
+	void QueEvent(const TEvent &aEvent) override;
 	
 	void DispatchEvents();
 	

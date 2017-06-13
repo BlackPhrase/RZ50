@@ -37,6 +37,8 @@ public:
 	void Shutdown() override;
 	
 	void Frame() override;
+	
+	void RequestClose();
 	bool IsCloseRequested() const override {return mbWantQuit;}
 	
 	bool RegisterSubSystem(const ISubSystem &apSubSystem);

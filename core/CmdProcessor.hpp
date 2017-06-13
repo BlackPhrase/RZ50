@@ -1,22 +1,31 @@
 #pragma once
 
 #include "core/ICmdProcessor.hpp"
+#include "core/TCoreEnv.hpp"
 
 namespace rz
 {
 
-class CCmdProcessor : public ICmdProcessor
+struct TCoreEnv;
+class CCore;
+
+class CCmdProcessor final : public ICmdProcessor
 {
 public:
-	CCmdProcessor() = default;
+	CCmdProcessor(const TCoreEnv &aCoreEnv, CCore *apCore) : mCoreEnv(aCoreEnv), mpCore(apCore){} //= default;
 	~CCmdProcessor() = default;
 	
-	void Insert(const char *asCmd);
+	void Insert(const char *asCmd) override;
 	
-	void Append(const char *asCmd);
+	void Append(const char *asCmd) override;
 	
-	void Exec();
+	void ExecText(const char *asText) override;
+	
+	void Exec() override;
 private:
+	const TCoreEnv &mCoreEnv;
+	
+	CCore *mpCore{nullptr};
 };
 
 }; // namespace rz
