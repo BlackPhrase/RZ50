@@ -5,7 +5,7 @@ namespace rz
 
 struct TCoreEnv;
 
-struct ISubSystem
+struct ISubSystem // ICoreComponent
 {
 	virtual bool Init(const TCoreEnv &aCoreEnv) = 0;
 	virtual void Shutdown() = 0;

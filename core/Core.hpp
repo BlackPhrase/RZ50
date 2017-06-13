@@ -9,6 +9,9 @@ namespace rz
 
 class CSubSystemManager;
 class CPluginManager;
+class CEventManager;
+class CCmdProcessor;
+class CCmdLine;
 class CMemory;
 class CLog;
 
@@ -48,6 +51,9 @@ private:
 	
 	std::unique_ptr<CSubSystemManager> mpSubSystemManager;
 	std::unique_ptr<CPluginManager> mpPluginManager;
+	std::unique_ptr<CEventManager> mpEventManager;
+	std::unique_ptr<CCmdProcessor> mpCmdProcessor;
+	std::unique_ptr<CCmdLine> mpCmdLine;
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
 	

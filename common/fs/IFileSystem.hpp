@@ -4,6 +4,7 @@ namespace rz
 {
 
 struct IFile;
+struct ISubSystem;
 
 struct IFileSystem
 {
@@ -13,5 +14,7 @@ struct IFileSystem
 	///
 	virtual void CloseFile(const IFile &apFile) = 0;
 };
+
+using pfnGetFS = ISubSystem *(*)();
 
 }; // namespace rz

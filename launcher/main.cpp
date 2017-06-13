@@ -1,16 +1,21 @@
 #include "core/CoreTypes.hpp"
 #include "core/ICore.hpp"
+#include "input/IInput.hpp"
+#include "fs/IFileSystem.hpp"
+
+#include "shiftutil/SharedLib.hpp"
 
 #ifndef RZ_CORE_STATIC
-	#include "shiftutil/SharedLib.hpp"
-	
-	shiftutil::CSharedLib gEngineLib;
-#else
-	#include "Core.hpp"
+	shiftutil::CSharedLib gCoreLib;
 #endif
 
-#include "sound/Sound.hpp"
-#include "system/System.hpp"
+#ifndef RZ_INPUT_STATIC
+	shiftutil::CSharedLib gInputLib;
+#endif
+
+#ifndef RZ_FS_STATIC
+	shiftutil::CSharedLib gFSLib;
+#endif
 
 // Indicates to hybrid graphics systems to prefer the discrete part by default
 // Has to be .exe module to be correctly detected
@@ -34,18 +39,18 @@ rz::ICore *LoadEngineCore()
 #ifndef RZ_CORE_STATIC
 	rz::pfnGetCore fnGetCore{nullptr};
 	
-	if(!gEngineLib.Open("RZCore"))
+	if(!gCoreLib.Open("RZCore"))
 		return nullptr;
 	
-	fnGetCore = gEngineLib.GetExportFunc<rz::pfnGetCore>("GetCore");
+	fnGetCore = gCoreLib.GetExportFunc<rz::pfnGetCore>("GetCore");
 	
 	if(!fnGetCore)
 		return nullptr;
-	
-	return fnGetCore();
 #else
-	return new rz::CCore();
+	extern rz::ICore *fnGetCore();
 #endif
+
+	return fnGetCore();
 };
 
 bool UnloadEngineCore(rz::ICore *apCore)
@@ -54,13 +59,48 @@ bool UnloadEngineCore(rz::ICore *apCore)
 	// TODO: unload the core module
 	// NOTE: Currently handled by shiftutil::CSharedLib which will 
 	// free the lib at destruction
-#else
-	if(apCore)
-		delete apCore;
 #endif
 	
 	apCore = nullptr;
 	return true;
+};
+
+rz::ISubSystem *LoadInputModule()
+{
+#ifndef RZ_INPUT_STATIC
+	rz::pfnGetInput fnGetInput{nullptr};
+	
+	if(!gInputLib.Open("RZInput"))
+		return nullptr;
+	
+	fnGetInput = gInputLib.GetExportFunc<rz::pfnGetInput>("GetInput");
+	
+	if(!fnGetInput)
+		return nullptr;
+#else
+	extern rz::ISubSystem *fnGetInput();
+#endif
+
+	return fnGetInput();
+};
+
+rz::ISubSystem *LoadFSModule()
+{
+#ifndef RZ_FS_STATIC
+	rz::pfnGetFS fnGetFS{nullptr};
+	
+	if(!gFSLib.Open("RZFileSystem"))
+		return nullptr;
+	
+	fnGetFS = gFSLib.GetExportFunc<rz::pfnGetFS>("GetFS");
+	
+	if(!fnGetFS)
+		return nullptr;
+#else
+	extern rz::ISubSystem *fnGetFS();
+#endif
+
+	return fnGetFS();
 };
 
 int main(int argc, char **argv)
@@ -82,12 +122,6 @@ int main(int argc, char **argv)
 	// Different config file names can be used for various configurations
 	// (Example: dedicated server/headless mode)
 	
-	//rz::ISubSystem *pSystem = new rz::CSystem();
-	//rz::ISubSystem *pSound = new rz::CSound();
-	
-	//pCore->RegisterSubSystem(*pSystem);
-	//pCore->RegisterSubSystem(*pSound);
-	
 	rz::TCoreInitParams InitParams{};
 	
 	strcpy(InitParams.sConfigName, "Default");
@@ -98,6 +132,12 @@ int main(int argc, char **argv)
 		printf("Failed to init the core module!\n");
 		return EXIT_FAILURE;
 	};
+	
+	rz::ISubSystem *pInput = LoadInputModule();
+	rz::ISubSystem *pFS = LoadFSModule();
+	
+	pCore->RegisterSubSystem(*pInput);
+	pCore->RegisterSubSystem(*pFS);
 	
 	while(!pCore->IsCloseRequested()) //WantQuit())
 		pCore->Frame(); // update the core and each registered subsystem

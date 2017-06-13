@@ -3,7 +3,7 @@
 
 //DECLARE_SUBSYSTEM(CInput, GetInputSubSystem)
 
-C_EXPORT rz::ISubSystem *GetInputSubSystem()
+C_EXPORT rz::ISubSystem *GetInput()
 {
 	static rz::CInput Input;
 	return &Input;

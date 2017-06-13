@@ -16,7 +16,7 @@ bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
 	
 	for(auto It : mlstSubSystems)
 	{
-		mpLog->TraceInit(It->GetSubSystemName());
+		//mpLog->TraceInit(It->GetSubSystemName());
 		
 		if(!It->Init(aCoreEnv))
 		{
@@ -34,7 +34,7 @@ void CSubSystemManager::Shutdown()
 	
 	for(auto It : mlstSubSystems)
 	{
-		mpLog->TraceShutdown(It->GetSubSystemName());
+		//mpLog->TraceShutdown(It->GetSubSystemName());
 		It->Shutdown();
 	};
 };
@@ -61,6 +61,8 @@ bool CSubSystemManager::Add(const ISubSystem &apSubSystem)
 	
 	auto *pSubSystem = const_cast<ISubSystem*>(&apSubSystem);
 	mlstSubSystems.push_back(pSubSystem);
+	
+	pSubSystem->Init(*mpCoreEnv); // temp
 	return true;
 };
 

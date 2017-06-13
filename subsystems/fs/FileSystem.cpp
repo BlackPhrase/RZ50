@@ -8,13 +8,13 @@ bool CFileSystem::Init(const TCoreEnv &aCoreEnv)
 {
 	mpCoreEnv = &aCoreEnv;
 	
-	mpCoreEnv->pLog->Write("Initializing the fs module...");
+	mpCoreEnv->pLog->TraceInit("FileSystem");
 	return true;
 };
 
 void CFileSystem::Shutdown()
 {
-	mpCoreEnv->pLog->Write("Shutting down the fs module...");
+	mpCoreEnv->pLog->TraceShutdown("FileSystem");
 };
 
 void CFileSystem::Update()

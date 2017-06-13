@@ -11,4 +11,6 @@ struct IInput
 	virtual void UnregisterDevice(IInputDevice &aDevice) = 0;
 };
 
+using pfnGetInput = ISubSystem *(*)();
+
 }; // namespace rz

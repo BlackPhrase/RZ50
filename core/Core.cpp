@@ -1,8 +1,13 @@
 #include "Core.hpp"
 #include "SubSystemManager.hpp"
 #include "PluginManager.hpp"
+#include "EventManager.hpp"
+#include "CmdProcessor.hpp"
+#include "CmdLine.hpp"
 #include "Memory.hpp"
 #include "Log.hpp"
+
+#include "EchoEventListener.hpp"
 
 namespace rz
 {
@@ -14,6 +19,8 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 {
 	if(mbInitialized)
 		return true;
+	
+	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine ? aInitParams.sCmdLine : "");
 	
 	mpMemory = std::make_unique<CMemory>();
 	
@@ -28,6 +35,13 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mEnv.pMemory = mpMemory.get();
 	mEnv.pLog = mpLog.get();
+	
+	mpEventManager = std::make_unique<CEventManager>(mEnv);
+	
+	static CEchoEventListener EchoEventListener(mEnv);
+	mpEventManager->AddListener(EchoEventListener);
+	
+	mpCmdProcessor = std::make_unique<CCmdProcessor>();
 	
 	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
@@ -70,14 +84,19 @@ void CCore::Frame()
 	if(!mbInitialized || mbWantQuit) // we can check for current state
 		return;
 	
+	TFrameNumEvent FrameNumEvent;
+	
+	mpEventManager->BroadcastEvent(FrameNumEvent);
+	
 	static int nFrame = 1;
 	mpLog->Debug("Core frame #%d", nFrame);
+	
 	// should be some generic interface which will work as redirector
 	// it should broadcast the messages to its listeners (log/console/etc which could be
 	// optionally dynamically connected)
 	// but in that case there wouldn't be possible to access the log from the core environment...
 	
-	if(nFrame >= 100)
+	if(nFrame >= 50)
 		mbWantQuit = true;
 	
 	static float fFPS = 0.0f;
@@ -87,7 +106,9 @@ void CCore::Frame()
 	
 	auto TimePreFrame = std::chrono::steady_clock::now();
 	
-	//mpEventHandler->Update();
+	mpCmdProcessor->Exec();
+	
+	mpEventManager->DispatchEvents(); //Update();
 	
 	//FrameBegin() event;
 	

@@ -26,7 +26,9 @@ void CLog::Shutdown()
 
 void CLog::Write(const char *asMsg)
 {
-	char sMsg[strlen(asMsg) + 1] = {};
+	//char sMsg[strlen(asMsg) + 1] = {};
+	//sMsg[sizeof(sMsg) - 1] = 0;
+	char sMsg[512] = {};
 	
 	strcpy(sMsg, asMsg);
 	strcat(sMsg, "\n");

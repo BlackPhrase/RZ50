@@ -5,7 +5,19 @@ namespace rz
 
 struct TEvent
 {
+	const char *sName{""};
+	
 	// ...
+};
+
+struct TFrameNumEvent : TEvent
+{
+	TFrameNumEvent()
+	{
+		sName = "FrameNum";
+	};
+	
+	int nFrame{1};
 };
 
 struct IEventListener
@@ -17,7 +29,7 @@ struct IEventListener
 struct IEventManager
 {
 	///
-	virtual void BroadcastEvent(const TEvent &aEvent) = 0;
+	virtual void BroadcastEvent(const TEvent &aEvent) = 0; // QueEvent
 	
 	///
 	virtual void AddListener(const IEventListener &aListener) = 0;
