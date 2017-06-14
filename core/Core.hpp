@@ -48,6 +48,11 @@ public:
 private:
 	void PrintStats();
 	
+	double GetTimeStep() const {return 1.0f / mfUpdateFreq;}
+	
+	void SetUpdateFreq(float fFreq){mfUpdateFreq = fFreq;}
+	float GetUpdateFreq() const {return mfUpdateFreq;}
+	
 	TCoreEnv mEnv{};
 	TEngineStatistics mStats{};
 	
@@ -58,6 +63,8 @@ private:
 	std::unique_ptr<CCmdLine> mpCmdLine;
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
+	
+	float mfUpdateFreq{0.0f};
 	
 	bool mbInitialized{false};
 	bool mbWantQuit{false};

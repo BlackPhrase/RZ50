@@ -26,6 +26,9 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	if(mbInitialized)
 		return true;
 	
+	// Max updates is 30Hz for now
+	SetUpdateFreq(30.0f);
+	
 	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine ? aInitParams.sCmdLine : "");
 	
 	mpMemory = std::make_unique<CMemory>();
@@ -46,7 +49,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mEnv.pEventManager = mpEventManager.get();
 	
-	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix
+	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix lifetime managing
 	//mpEventManager->AddListener(EchoEventListener);
 	
 	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv, this);
@@ -55,13 +58,13 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
-	// TODO: check that we should use plugins (read the config setting)
-	// and if should then init plugin manager here
 	if(!mpSubSystemManager->Init(mEnv))
 		return false;
 	
 	mpPluginManager = std::make_unique<CPluginManager>();
 	
+	// TODO: check that we should use plugins (read the config setting)
+	// and if should then init plugin manager here
 	if(!mpPluginManager->Init(mEnv))
 		return false;
 	
@@ -91,17 +94,27 @@ void CCore::Frame()
 {
 	//assert(mbInitialized);
 	
-	if(!mbInitialized || mbWantQuit) // we can check for current state
+	if(!mbInitialized || mbWantQuit) // NOTE: we can check for current state
 		return;
 	
 	TFrameBeginEvent FrameBeginEvent;
 	mpEventManager->BroadcastEvent(FrameBeginEvent); // NOTE: potential timing issues?
 	
 	static int nFrame = 1; // NOTE: move to stats?
-	mpLog->Debug("Core frame #%d", nFrame);
+	//mpLog->Debug("Core frame #%d", nFrame);
 	
-	TFrameNumEvent FrameNumEvent; //(nFrame); // TODO: move it to the event que
-	mpEventManager->BroadcastEvent(FrameNumEvent);
+	static auto OldTime = std::chrono::steady_clock::now();
+	static double fLag = 0.0f;
+	
+	auto CurrentTime = std::chrono::steady_clock::now();
+	
+	auto FrameTime = std::chrono::duration_cast<std::chrono::duration<double>>(CurrentTime - OldTime);
+	auto FrameTimeMs = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(CurrentTime - OldTime);
+	auto FrameTimeNs = std::chrono::duration_cast<std::chrono::nanoseconds>(CurrentTime - OldTime);
+	
+	OldTime = CurrentTime;
+	
+	fLag += FrameTime.count();
 	
 	// should be some generic interface which will work as redirector
 	// it should broadcast the messages to its listeners (log/console/etc which could be
@@ -113,28 +126,26 @@ void CCore::Frame()
 	// Begin frame profiling
 	// Start timing
 	
-	auto TimePreFrame = std::chrono::steady_clock::now();
-	
 	mpCmdProcessor->Exec();
 	
 	mpEventManager->DispatchEvents(); //Update();
 	
-	mpSubSystemManager->Update();
-	
 	// Gather statistics
 	// End frame profiling
 	
-	auto TimePostFrame = std::chrono::steady_clock::now();
+	while(fLag >= GetTimeStep())
+	{
+		mpLog->Debug("FrameTime: %fs (%fms / %dns)", FrameTime.count(), FrameTimeMs.count(), FrameTimeNs.count());
 	
-	auto FrameTime = std::chrono::duration_cast<std::chrono::duration<double>>(TimePostFrame - TimePreFrame);
-	auto FrameTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(TimePostFrame - TimePreFrame);
-	auto FrameTimeNs = std::chrono::duration_cast<std::chrono::nanoseconds>(TimePostFrame - TimePreFrame);
+		mpSubSystemManager->Update();
+		fLag -= GetTimeStep();
+	};
+	
+	//
 	
 	// Accumulated count of frametimes
 	static double FrameTimeAcc{0.0f};
 	FrameTimeAcc += FrameTime.count();
-	
-	mpLog->Debug("FrameTime: %fs (%dms / %dns)", FrameTime.count(), FrameTimeMs.count(), FrameTimeNs.count());
 	
 	// TODO: frametime -> statistics
 	

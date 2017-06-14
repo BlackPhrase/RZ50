@@ -127,6 +127,26 @@ rz::ISubSystem *LoadGraphicsModule()
 	return fnGetGraphics();
 };
 
+bool ProcessEvents()
+{
+#ifdef _WIN32
+	static MSG Msg{};
+	
+	if(PeekMessage(&Msg, nullptr, 0, 0, PM_REMOVE))
+	{
+		if(Msg.message == WM_QUIT)
+			return false;
+		
+		TranslateMessage(&Msg);
+		DispatchMessage(&Msg);
+	};
+#else
+	// TODO
+#endif
+	
+	return true;
+};
+
 int main(int argc, char **argv)
 {
 	rz::ICore *pCore = LoadEngineCore();
@@ -166,7 +186,12 @@ int main(int argc, char **argv)
 	pCore->RegisterSubSystem(*pGraphics);
 	
 	while(!pCore->IsCloseRequested()) //WantQuit())
-		pCore->Frame(); // update the core and each registered subsystem
+	{
+		//if(!ProcessEvents())
+			//break;
+		//else
+			pCore->Frame(); // update the core and each registered subsystem
+	};
 	
 	pCore->Shutdown(); // shutdown all
 	

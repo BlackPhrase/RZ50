@@ -83,7 +83,7 @@ bool CGraphicsWin::OpenWindow()
 
 void CGraphicsWin::ProcessEvents()
 {
-	MSG Msg;
+	static MSG Msg{};
 	
 	while(PeekMessage(&Msg, mhWnd, 0, 0, PM_REMOVE))
 	{

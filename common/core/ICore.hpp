@@ -18,6 +18,9 @@ struct TCoreInitParams
 	const char *sCmdLine{""};   ///< Application command line
 
 	//tWinHandle hCustomWindow{}; ///< Custom application window
+	
+	//int nMaxUPS{0}; ///< Max updates per second
+	//int nMaxFPS{0}; ///< Max frames per second
 };
 
 struct ICore
