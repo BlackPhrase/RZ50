@@ -1,5 +1,6 @@
 #include "core/CoreTypes.hpp"
 #include "Graphics.hpp"
+#include "RenderGL.hpp"
 
 #ifdef _WIN32
 	#include "impl/win/GraphicsWin.hpp"
@@ -16,7 +17,9 @@ C_EXPORT rz::ISubSystem *GetGraphics()
 #elif
 	static rz::CGraphicsUnix GraphicsImpl;
 #endif
+
+	static rz::CRenderGL RenderGL;
 	
-	static rz::CGraphics Graphics(&GraphicsImpl);
+	static rz::CGraphics Graphics(&GraphicsImpl, &RenderGL);
 	return &Graphics;
 };

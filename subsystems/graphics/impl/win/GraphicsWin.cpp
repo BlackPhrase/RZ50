@@ -19,7 +19,7 @@ bool CGraphicsWin::Init(const TCoreEnv &aCoreEnv)
 	return true;
 };
 
-bool CGraphicsWin::OpenWindow()
+bool CGraphicsWin::OpenWindow(int anWidth, int anHeight)
 {
 	const char *sClassName = "ClassName";
 	const char *sWindowsName = "RZ Engine";
@@ -27,8 +27,8 @@ bool CGraphicsWin::OpenWindow()
 	DWORD nWinStyle = WS_OVERLAPPEDWINDOW;
 	DWORD nExStyle = 0;
 	
-	int nWinWidth = 1280;
-	int nWinHeight = 600;
+	int nWinWidth = anWidth;
+	int nWinHeight = anHeight;
 	
 	int nPosX = (GetSystemMetrics(SM_CXSCREEN) - nWinWidth) * 0.5;
 	int nPosY = (GetSystemMetrics(SM_CYSCREEN) - nWinHeight) * 0.5;
@@ -45,13 +45,13 @@ bool CGraphicsWin::OpenWindow()
 	WindowClass.lpfnWndProc = WindowProc;
 	WindowClass.cbClsExtra = 0;
 	WindowClass.cbWndExtra = 0;
-	WindowClass.hInstance = NULL;
-	WindowClass.hIcon = NULL;
-	WindowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	WindowClass.hbrBackground = NULL;
+	WindowClass.hInstance = nullptr;
+	WindowClass.hIcon = nullptr;
+	WindowClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	WindowClass.hbrBackground = nullptr;
 	WindowClass.lpszMenuName = "";
 	WindowClass.lpszClassName = sClassName;
-	WindowClass.hIconSm = NULL;
+	WindowClass.hIconSm = nullptr;
 	
 	if(!RegisterClassEx(&WindowClass))
 		return false;
@@ -65,10 +65,10 @@ bool CGraphicsWin::OpenWindow()
 						nWinStyle,
 						nPosX, nPosY,
 						nWinWidth, nWinHeight,
-						NULL, // parent window
-						NULL, // menu
-						NULL, // instance
-						NULL // lpparam
+						nullptr, // parent window
+						nullptr, // menu
+						nullptr, // instance
+						nullptr // lpparam
 						);
 	
 	if(!mhWnd)

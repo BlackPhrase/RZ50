@@ -3,8 +3,7 @@
 #include "core/TCoreEnv.hpp"
 #include "core/IPlugin.hpp"
 
-// NOTE: usage of shiftutil::CSharedLib is causing the user32 lib to be linked in
-// only for single "message box" export
+// NOTE: usage of ??? is causing the user32 lib to be linked in only for single "message box" export
 
 namespace rz
 {

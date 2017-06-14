@@ -19,6 +19,7 @@ public:
 	float GetFloat(const char *asKey, float afDefault = 0.0f) const;
 	bool GetBool(const char *asKey, bool abDefault = true) const;
 private:
+	tKeyValueMap mmapKeys;
 };
 
 }; // namespace rz

@@ -3,12 +3,6 @@
 namespace rz
 {
 
-#ifdef _WIN32
-	//using tWinHandle = HWND; // TODO: fix
-#else
-	using tWinHandle = void *;
-#endif
-
 struct ISubSystem;
 
 /// Core initialization parameters

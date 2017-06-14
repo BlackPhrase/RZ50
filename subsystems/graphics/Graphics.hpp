@@ -9,27 +9,29 @@ namespace rz
 {
 
 struct IGraphicsImpl;
+struct IRender;
 
-class CGraphics : public ISubSystem, IGraphics, IEventListener
+class CGraphics final : public ISubSystem, IGraphics, IEventListener
 {
 public:
-	CGraphics(IGraphicsImpl *apImpl) : mpImpl(apImpl){}
+	CGraphics(IGraphicsImpl *apImpl, IRender *apRender) : mpImpl(apImpl), mpRender(apRender){}
 	~CGraphics() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnv &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	void OnEvent(const TEvent &aEvent);
+	void OnEvent(const TEvent &aEvent) override;
 	
-	const char *GetSubSystemName() const {return "Graphics";}
+	const char *GetSubSystemName() const override {return "Graphics";}
 private:
 	bool OpenWindow();
 	void ProcessEvents(); // process ui events (windows messages/x events)
 	
 	const TCoreEnv *mpCoreEnv{nullptr};
 	IGraphicsImpl *mpImpl{nullptr};
+	IRender *mpRender{nullptr};
 };
 
 }; // namespace rz

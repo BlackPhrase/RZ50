@@ -6,16 +6,16 @@
 namespace rz
 {
 
-class CNetwork : public ISubSystem, INetwork
+class CNetwork final : public ISubSystem, INetwork
 {
 public:
 	CNetwork() = default;
 	~CNetwork() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnv &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
 	INetServer *StartServer();
 	INetClient *StartClient();

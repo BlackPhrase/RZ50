@@ -159,13 +159,6 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	};
 	
-	// TODO: fix this crap below
-	
-	// Engine subsystems should be registered from the config file
-	// (EngineConfig.ini->[SubSystems] section or something)
-	// Different config file names can be used for various configurations
-	// (Example: dedicated server/headless mode)
-	
 	rz::TCoreInitParams InitParams{};
 	
 	strcpy(InitParams.sConfigName, "Default");
@@ -177,9 +170,16 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	};
 	
+	// TODO: fix this crap below
+	
 	rz::ISubSystem *pInput = LoadInputModule();
 	rz::ISubSystem *pFS = LoadFSModule();
 	rz::ISubSystem *pGraphics = LoadGraphicsModule();
+	
+	// Engine subsystems should be registered from the config file
+	// (EngineConfig.ini->[SubSystems] section or something)
+	// Different config file names can be used for various configurations
+	// (Example: dedicated server/headless mode)
 	
 	pCore->RegisterSubSystem(*pInput);
 	pCore->RegisterSubSystem(*pFS);

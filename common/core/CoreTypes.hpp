@@ -12,6 +12,12 @@
 #include <string>
 #include <chrono>
 
+#ifdef _WIN32
+	#include <windows.h>
+#else
+	// TODO
+#endif
+
 #ifdef _MSC_VER
 	#define EXPORT __declspec(dllexport)
 #elif __GNUC__
@@ -29,5 +35,11 @@ using uint = unsigned int;
 using byte = unsigned char;
 
 using string = std::string;
+
+#ifdef _WIN32
+	using tWinHandle = HWND; // TODO: fix
+#else
+	using tWinHandle = void *;
+#endif
 
 }; // namespace rz

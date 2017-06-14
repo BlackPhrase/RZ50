@@ -17,4 +17,14 @@ void CNetClient::Disconnect()
 {
 };
 
+bool CNetClient::SendData(byte *apData, int anSize)
+{
+	return false;
+};
+	
+bool CNetClient::IsConnected() const
+{
+	return false;
+};
+
 }; // namespace rz

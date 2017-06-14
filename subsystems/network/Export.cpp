@@ -3,7 +3,7 @@
 
 //DECLARE_SUBSYSTEM(CNetwork, GetNetworkSubSystem)
 
-C_EXPORT rz::ISubSystem *GetNetworkSubSystem()
+C_EXPORT rz::ISubSystem *GetNetwork()
 {
 	static rz::CNetwork Network;
 	return &Network;

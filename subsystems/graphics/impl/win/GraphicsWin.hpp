@@ -16,7 +16,7 @@ public:
 	bool Init(const TCoreEnv &aCoreEnv) override;
 	//void Shutdown() override;
 	
-	bool OpenWindow() override;
+	bool OpenWindow(int anWidth, int anHeight) override;
 	
 	void ProcessEvents() override;
 	

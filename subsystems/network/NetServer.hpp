@@ -19,6 +19,8 @@ public:
 	void DisconnectAll() override;
 private:
 	tRemoteClientVec mvClients;
+	
+	uint mnMaxClients{0};
 };
 
 }; // namespace rz

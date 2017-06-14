@@ -20,7 +20,7 @@ void CNetwork::Shutdown()
 
 void CNetwork::Update()
 {
-	mpCoreEnv->pUpdateLog->TraceUpdate("Network");
+	//mpCoreEnv->pUpdateLog->TraceUpdate("Network");
 	
 	if(mpNetServer)
 		mpNetServer->Update();

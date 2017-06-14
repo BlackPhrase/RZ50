@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/CoreTypes.hpp"
+
 namespace rz
 {
 
@@ -7,6 +9,9 @@ struct IRemoteClient;
 
 struct INetServer
 {
+	///
+	virtual bool SendData(byte *apData, int anSize) = 0;
+	
 	/// Tries to get a client by it's id
 	/// @return nullptr if not found
 	virtual IRemoteClient *GetClientById(int anID) = 0;
