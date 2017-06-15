@@ -14,7 +14,7 @@ CLogFile::CLogFile(const string &asName) : msName(asName + ".log"), mpHandle(std
 
 void CLogFile::Write(const string &asMsg, ...)
 {
-	assert(mpHandle);
+	//assert(mpHandle);
 	
 	char sMsg[256] = {};
 	va_list lstArgs;
@@ -29,7 +29,7 @@ void CLogFile::Write(const string &asMsg, ...)
 
 void CLogFile::Close()
 {
-	assert(mpHandle);
+	//assert(mpHandle);
 	
 	fputs("Closing the log file...", mpHandle);
 	fflush(mpHandle);
