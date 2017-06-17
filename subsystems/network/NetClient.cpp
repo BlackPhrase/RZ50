@@ -3,7 +3,7 @@
 namespace rz
 {
 
-bool CNetClient::Connect()
+bool CNetClient::Connect(const char *asHostName)
 {
 	return true;
 };

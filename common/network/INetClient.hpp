@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/CoreTypes.hpp"
+
 namespace rz
 {
 
@@ -13,6 +15,9 @@ struct INetClient
 	
 	/// Sends a disconnect message to server and closes the connection
 	virtual void Disconnect() = 0;
+	
+	/// Send the specified data to the server
+	virtual bool SendData(byte *apData, int anSize) = 0;
 	
 	/// @return true if currently connected to any server
 	virtual bool IsConnected() const = 0;

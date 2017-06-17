@@ -8,6 +8,9 @@ namespace rz
 class CNetClient final : public INetClient
 {
 public:
+	CNetClient() = default;
+	~CNetClient() = default;
+	
 	bool Connect(const char *asHostName) override; // server hostname/ip:port
 	bool Reconnect() override;
 	void Disconnect() override;

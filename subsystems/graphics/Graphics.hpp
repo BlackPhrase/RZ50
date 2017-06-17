@@ -14,7 +14,8 @@ struct IRender;
 class CGraphics final : public ISubSystem, IGraphics, IEventListener
 {
 public:
-	CGraphics(IGraphicsImpl *apImpl, IRender *apRender) : mpImpl(apImpl), mpRender(apRender){}
+	CGraphics(const TCoreEnv &aCoreEnv, IGraphicsImpl *apImpl, IRender *apRender)
+		: mCoreEnv(aCoreEnv), mpImpl(apImpl), mpRender(apRender){}
 	~CGraphics() = default;
 	
 	bool Init(const TCoreEnv &aCoreEnv) override;
@@ -29,7 +30,8 @@ private:
 	bool OpenWindow();
 	void ProcessEvents(); // process ui events (windows messages/x events)
 	
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const TCoreEnv &mCoreEnv;
+	
 	IGraphicsImpl *mpImpl{nullptr};
 	IRender *mpRender{nullptr};
 };

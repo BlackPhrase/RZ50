@@ -1,27 +1,34 @@
 #include "Sound.hpp"
+//#include "SoundChannel.hpp"
+
+namespace rz
+{
 
 bool CSound::Init(const TCoreEnv &aCoreEnv)
 {
-	mpCoreEnv = &aCoreEnv;
-	
-	mpCoreEnv->pLog->TraceInit("Sound");
+	mCoreEnv.pLog->TraceInit("Sound");
 	return true;
 };
 
 void CSound::Shutdown()
 {
-	mpCoreEnv->pLog->TraceShutdown("Sound");
+	mCoreEnv.pLog->TraceShutdown("Sound");
 };
 
 void CSound::Update()
 {
-	//mpCoreEnv->pUpdateLog->TraceUpdate("Sound");
+	//mCoreEnv.pUpdateLog->TraceUpdate("Sound");
 	
-	for(auto It : mvChannels)
-		It->Update();
+	//for(auto It : mvChannels)
+		//It->Update();
 };
 
+/*
 ISoundChannel *CSound::CreateChannel()
 {
-	return mvChannels.emplace_back();
+	//return mvChannels.emplace_back();
+	return nullptr;
 };
+*/
+
+}; // namespace rz

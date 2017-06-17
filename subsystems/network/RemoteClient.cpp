@@ -3,7 +3,7 @@
 namespace rz
 {
 
-void CRemoteClient::Reconnect()
+bool CRemoteClient::Reconnect()
 {
 };
 

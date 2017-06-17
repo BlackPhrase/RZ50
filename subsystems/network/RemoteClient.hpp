@@ -10,15 +10,18 @@ namespace rz
 class CRemoteClient final : public IRemoteClient
 {
 public:
-	void SetState(int anState) override {mnState = anState;}
-	int GetState() const override {return mnState;} // Will return it's current state (connecting/reconnecting/etc)
+	CRemoteClient() = default;
+	~CRemoteClient() = default;
 	
-	void Reconnect() override;
+	bool Reconnect() override;
 	void Disconnect() override;
 	
-	bool IsConnected() const override;
+	void SetState(State aeState) override {meState = aeState;}
+	State GetState() const override {return meState;} // Will return it's current state (connecting/reconnecting/etc)
+	
+	bool IsConnected() const override {return false;}
 private:
-	int mnState{0};
+	State meState{State::Disconnected};
 };
 
 }; // namespace rz

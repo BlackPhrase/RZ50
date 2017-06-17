@@ -1,9 +1,11 @@
+#include "core/CoreTypes.hpp"
+#include "core/TCoreEnv.hpp"
 #include "Sound.hpp"
 
 //DECLARE_SUBSYSTEM("Sound", GetSoundSubSystem)
 
-C_EXPORT rz::ISubSystem *GetSoundSubSystem()
+C_EXPORT rz::ISubSystem *GetSound(const rz::TCoreEnv &aCoreEnv)
 {
-	static CSound Sound;
+	static rz::CSound Sound(aCoreEnv);
 	return &Sound;
 };

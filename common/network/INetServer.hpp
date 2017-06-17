@@ -14,7 +14,7 @@ struct INetServer
 	
 	/// Tries to get a client by it's id
 	/// @return nullptr if not found
-	virtual IRemoteClient *GetClientById(int anID) = 0;
+	virtual IRemoteClient *GetClientById(int anID) const = 0;
 	
 	/// Causes any connected client to be reconnected
 	virtual void ReconnectAll() = 0; // BroadcastReconnect

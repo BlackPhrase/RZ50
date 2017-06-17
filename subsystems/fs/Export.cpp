@@ -3,8 +3,8 @@
 
 //DECLARE_SUBSYSTEM(CFileSystem, GetFileSystemSubSystem)
 
-C_EXPORT rz::ISubSystem *GetFS()
+C_EXPORT rz::ISubSystem *GetFS(const rz::TCoreEnv &aCoreEnv)
 {
-	static rz::CFileSystem FileSystem;
+	static rz::CFileSystem FileSystem(aCoreEnv);
 	return &FileSystem;
 };

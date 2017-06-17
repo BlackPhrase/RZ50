@@ -3,6 +3,8 @@
 #include "input/IInput.hpp"
 #include "fs/IFileSystem.hpp"
 #include "graphics/IGraphics.hpp"
+#include "network/INetwork.hpp"
+#include "sound/ISound.hpp"
 
 #include "shiftutil/SharedLib.hpp"
 
@@ -20,6 +22,14 @@
 
 #ifndef RZ_GRAPHICS_STATIC
 	shiftutil::CSharedLib gGraphicsLib;
+#endif
+
+#ifndef RZ_NETWORK_STATIC
+	shiftutil::CSharedLib gNetworkLib;
+#endif
+
+#ifndef RZ_SOUND_STATIC
+	shiftutil::CSharedLib gSoundLib;
 #endif
 
 // Indicates to hybrid graphics systems to prefer the discrete part by default
@@ -89,7 +99,7 @@ rz::ISubSystem *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
 	return fnGetInput(aCoreEnv);
 };
 
-rz::ISubSystem *LoadFSModule()
+rz::ISubSystem *LoadFSModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_FS_STATIC
 	rz::pfnGetFS fnGetFS{nullptr};
@@ -102,13 +112,13 @@ rz::ISubSystem *LoadFSModule()
 	if(!fnGetFS)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetFS();
+	extern rz::ISubSystem *fnGetFS(const rz::TCoreEnv &aCoreEnv);
 #endif
 
-	return fnGetFS();
+	return fnGetFS(aCoreEnv);
 };
 
-rz::ISubSystem *LoadGraphicsModule()
+rz::ISubSystem *LoadGraphicsModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_GRAPHICS_STATIC
 	rz::pfnGetGraphics fnGetGraphics{nullptr};
@@ -121,10 +131,48 @@ rz::ISubSystem *LoadGraphicsModule()
 	if(!fnGetGraphics)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetGraphics();
+	extern rz::ISubSystem *fnGetGraphics(const rz::TCoreEnv &aCoreEnv);
 #endif
 
-	return fnGetGraphics();
+	return fnGetGraphics(aCoreEnv);
+};
+
+rz::ISubSystem *LoadNetworkModule(const rz::TCoreEnv &aCoreEnv)
+{
+#ifndef RZ_NETWORK_STATIC
+	rz::pfnGetNetwork fnGetNetwork{nullptr};
+	
+	if(!gNetworkLib.Open("RZNetwork"))
+		return nullptr;
+	
+	fnGetNetwork = gNetworkLib.GetExportFunc<rz::pfnGetNetwork>("GetNetwork");
+	
+	if(!fnGetNetwork)
+		return nullptr;
+#else
+	extern rz::ISubSystem *fnGetNetwork(const rz::TCoreEnv &aCoreEnv);
+#endif
+
+	return fnGetNetwork(aCoreEnv);
+};
+
+rz::ISubSystem *LoadSoundModule(const rz::TCoreEnv &aCoreEnv)
+{
+#ifndef RZ_SOUND_STATIC
+	rz::pfnGetSound fnGetSound{nullptr};
+	
+	if(!gSoundLib.Open("RZSound"))
+		return nullptr;
+	
+	fnGetSound = gSoundLib.GetExportFunc<rz::pfnGetSound>("GetSound");
+	
+	if(!fnGetSound)
+		return nullptr;
+#else
+	extern rz::ISubSystem *fnGetSound(const rz::TCoreEnv &aCoreEnv);
+#endif
+
+	return fnGetSound(aCoreEnv);
 };
 
 bool ProcessEvents()
@@ -175,8 +223,10 @@ int main(int argc, char **argv)
 	const rz::TCoreEnv &CoreEnv = pCore->GetEnv();
 	
 	rz::ISubSystem *pInput = LoadInputModule(CoreEnv);
-	rz::ISubSystem *pFS = LoadFSModule();
-	rz::ISubSystem *pGraphics = LoadGraphicsModule();
+	rz::ISubSystem *pFS = LoadFSModule(CoreEnv);
+	rz::ISubSystem *pGraphics = LoadGraphicsModule(CoreEnv);
+	rz::ISubSystem *pNetwork = LoadNetworkModule(CoreEnv);
+	rz::ISubSystem *pSound = LoadSoundModule(CoreEnv);
 	
 	// Engine subsystems should be registered from the config file
 	// (EngineConfig.ini->[SubSystems] section or something)
@@ -186,6 +236,8 @@ int main(int argc, char **argv)
 	pCore->RegisterSubSystem(*pInput);
 	pCore->RegisterSubSystem(*pFS);
 	pCore->RegisterSubSystem(*pGraphics);
+	pCore->RegisterSubSystem(*pNetwork);
+	pCore->RegisterSubSystem(*pSound);
 	
 	while(!pCore->IsCloseRequested()) //WantQuit())
 	{

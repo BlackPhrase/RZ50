@@ -5,40 +5,41 @@
 namespace rz
 {
 
+CNetwork::CNetwork(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+CNetwork::~CNetwork() = default;
+
 bool CNetwork::Init(const TCoreEnv &aCoreEnv)
 {
-	mpCoreEnv = &aCoreEnv;
-	
-	mpCoreEnv->pLog->TraceInit("Network");
+	mCoreEnv.pLog->TraceInit("Network");
 	return true;
 };
 
 void CNetwork::Shutdown()
 {
-	mpCoreEnv->pLog->TraceShutdown("Network");
+	mCoreEnv.pLog->TraceShutdown("Network");
 };
 
 void CNetwork::Update()
 {
-	//mpCoreEnv->pUpdateLog->TraceUpdate("Network");
+	//mCoreEnv.pUpdateLog->TraceUpdate("Network");
 	
-	if(mpNetServer)
-		mpNetServer->Update();
+	//if(mpServer)
+		//mpServer->Update();
 	
-	if(mpNetClient)
-		mpNetClient->Update();
+	//if(mpClient)
+		//mpClient->Update();
 };
 
 INetServer *CNetwork::StartServer()
 {
-	mpNetServer = std::make_unique<CNetServer>();
-	return mpNetServer.get();
+	mpServer = std::make_unique<CNetServer>();
+	return mpServer.get();
 };
 
 INetClient *CNetwork::StartClient()
 {
-	mpNetClient = std::make_unique<CNetClient>();
-	return mpNetClient.get();
+	mpClient = std::make_unique<CNetClient>();
+	return mpClient.get();
 };
 
 }; // namespace rz

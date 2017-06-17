@@ -9,6 +9,9 @@ namespace rz
 class CFileSystem final : public ISubSystem, IFileSystem
 {
 public:
+	CFileSystem(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+	~CFileSystem() = default;
+	
 	bool Init(const TCoreEnv &aCoreEnv) override;
 	void Shutdown() override;
 	
@@ -19,7 +22,7 @@ public:
 	
 	const char *GetSubSystemName() const override {return "FileSystem";}
 private:
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz

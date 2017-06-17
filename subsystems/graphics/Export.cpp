@@ -10,7 +10,7 @@
 
 //DECLARE_SUBSYSTEM(CGraphics, GetGraphicsSubSystem)
 
-C_EXPORT rz::ISubSystem *GetGraphics()
+C_EXPORT rz::ISubSystem *GetGraphics(const rz::TCoreEnv &aCoreEnv)
 {
 #ifdef _WIN32
 	static rz::CGraphicsWin GraphicsImpl;
@@ -20,6 +20,6 @@ C_EXPORT rz::ISubSystem *GetGraphics()
 
 	static rz::CRenderGL RenderGL;
 	
-	static rz::CGraphics Graphics(&GraphicsImpl, &RenderGL);
+	static rz::CGraphics Graphics(aCoreEnv, &GraphicsImpl, &RenderGL);
 	return &Graphics;
 };

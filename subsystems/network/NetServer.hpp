@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "network/INetServer.hpp"
 
 namespace rz
@@ -11,6 +12,9 @@ using tRemoteClientVec = std::vector<IRemoteClient*>;
 class CNetServer final : public INetServer
 {
 public:
+	CNetServer() = default;
+	~CNetServer() = default;
+	
 	bool SendData(byte *apData, int anSize) override;
 	
 	IRemoteClient *GetClientById(int anID) const override;

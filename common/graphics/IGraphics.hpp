@@ -5,6 +5,7 @@
 namespace rz
 {
 
+struct TCoreEnv;
 struct ISubSystem;
 
 struct IGraphics
@@ -12,6 +13,6 @@ struct IGraphics
 	
 };
 
-using pfnGetGraphics = ISubSystem *(*)();
+using pfnGetGraphics = ISubSystem *(*)(const TCoreEnv &aCoreEnv);
 
 }; // namespace rz

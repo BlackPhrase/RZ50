@@ -3,6 +3,7 @@
 namespace rz
 {
 
+struct TCoreEnv;
 struct IFile;
 struct ISubSystem;
 
@@ -15,6 +16,6 @@ struct IFileSystem
 	virtual void CloseFile(const IFile &apFile) = 0;
 };
 
-using pfnGetFS = ISubSystem *(*)();
+using pfnGetFS = ISubSystem *(*)(const TCoreEnv &aCoreEnv);
 
 }; // namespace rz

@@ -3,37 +3,38 @@
 #include <vector>
 #include "core/ISubSystem.hpp"
 #include "sound/ISound.hpp"
+#include "core/TCoreEnv.hpp"
 
 namespace rz
 {
 
 using tSoundChannelVec = std::vector<ISoundChannel*>;
 
-class CSound : public ISubSystem, ISound
+class CSound final : public ISubSystem, ISound
 {
 public:
-	CSound() = default;
+	CSound(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CSound() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv);
-	void Shutdown();
+	bool Init(const TCoreEnv &aCoreEnv) override;
+	void Shutdown() override;
 	
-	void Update();
+	void Update() override;
 	
-	ISoundChannel *CreateChannel();
+	//ISoundChannel *CreateChannel();
 	
-	ISoundWorld *CreateWorld();
+	//ISoundWorld *CreateWorld();
 	
-	void PlaySound(const char *asSample);
+	//void PlaySound(const char *asSample);
 	
-	void SetMasterVolume(float afVolume);
-	float GetMasterVolume() const;
+	//void SetMasterVolume(float afVolume);
+	//float GetMasterVolume() const;
 	
-	const char *GetSubSystemName() const {return "Sound";}
+	const char *GetSubSystemName() const override {return "Sound";}
 private:
-	tSoundChannelVec mvChannels;
+	//tSoundChannelVec mvChannels;
 	
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz
