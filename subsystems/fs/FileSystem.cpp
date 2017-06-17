@@ -7,12 +7,12 @@ namespace rz
 bool CFileSystem::Init(const TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("FileSystem");
+	mCoreEnv.pLog->Info("FileSystem: Null");
 	return true;
 };
 
 void CFileSystem::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("FileSystem");
 };
 
 void CFileSystem::Update()

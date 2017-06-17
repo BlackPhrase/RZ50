@@ -5,6 +5,7 @@
 #include "graphics/IGraphics.hpp"
 #include "network/INetwork.hpp"
 #include "sound/ISound.hpp"
+#include "physics/IPhysics.hpp"
 
 #include "shiftutil/SharedLib.hpp"
 
@@ -30,6 +31,10 @@
 
 #ifndef RZ_SOUND_STATIC
 	shiftutil::CSharedLib gSoundLib;
+#endif
+
+#ifndef RZ_PHYSICS_STATIC
+	shiftutil::CSharedLib gPhysicsLib;
 #endif
 
 // Indicates to hybrid graphics systems to prefer the discrete part by default
@@ -175,6 +180,25 @@ rz::ISubSystem *LoadSoundModule(const rz::TCoreEnv &aCoreEnv)
 	return fnGetSound(aCoreEnv);
 };
 
+rz::ISubSystem *LoadPhysicsModule(const rz::TCoreEnv &aCoreEnv)
+{
+#ifndef RZ_PHYSICS_STATIC
+	rz::pfnGetPhysics fnGetPhysics{nullptr};
+	
+	if(!gPhysicsLib.Open("RZPhysics"))
+		return nullptr;
+	
+	fnGetPhysics = gPhysicsLib.GetExportFunc<rz::pfnGetPhysics>("GetPhysics");
+	
+	if(!fnGetPhysics)
+		return nullptr;
+#else
+	extern rz::ISubSystem *fnGetPhysics(const rz::TCoreEnv &aCoreEnv);
+#endif
+
+	return fnGetPhysics(aCoreEnv);
+};
+
 bool ProcessEvents()
 {
 #ifdef _WIN32
@@ -227,6 +251,7 @@ int main(int argc, char **argv)
 	rz::ISubSystem *pGraphics = LoadGraphicsModule(CoreEnv);
 	rz::ISubSystem *pNetwork = LoadNetworkModule(CoreEnv);
 	rz::ISubSystem *pSound = LoadSoundModule(CoreEnv);
+	rz::ISubSystem *pPhysics = LoadPhysicsModule(CoreEnv);
 	
 	// Engine subsystems should be registered from the config file
 	// (EngineConfig.ini->[SubSystems] section or something)
@@ -238,6 +263,7 @@ int main(int argc, char **argv)
 	pCore->RegisterSubSystem(*pGraphics);
 	pCore->RegisterSubSystem(*pNetwork);
 	pCore->RegisterSubSystem(*pSound);
+	pCore->RegisterSubSystem(*pPhysics);
 	
 	while(!pCore->IsCloseRequested()) //WantQuit())
 	{

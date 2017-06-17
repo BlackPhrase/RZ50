@@ -7,12 +7,12 @@ namespace rz
 bool CSound::Init(const TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("Sound");
+	mCoreEnv.pLog->Info("Sound: Null");
 	return true;
 };
 
 void CSound::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("Sound");
 };
 
 void CSound::Update()

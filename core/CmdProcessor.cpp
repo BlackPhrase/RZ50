@@ -7,14 +7,22 @@ namespace rz
 
 void CCmdProcessor::Insert(const char *asCmd)
 {
+	// TODO: lock or atomic
+	
+	mCmdBuffer.emplace_front(asCmd);
 };
 
 void CCmdProcessor::Append(const char *asCmd)
 {
+	// TODO: lock or atomic
+	
+	mCmdBuffer.emplace_back(asCmd);
 };
 
 void CCmdProcessor::ExecText(const char *asCmd)
 {
+	// TODO: lock or atomic?
+	
 	mCoreEnv.pLog->Debug("CCmdProcessor::ExecText(\"%s\")", asCmd);
 	
 	if(!strcmp(asCmd, "exit"))
@@ -27,6 +35,11 @@ void CCmdProcessor::ExecText(const char *asCmd)
 
 void CCmdProcessor::Exec()
 {
+	while(!mCmdBuffer.empty())
+	{
+		ExecText(mCmdBuffer.front().c_str());
+		mCmdBuffer.pop_front();
+	};
 };
 
 }; // namespace rz

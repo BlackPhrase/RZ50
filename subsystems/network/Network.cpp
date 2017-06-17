@@ -11,12 +11,12 @@ CNetwork::~CNetwork() = default;
 bool CNetwork::Init(const TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("Network");
+	mCoreEnv.pLog->Info("Network: Null");
 	return true;
 };
 
 void CNetwork::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("Network");
 };
 
 void CNetwork::Update()

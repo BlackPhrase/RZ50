@@ -66,7 +66,7 @@ private:
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
 	
-	float mfUpdateFreq{0.0f};
+	double mfUpdateFreq{0.0f};
 	
 	bool mbInitialized{false};
 	bool mbWantQuit{false};

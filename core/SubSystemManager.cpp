@@ -14,17 +14,6 @@ bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
 	
 	mpLog->TraceInit("SubSystemManager");
 	
-	for(auto It : mlstSubSystems)
-	{
-		//mpLog->TraceInit(It->GetSubSystemName());
-		
-		if(!It->Init(aCoreEnv))
-		{
-			mpLog->Error("Cannot init the engine because of the %s subsystem!", It->GetSubSystemName());
-			return false;
-		};
-	};
-	
 	return true;
 };
 
@@ -34,7 +23,7 @@ void CSubSystemManager::Shutdown()
 	
 	for(auto It : mlstSubSystems)
 	{
-		//mpLog->TraceShutdown(It->GetSubSystemName());
+		mpLog->TraceShutdown(It->GetSubSystemName());
 		It->Shutdown();
 	};
 };

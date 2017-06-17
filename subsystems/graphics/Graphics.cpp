@@ -8,6 +8,7 @@ namespace rz
 bool CGraphics::Init(const TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("Graphics");
+	mCoreEnv.pLog->Info("Graphics: Null");
 	
 	if(!OpenWindow())
 	{
@@ -26,8 +27,6 @@ bool CGraphics::Init(const TCoreEnv &aCoreEnv)
 
 void CGraphics::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("Graphics");
-	
 	mpRender->Shutdown();
 	
 	// BUG: this line is causing the window to freeze

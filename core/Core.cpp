@@ -73,6 +73,8 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	if(!mpPluginManager->LoadPlugin("TestPlugin"))
 		return false;
 	
+	mpLog->Info("Update freq is %d / TimeStep is %.16f", GetUpdateFreq(), GetTimeStep());
+	
 	mbInitialized = true;
 	return true;
 };
@@ -133,11 +135,13 @@ void CCore::Frame()
 	// Gather statistics
 	// End frame profiling
 	
+	//mpSubSystemManager->Update();
+	
 	while(fLag >= GetTimeStep())
 	{
-		mpLog->Debug("FrameTime: %fs (%fms / %dns)", FrameTime.count(), FrameTimeMs.count(), FrameTimeNs.count());
-	
-		mpSubSystemManager->Update();
+		mpLog->Debug("Lag: %.16fs / FrameTime: %fs (%fms / %dns)", fLag, FrameTime.count(), FrameTimeMs.count(), FrameTimeNs.count());
+
+		mpSubSystemManager->Update(); // FixedUpdate();
 		fLag -= GetTimeStep();
 	};
 	

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/ISubSystem.hpp"
+#include "core/TCoreEnv.hpp"
 #include "physics/IPhysics.hpp"
 
 namespace rz
@@ -9,7 +10,7 @@ namespace rz
 class CPhysics final : public ISubSystem, IPhysics
 {
 public:
-	CPhysics() = default;
+	CPhysics(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CPhysics() = default;
 	
 	bool Init(const TCoreEnv &aCoreEnv) override;
@@ -19,7 +20,7 @@ public:
 	
 	const char *GetSubSystemName() const override {return "Physics";}
 private:
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const TCoreEnv mCoreEnv;
 };
 
 }; // namespace rz

@@ -8,13 +8,12 @@ namespace rz
 bool CInput::Init(const TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("Input");
+	mCoreEnv.pLog->Info("Input: Null");
 	return true;
 };
 
 void CInput::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("Input");
-	
 	for(auto It : mlstDevices)
 	{
 		//It->Release();
@@ -25,6 +24,11 @@ void CInput::Shutdown()
 void CInput::Update()
 {
 	//mCoreEnv.pUpdateLog->TraceUpdate("Input");
+	
+	mCoreEnv.pCmdProcessor->Append("forward");
+	mCoreEnv.pCmdProcessor->Append("backward");
+	mCoreEnv.pCmdProcessor->Append("left");
+	mCoreEnv.pCmdProcessor->Append("right");
 	
 	for(auto It : mlstDevices)
 		It->Update();
