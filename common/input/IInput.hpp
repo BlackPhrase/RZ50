@@ -4,6 +4,7 @@ namespace rz
 {
 
 struct IInputDevice;
+struct TCoreEnv;
 
 struct IInput
 {
@@ -11,6 +12,6 @@ struct IInput
 	virtual void UnregisterDevice(IInputDevice &aDevice) = 0;
 };
 
-using pfnGetInput = ISubSystem *(*)();
+using pfnGetInput = ISubSystem *(*)(const TCoreEnv &aCoreEnv);
 
 }; // namespace rz

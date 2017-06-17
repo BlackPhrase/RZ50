@@ -39,6 +39,7 @@ private:
 #endif
 	
 	bool CreateContext();
+	void FreeContext();
 };
 
 }; // namespace rz

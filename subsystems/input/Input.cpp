@@ -7,15 +7,13 @@ namespace rz
 
 bool CInput::Init(const TCoreEnv &aCoreEnv)
 {
-	mpCoreEnv = &aCoreEnv;
-	
-	mpCoreEnv->pLog->TraceInit("Input");
+	mCoreEnv.pLog->TraceInit("Input");
 	return true;
 };
 
 void CInput::Shutdown()
 {
-	mpCoreEnv->pLog->TraceShutdown("Input");
+	mCoreEnv.pLog->TraceShutdown("Input");
 	
 	for(auto It : mlstDevices)
 	{
@@ -26,7 +24,7 @@ void CInput::Shutdown()
 
 void CInput::Update()
 {
-	//mpCoreEnv->pUpdateLog->TraceUpdate("Input");
+	//mCoreEnv.pUpdateLog->TraceUpdate("Input");
 	
 	for(auto It : mlstDevices)
 		It->Update();

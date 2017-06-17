@@ -13,7 +13,7 @@ using tInputDeviceList = std::list<IInputDevice*>;
 class CInput final : public ISubSystem, IInput
 {
 public:
-	CInput() = default;
+	CInput(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CInput() = default;
 	
 	bool Init(const TCoreEnv &aCoreEnv) override;
@@ -28,7 +28,7 @@ public:
 private:
 	tInputDeviceList mlstDevices;
 	
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz

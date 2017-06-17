@@ -20,8 +20,8 @@ bool CGraphics::Init(const TCoreEnv &aCoreEnv)
 	mpCoreEnv->pEventManager->AddListener(*this);
 	
 	// TODO: pass a window interface?
-	if(!mpRender->Init(0, 0, 1280, 600))
-		return false;
+	//if(!mpRender->Init(0, 0, 1280, 600))
+		//return false;
 	
 	return mpImpl->Init(aCoreEnv);
 };

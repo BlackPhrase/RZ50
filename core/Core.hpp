@@ -41,6 +41,8 @@ public:
 	void RequestClose();
 	bool IsCloseRequested() const override {return mbWantQuit;}
 	
+	const TCoreEnv &GetEnv() const override {return mEnv;}
+	
 	bool RegisterSubSystem(const ISubSystem &apSubSystem);
 	ISubSystem *GetSubSystem(const char *asName) const;
 	

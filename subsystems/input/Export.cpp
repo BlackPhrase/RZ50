@@ -3,8 +3,8 @@
 
 //DECLARE_SUBSYSTEM(CInput, GetInputSubSystem)
 
-C_EXPORT rz::ISubSystem *GetInput()
+C_EXPORT rz::ISubSystem *GetInput(const rz::TCoreEnv &aCoreEnv)
 {
-	static rz::CInput Input;
+	static rz::CInput Input(aCoreEnv);
 	return &Input;
 };

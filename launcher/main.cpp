@@ -70,7 +70,7 @@ bool UnloadEngineCore(rz::ICore *apCore)
 	return true;
 };
 
-rz::ISubSystem *LoadInputModule()
+rz::ISubSystem *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_INPUT_STATIC
 	rz::pfnGetInput fnGetInput{nullptr};
@@ -83,10 +83,10 @@ rz::ISubSystem *LoadInputModule()
 	if(!fnGetInput)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetInput();
+	extern rz::ISubSystem *fnGetInput(const rz::TCoreEnv &aCoreEnv);
 #endif
 
-	return fnGetInput();
+	return fnGetInput(aCoreEnv);
 };
 
 rz::ISubSystem *LoadFSModule()
@@ -172,7 +172,9 @@ int main(int argc, char **argv)
 	
 	// TODO: fix this crap below
 	
-	rz::ISubSystem *pInput = LoadInputModule();
+	const rz::TCoreEnv &CoreEnv = pCore->GetEnv();
+	
+	rz::ISubSystem *pInput = LoadInputModule(CoreEnv);
 	rz::ISubSystem *pFS = LoadFSModule();
 	rz::ISubSystem *pGraphics = LoadGraphicsModule();
 	

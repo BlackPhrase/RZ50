@@ -4,6 +4,7 @@ namespace rz
 {
 
 struct ISubSystem;
+struct TCoreEnv;
 
 /// Core initialization parameters
 struct TCoreInitParams
@@ -39,7 +40,7 @@ struct ICore
 	//virtual IFileSystem *GetFileSystem() const = 0;
 	
 	///
-	//virtual void GetEnv(TCoreEnv &aCoreEnv) = 0;
+	virtual const TCoreEnv &GetEnv() const = 0;
 	
 	virtual bool RegisterSubSystem(const ISubSystem &apSubSystem) = 0;
 	virtual ISubSystem *GetSubSystem(const char *asName) const = 0;

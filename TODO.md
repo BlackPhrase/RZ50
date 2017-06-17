@@ -1,0 +1,1 @@
+- [ ] Add contracts (pre/post conditions) to subsystems/plugins interfaces and events
