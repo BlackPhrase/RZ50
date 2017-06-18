@@ -8,6 +8,13 @@
 #include "Log.hpp"
 
 #include "EchoEventListener.hpp"
+#include "MouseEventListener.hpp"
+
+#ifdef _WIN32
+	#include "impl/win/TextConsoleWin.hpp"
+#else
+	// TODO
+#endif
 
 // TODO: rewrite subsystems to use the core environment in their export funcs
 // (pfnGetSubSystem(const TCoreEnv &aCoreEnv) <- pass the env here)
@@ -25,7 +32,16 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	if(mbInitialized)
 		return true;
-	
+
+#ifdef _WIN32
+	mpTextConsole = std::make_unique<CTextConsoleWin>();
+#else
+	// TODO
+#endif
+
+	if(!mpTextConsole->Init())
+		return false;
+
 	// Max updates is 30Hz for now
 	SetUpdateFreq(30.0f);
 	
@@ -51,6 +67,9 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix lifetime managing
 	//mpEventManager->AddListener(EchoEventListener);
+	
+	static CMouseEventListener MouseEventListener(mEnv); // TODO: fix lifetime managing
+	mpEventManager->AddListener(MouseEventListener);
 	
 	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv, this);
 	
@@ -89,6 +108,8 @@ void CCore::Shutdown()
 	
 	mpLog->TraceShutdown("Core");
 	
+	mpTextConsole->Shutdown();
+	
 	PrintStats();
 };
 
@@ -98,6 +119,9 @@ void CCore::Frame()
 	
 	if(!mbInitialized || mbWantQuit) // NOTE: we can check for current state
 		return;
+	
+	// Begin frame profiling
+	// Start timing
 	
 	TFrameBeginEvent FrameBeginEvent;
 	mpEventManager->BroadcastEvent(FrameBeginEvent); // NOTE: potential timing issues?
@@ -112,7 +136,6 @@ void CCore::Frame()
 	
 	auto FrameTime = std::chrono::duration_cast<std::chrono::duration<double>>(CurrentTime - OldTime);
 	auto FrameTimeMs = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(CurrentTime - OldTime);
-	auto FrameTimeNs = std::chrono::duration_cast<std::chrono::nanoseconds>(CurrentTime - OldTime);
 	
 	OldTime = CurrentTime;
 	
@@ -125,31 +148,29 @@ void CCore::Frame()
 	
 	static float fFPS = 0.0f;
 	
-	// Begin frame profiling
-	// Start timing
+	//mpSubSystemManager->Update();
 	
-	mpCmdProcessor->Exec();
+	// NOTE: when the "exit" command received this loop will still be processing updates
+	// So we check for a pending quit flag here to prevent that
+	while(fLag >= GetTimeStep() && !mbWantQuit)
+	{
+		mpLog->Debug("Lag: %fs / FrameTime: %fs (%fms)", fLag, FrameTime.count(), FrameTimeMs.count());
+
+		mpCmdProcessor->Exec();
+
+		mpEventManager->DispatchEvents(); //Update();
+
+		mpSubSystemManager->Update(); // FixedUpdate();
+		
+		fLag -= GetTimeStep();
+	};
 	
-	mpEventManager->DispatchEvents(); //Update();
+	//mpSubSystemManager->PostUpdate();
 	
 	// Gather statistics
 	// End frame profiling
 	
-	//mpSubSystemManager->Update();
-	
-	while(fLag >= GetTimeStep())
-	{
-		mpLog->Debug("Lag: %.16fs / FrameTime: %fs (%fms / %dns)", fLag, FrameTime.count(), FrameTimeMs.count(), FrameTimeNs.count());
-
-		mpSubSystemManager->Update(); // FixedUpdate();
-		fLag -= GetTimeStep();
-	};
-	
-	//
-	
-	// Accumulated count of frametimes
-	static double FrameTimeAcc{0.0f};
-	FrameTimeAcc += FrameTime.count();
+	mfFrameTimeAcc += FrameTime.count();
 	
 	// TODO: frametime -> statistics
 	
@@ -162,9 +183,7 @@ void CCore::Frame()
 	TFrameEndEvent FrameEndEvent;
 	mpEventManager->BroadcastEvent(FrameEndEvent); // NOTE: potential timing issues?
 	
-	nFrame++;
-	
-	mStats.fAvgFrameTime = FrameTimeAcc / nFrame;
+	mStats.nTotalFrames++;
 };
 
 void CCore::RequestClose()
@@ -184,14 +203,18 @@ ISubSystem *CCore::GetSubSystem(const char *asName) const
 
 void CCore::PrintStats()
 {
+	mStats.fAvgFrameTime = mfFrameTimeAcc / mStats.nTotalFrames;
+	
 	// Print final stats
 	mpLog->Info("Statistics:\n"
+				 "\t- Total Frames: %d\n"
 				 "\t- Min. FPS: %.2f\n"
 				 "\t- Max. FPS: %.2f\n"
 				 "\t- Avg. FPS: %.2f\n"
-				 "\t- Avg. FrameTime %.2f",
+				 "\t- Avg. FrameTime %f",
 				 // TODO: UPS per core
 				 // TODO: Cores?
+				 mStats.nTotalFrames,
 				 mStats.fMinFPS,
 				 mStats.fMaxFPS,
 				 mStats.fAvgFPS,

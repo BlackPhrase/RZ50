@@ -20,7 +20,7 @@ public:
 	
 	const char *GetSubSystemName() const override {return "Physics";}
 private:
-	const TCoreEnv mCoreEnv;
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz

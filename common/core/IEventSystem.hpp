@@ -55,7 +55,7 @@ struct TFrameEndEvent : TEvent
 
 struct TMouseMoveEvent : TEvent
 {
-	TMouseMove()
+	TMouseMoveEvent(int anDeltaX, int anDeltaY) : nDeltaX(anDeltaX), nDeltaY(anDeltaY)
 	{
 		sName = "MouseMove";
 		eType = TEvent::Type::MouseMove;

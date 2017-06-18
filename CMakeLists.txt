@@ -3,8 +3,8 @@ project(RZ-50)
 
 # Setup version
 set(RZ_VERSION_MAJOR 0)
-set(RZ_VERSION_MINOR 2)
-set(RZ_VERSION_PATCH 5)
+set(RZ_VERSION_MINOR 3)
+set(RZ_VERSION_PATCH 0)
 
 # Detect the build type
 if(NOT CMAKE_BUILD_TYPE)

@@ -1,3 +1,4 @@
+#include "core/CoreTypes.hpp"
 #include "TextConsoleWin.hpp"
 
 namespace rz
@@ -5,8 +6,10 @@ namespace rz
 
 bool CTextConsoleWin::Init()
 {
-	if(!AllocConsole())
-		return false;
+	//if(!AllocConsole())
+		//return false;
+	
+	//SetStdHandle();
 	
 	if(!SetConsoleTitle("RZ Remote Console"))
 		return false;
@@ -19,8 +22,12 @@ bool CTextConsoleWin::Init()
 	if(!SetConsoleActiveScreenBuffer(mhScreenBuffer))
 		return false;
 	
-	if(!SetConsoleMode(mhScreenBuffer, ENABLE_INSERT_MODE | ENABLE_EXTENDED_FLAGS))
-		return false;
+	//FILE *stream{nullptr};
+	//errno_t err = freopen_s(&stream, "CONOUT$", "w+", stdout);
+	
+	//freopen("CONIN$", "r", stdin);
+	//freopen("CONOUT$", "w", stdout);
+	//freopen("CONOUT$", "w", stderr);
 	
 	return true;
 };

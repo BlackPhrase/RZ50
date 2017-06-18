@@ -17,6 +17,8 @@ void CSound::Shutdown()
 
 void CSound::Update()
 {
+	mCoreEnv.pCmdProcessor->Append("play test");
+	
 	//mCoreEnv.pUpdateLog->TraceUpdate("Sound");
 	
 	//for(auto It : mvChannels)

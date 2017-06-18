@@ -1,3 +1,4 @@
+#include <conio.h>
 #include "core/CoreTypes.hpp"
 #include "core/ICore.hpp"
 #include "input/IInput.hpp"
@@ -219,8 +220,17 @@ bool ProcessEvents()
 	return true;
 };
 
+static void atexit_handler()
+{
+	printf("Press any key to continue...\n");
+	getch();
+};
+
 int main(int argc, char **argv)
 {
+	if(atexit(atexit_handler) != 0)
+		return EXIT_FAILURE;
+	
 	rz::ICore *pCore = LoadEngineCore();
 	
 	// TODO: error handling (open an error message box?)

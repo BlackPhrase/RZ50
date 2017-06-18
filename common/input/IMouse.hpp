@@ -16,7 +16,7 @@ struct IMouse : public IInputDevice
 	
 	virtual bool IsButtonPressed(Button aeButton) const = 0;
 	
-	const char *GetDeviceName() const {return "Mouse";}
+	const char *GetName() const override final {return "Mouse";}
 };
 
 }; // namespace rz

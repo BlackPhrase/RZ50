@@ -1,9 +1,18 @@
 #include <cstring>
 #include "CmdProcessor.hpp"
 #include "Core.hpp"
+#include "ICmdHandler.hpp"
+#include "DefaultCmdHandler.hpp"
 
 namespace rz
 {
+
+void CCmdProcessor::Init()
+{
+	ICmdHandler *pDefaultCmdHandler = new CDefaultCmdHandler(mCoreEnv);
+	//pDefaultCmdHandler->AddCommand();
+	mlstHandlers.push_back(pDefaultCmdHandler);
+};
 
 void CCmdProcessor::Insert(const char *asCmd)
 {
@@ -19,22 +28,27 @@ void CCmdProcessor::Append(const char *asCmd)
 	mCmdBuffer.emplace_back(asCmd);
 };
 
-void CCmdProcessor::ExecText(const char *asCmd)
+void CCmdProcessor::ExecText(const char *asText)
 {
 	// TODO: lock or atomic?
 	
-	mCoreEnv.pLog->Debug("CCmdProcessor::ExecText(\"%s\")", asCmd);
+	mCoreEnv.pLog->Debug("CCmdProcessor::ExecText(\"%s\")", asText);
 	
-	if(!strcmp(asCmd, "exit"))
+	if(!strcmp(asText, "exit"))
 		mpCore->RequestClose(); // hacky
 	
 	// TODO: command handlers
-	//CCmdArgs Cmd(asCmd);
+	//CCmdArgs Cmd(asText);
 	//mpCmdHandler->Exec(Cmd);
+	
+	for(auto It : mlstHandlers)
+		It->HandleCmd(asText);
 };
 
 void CCmdProcessor::Exec()
 {
+	// TODO: lock or atomic?
+	
 	while(!mCmdBuffer.empty())
 	{
 		ExecText(mCmdBuffer.front().c_str());

@@ -11,6 +11,7 @@ class CSubSystemManager;
 class CPluginManager;
 class CEventManager;
 class CCmdProcessor;
+struct ITextConsole;
 class CCmdLine;
 class CMemory;
 class CLog;
@@ -22,6 +23,8 @@ struct TEngineStatistics
 	
 	float fAvgFPS{0.0f};
 	float fAvgFrameTime{0.0f};
+	
+	int nTotalFrames{0};
 	
 	int nUPS{0};
 	int nFPS{0};
@@ -62,11 +65,15 @@ private:
 	std::unique_ptr<CPluginManager> mpPluginManager;
 	std::unique_ptr<CEventManager> mpEventManager;
 	std::unique_ptr<CCmdProcessor> mpCmdProcessor;
+	std::unique_ptr<ITextConsole> mpTextConsole;
 	std::unique_ptr<CCmdLine> mpCmdLine;
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
 	
 	double mfUpdateFreq{0.0f};
+	
+	// Accumulated count of frametimes
+	double mfFrameTimeAcc{0.0f};
 	
 	bool mbInitialized{false};
 	bool mbWantQuit{false};

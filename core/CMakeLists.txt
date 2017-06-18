@@ -12,6 +12,8 @@ file(GLOB PROJECT_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
+add_subdirectory(impl)
+
 # Build as shared lib
 add_library(${PROJECT_TARGET_CORE} MODULE ${PROJECT_SOURCES})
 
