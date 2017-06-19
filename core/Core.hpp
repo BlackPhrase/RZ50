@@ -13,6 +13,7 @@ class CEventManager;
 class CCmdProcessor;
 struct ITextConsole;
 class CCmdLine;
+class CConfig;
 class CMemory;
 class CLog;
 
@@ -67,6 +68,7 @@ private:
 	std::unique_ptr<CCmdProcessor> mpCmdProcessor;
 	std::unique_ptr<ITextConsole> mpTextConsole;
 	std::unique_ptr<CCmdLine> mpCmdLine;
+	std::unique_ptr<CConfig> mpConfig;
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
 	

@@ -4,6 +4,7 @@
 #include "EventManager.hpp"
 #include "CmdProcessor.hpp"
 #include "CmdLine.hpp"
+#include "Config.hpp"
 #include "Memory.hpp"
 #include "Log.hpp"
 
@@ -49,6 +50,8 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpMemory = std::make_unique<CMemory>();
 	
+	mpConfig = std::make_unique<CConfig>();
+	
 	// TODO: memory init?
 	
 	mpLog = std::make_unique<CLog>();
@@ -58,6 +61,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpLog->TraceInit("Core");
 	
+	mEnv.pConfig = mpConfig.get();
 	mEnv.pMemory = mpMemory.get();
 	mEnv.pLog = mpLog.get();
 	
@@ -92,7 +96,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	if(!mpPluginManager->LoadPlugin("TestPlugin"))
 		return false;
 	
-	mpLog->Info("Update freq is %d / TimeStep is %.16f", GetUpdateFreq(), GetTimeStep());
+	mpLog->Info("Update freq is %f / TimeStep is %.16f", GetUpdateFreq(), GetTimeStep());
 	
 	mbInitialized = true;
 	return true;

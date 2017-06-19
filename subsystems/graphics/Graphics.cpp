@@ -54,7 +54,7 @@ void CGraphics::OnEvent(const TEvent &aEvent)
 bool CGraphics::OpenWindow()
 {
 	mCoreEnv.pLog->Debug("Opening a rendering window...");
-	return mpImpl->OpenWindow(1280, 600);
+	return mpImpl->OpenWindow(mCoreEnv.pConfig->GetInt("Graphics:WindowWidth", 1280), mCoreEnv.pConfig->GetInt("Graphics:WindowHeight", 600));
 };
 
 void CGraphics::ProcessEvents()

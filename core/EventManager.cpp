@@ -73,4 +73,24 @@ void CEventManager::RemoveListener(const IEventListener &aListener)
 			mlstListeners.remove(It);
 };
 
+/*
+bool CEventManager::Poll(TEvent &aEvent)
+{
+	auto It = mEventQueue.begin();
+	
+	if(It)
+	{
+		aEvent = *It;
+		return true;
+	};
+	
+	return false;
+};
+
+bool CEventManager::Get(TEvent &aEvent)
+{
+	return false;
+};
+*/
+
 }; // namespace rz

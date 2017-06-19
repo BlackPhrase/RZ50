@@ -18,10 +18,12 @@ bool CInput::Init(const TCoreEnv &aCoreEnv)
 
 void CInput::Shutdown()
 {
-	for(auto It : mlstDevices)
+	auto It = mlstDevices.begin();
+	while(It != mlstDevices.end())
 	{
 		//It->Release(); // delete itself
-		mlstDevices.remove(It);
+		mlstDevices.erase(It);
+		++It;
 	};
 };
 
@@ -29,10 +31,8 @@ void CInput::Update()
 {
 	//mCoreEnv.pUpdateLog->TraceUpdate("Input");
 	
-	mCoreEnv.pCmdProcessor->Append("forward");
-	mCoreEnv.pCmdProcessor->Append("backward");
-	mCoreEnv.pCmdProcessor->Append("left");
-	mCoreEnv.pCmdProcessor->Append("right");
+	mCoreEnv.pCmdProcessor->Append("backward;left;right");
+	mCoreEnv.pCmdProcessor->Insert("forward");
 	
 	for(auto It : mlstDevices)
 		It->Update();

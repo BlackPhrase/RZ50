@@ -10,8 +10,10 @@ namespace rz
 
 using tEventListenerList = std::list<IEventListener*>;
 
+//tEventQue
 using tEventDeque = std::deque<TEvent*>;
 
+//CEventHandler
 class CEventManager final : public IEventManager
 {
 public:
@@ -28,6 +30,9 @@ public:
 	void AddListener(const IEventListener &aListener) override;
 	void RemoveListener(const IEventListener &aListener) override;
 private:
+	//bool Poll(TEvent &aEvent);
+	//bool Get(TEvent &aEvent);
+	
 	tEventListenerList mlstListeners;
 	tEventDeque mEventQue;
 	

@@ -2,6 +2,7 @@
 
 #include "ICmdProcessor.hpp"
 #include "ILog.hpp"
+#include "IConfig.hpp"
 #include "IEventSystem.hpp"
 #include "IScheduler.hpp"
 
@@ -10,6 +11,7 @@ namespace rz
 
 //struct ICmdProcessor;
 //struct ILog;
+//struct IConfig;
 struct IMemory;
 struct IPluginManager;
 struct IProfiler;
@@ -23,6 +25,9 @@ struct TCoreEnv
 	
 	/// Direct logging functionality
 	ILog *pLog{nullptr}; // ref/GetLog()
+	
+	/// Configuration settings
+	IConfig *pConfig{nullptr}; // ref/GetConfig()
 	
 	/// Event manager
 	IEventManager *pEventManager{nullptr}; // ref/GetEventManager()
