@@ -3,10 +3,10 @@
 #include "core/ISubSystem.hpp"
 #include "game/IGame.hpp"
 
-class CGame final : public ISubSystem, IGame
+class CGame final : public rz::ISubSystem, rz::IGame
 {
 public:
-	CGame() = default;
+	CGame(const rz::TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CGame() = default;
 	
 	bool Init(const TCoreEnv &aCoreEnv) override;
@@ -16,5 +16,5 @@ public:
 	
 	const char *GetSubSystemName() const override {return "Game";}
 private:
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const rz::TCoreEnv &mpCoreEnv;
 };

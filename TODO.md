@@ -1,1 +1,12 @@
 - [ ] Add contracts (pre/post conditions) to subsystems/plugins interfaces and events
+- [ ] Finish the command line args parser
+- [ ] Add (console) command args class
+- [ ] Implement impl-specific subdirectory support for each subsystem
+- [ ] Select the right license
+- [ ] License headers
+- [ ] Dynamic(/console) variables support
+- [ ] Finish the text (dev/debug) console support
+- [ ] Load config from file/save it to file (or somewhere else?)
+- [ ] Read and load subsystem list from config instead of launcher
+- [ ] Multithreading support
+- [ ] Move renderer code to its own library?
