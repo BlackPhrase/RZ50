@@ -20,6 +20,8 @@ public:
 	State GetState() const override {return meState;} // Will return it's current state (connecting/reconnecting/etc)
 	
 	bool IsConnected() const override {return false;}
+	
+	//const INetAdr &GetNetAdr() const;
 private:
 	State meState{State::Disconnected};
 };

@@ -16,6 +16,8 @@ public:
 	~CNetServer() = default;
 	
 	bool SendData(byte *apData, int anSize) override;
+	//bool SendData(IRemoteClient *apClient, byte *apData, int anSize) override;
+	//bool SendData(INetAdr *apAdr, byte *apData, int anSize) override;
 	
 	IRemoteClient *GetClientById(int anID) const override;
 	

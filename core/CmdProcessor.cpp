@@ -42,7 +42,10 @@ void CCmdProcessor::ExecText(const char *asText)
 	//mpCmdHandler->Exec(Cmd);
 	
 	for(auto It : mlstHandlers)
-		It->HandleCmd(asText);
+		if(It->HandleCmd(asText))
+			return;
+	
+	//mCoreEnv.pLog->Error("No valid handler for command \"%s\"", sCmdName.c_str());
 };
 
 void CCmdProcessor::Exec()

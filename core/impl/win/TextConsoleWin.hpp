@@ -3,6 +3,12 @@
 #include <windows.h>
 #include "TextConsole.hpp"
 
+// TODO:
+//	* Input support
+//	* Input to command text
+//	* Colored output support
+//	* Control handler to properly shutdown the engine by closing the console window
+
 namespace rz
 {
 

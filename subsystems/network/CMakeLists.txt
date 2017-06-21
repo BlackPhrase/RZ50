@@ -8,7 +8,7 @@ include_directories(
 )
 
 # Generate a list of project sources
-file(GLOB_RECURSE PROJECT_SOURCES
+file(GLOB PROJECT_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 

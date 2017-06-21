@@ -11,6 +11,7 @@
 
 #include <string>
 #include <chrono>
+//#include <experimental/filesystem> // <filesystem>
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -19,9 +20,9 @@
 #endif
 
 #ifdef _MSC_VER
-	#define EXPORT __declspec(dllexport)
+	#define EXPORT [[dllexport]]
 #elif __GNUC__
-	#define EXPORT __attribute__((visibility("default")))
+	#define EXPORT [[visibility("default")]]
 #else
 	#error "Unsupported compiler!"
 #endif
@@ -35,6 +36,8 @@ using uint = unsigned int;
 using byte = unsigned char;
 
 using string = std::string;
+
+//namespace fs = std::experimental::filesystem; //std::filesystem;
 
 #ifdef _WIN32
 	using tWinHandle = HWND; // TODO: fix

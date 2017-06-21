@@ -26,7 +26,7 @@ public:
 	CDefaultCmdHandler(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CDefaultCmdHandler() = default;
 	
-	void HandleCmd(const char *asCmd) override;
+	bool HandleCmd(const char *asCmd) override;
 	
 	void AddCommand(const char *asName, pfnCmdCallback afnCallback, const char *asDesc) override;
 private:

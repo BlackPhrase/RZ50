@@ -43,8 +43,6 @@ struct TCoreEnv
 	
 	/// Scheduler
 	IScheduler *pScheduler{nullptr}; // ref/GetScheduler
-	
-	void (*RequestClose)(){false}; // temp
 };
 
 }; // namespace rz

@@ -27,7 +27,7 @@ public:
 	void TraceInit(const char *asMsg) override;
 	void TraceShutdown(const char *asMsg) override;
 private:
-	//ILogDirector *mpDirector{nullptr}; // to be able to change the receiever
+	//ILogWriter *mpWriter{nullptr}; // to be able to change the output target (file or something else)
 	std::unique_ptr<CLogFile> mpFile;
 };
 

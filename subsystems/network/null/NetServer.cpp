@@ -16,15 +16,19 @@ IRemoteClient *CNetServer::GetClientById(int anID) const
 		return nullptr;
 	};
 	
-	return nullptr;
+	return mvClients[anID - 1]; // Hmm...
 };
 
 void CNetServer::ReconnectAll()
 {
+	for(auto It : mvClients)
+		It->Reconnect();
 };
 
 void CNetServer::DisconnectAll()
 {
+	for(auto It : mvClients)
+		It->Disconnect();
 };
 
 }; // namespace rz

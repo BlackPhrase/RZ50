@@ -4,7 +4,7 @@
 namespace rz
 {
 
-void CDefaultCmdHandler::HandleCmd(const char *asText)
+bool CDefaultCmdHandler::HandleCmd(const char *asText)
 {
 	string sCmdText(asText);
 	auto nPos = sCmdText.find_first_of(" ");
@@ -14,10 +14,10 @@ void CDefaultCmdHandler::HandleCmd(const char *asText)
 		if(!strcmp(It->sName, sCmdName.c_str()))
 		{
 			It->fnCallback();
-			return;
+			return true;
 		};
 	
-	//mCoreEnv.pLog->Error("No valid handler for command \"%s\"", sCmdName.c_str());
+	return false;
 };
 
 void CDefaultCmdHandler::AddCommand(const char *asName, pfnCmdCallback afnCallback, const char *asDesc)

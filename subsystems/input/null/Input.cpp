@@ -18,12 +18,13 @@ bool CInput::Init(const TCoreEnv &aCoreEnv)
 
 void CInput::Shutdown()
 {
+	// NOTE: move to destructor?
+	
 	auto It = mlstDevices.begin();
 	while(It != mlstDevices.end())
 	{
 		//It->Release(); // delete itself
-		mlstDevices.erase(It);
-		++It;
+		It = mlstDevices.erase(It);
 	};
 };
 
