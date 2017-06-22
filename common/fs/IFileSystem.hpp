@@ -3,9 +3,9 @@
 namespace rz
 {
 
+struct ISubSystem;
 struct TCoreEnv;
 struct IFile;
-struct ISubSystem;
 
 struct IFileSystem
 {

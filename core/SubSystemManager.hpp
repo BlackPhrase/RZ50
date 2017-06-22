@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include "core/ISubSystemManager.hpp"
 
 namespace rz
 {
@@ -11,7 +12,7 @@ struct TCoreEnv;
 struct ISubSystem;
 using tSubSystemList = std::list<ISubSystem*>;
 
-class CSubSystemManager
+class CSubSystemManager : public ISubSystemManager
 {
 public:
 	CSubSystemManager() = default;

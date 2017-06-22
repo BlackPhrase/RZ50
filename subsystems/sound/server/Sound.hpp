@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "core/ISubSystem.hpp"
 #include "sound/ISound.hpp"
 #include "core/TCoreEnv.hpp"
 
@@ -9,7 +10,7 @@ namespace rz
 
 using tSoundChannelVec = std::vector<ISoundChannel*>;
 
-class CSound final : public ISound
+class CSound final : public ISubSystem, ISound
 {
 public:
 	CSound(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}

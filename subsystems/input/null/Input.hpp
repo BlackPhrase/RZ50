@@ -1,7 +1,6 @@
 #pragma once
 
 #include <list>
-#include "core/ISubSystem.hpp"
 #include "input/IInput.hpp"
 
 namespace rz
@@ -10,7 +9,7 @@ namespace rz
 struct IInputDevice;
 using tInputDeviceList = std::list<IInputDevice*>;
 
-class CInput final : public ISubSystem, IInput
+class CInput final : public IInput
 {
 public:
 	CInput(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}

@@ -41,7 +41,7 @@ public:
 	bool Init(const TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
-	bool LoadPlugin(const char *asName);
+	bool LoadPlugin(const char *asName) const override;
 	void UnloadAllPlugins();
 	
 	void RegisterSubSystem(const ISubSystem &aSubSystem);

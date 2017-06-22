@@ -3,6 +3,7 @@
 namespace rz
 {
 
+struct ISubSystem;
 struct TCoreEnv;
 struct INetServer;
 struct INetClient;

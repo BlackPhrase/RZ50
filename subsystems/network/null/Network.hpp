@@ -1,14 +1,13 @@
 #pragma once
 
 #include <memory>
-#include "core/ISubSystem.hpp"
 #include "core/TCoreEnv.hpp"
 #include "network/INetwork.hpp"
 
 namespace rz
 {
 
-class CNetwork final : public ISubSystem, INetwork
+class CNetwork final : public INetwork
 {
 public:
 	CNetwork(const TCoreEnv &aCoreEnv);

@@ -4,21 +4,6 @@
 namespace rz
 {
 
-bool CFileSystem::Init(const TCoreEnv &aCoreEnv)
-{
-	mCoreEnv.pLog->TraceInit("FileSystem");
-	mCoreEnv.pLog->Info("FileSystem: Null");
-	return true;
-};
-
-void CFileSystem::Shutdown()
-{
-};
-
-void CFileSystem::Update()
-{
-};
-
 IFile *CFileSystem::OpenFile(const char *asName, const char *asMode) const
 {
 	//mCoreEnv.pLog->Write("Opening the file %s (Mode: %s)", asName, asMode);

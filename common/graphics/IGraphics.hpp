@@ -5,8 +5,8 @@
 namespace rz
 {
 
-struct TCoreEnv;
 struct ISubSystem;
+struct TCoreEnv;
 
 struct IGraphics
 {

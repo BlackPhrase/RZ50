@@ -1,6 +1,5 @@
 #pragma once
 
-#include "core/ISubSystem.hpp"
 #include "graphics/IGraphics.hpp"
 #include "core/TCoreEnv.hpp"
 #include "core/IEventSystem.hpp"
@@ -11,7 +10,7 @@ namespace rz
 struct IGraphicsImpl;
 struct IRender;
 
-class CGraphics final : public ISubSystem, IGraphics, IEventListener
+class CGraphics final : public IGraphics, IEventListener
 {
 public:
 	CGraphics(const TCoreEnv &aCoreEnv, IGraphicsImpl *apImpl, IRender *apRender)
