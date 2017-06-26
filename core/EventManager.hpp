@@ -20,6 +20,8 @@ public:
 	CEventManager(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CEventManager() = default;
 	
+	void Init(TCoreEnv &aCoreEnv);
+	
 	void Update(); // TODO: updateable component interface
 	
 	void BroadcastEvent(const TEvent &aEvent) override;

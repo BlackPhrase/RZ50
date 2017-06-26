@@ -29,7 +29,7 @@ CCore::~CCore() = default;
 
 bool CCore::Init(const TCoreInitParams &aInitParams)
 {
-	// TODO: remove local usage of core env
+	// TODO: remove local usage of core env?
 	
 	if(mbInitialized)
 		return true;
@@ -42,32 +42,26 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 
 	if(!mpTextConsole->Init())
 		return false;
-
-	// Max updates is 30Hz for now
-	SetUpdateFreq(30.0f);
 	
-	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine ? aInitParams.sCmdLine : "");
-	
+	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine);
 	mpMemory = std::make_unique<CMemory>();
-	
 	mpConfig = std::make_unique<CConfig>();
-	
-	// TODO: memory init?
-	
 	mpLog = std::make_unique<CLog>();
 	
-	if(!mpLog->Init())
+	if(!mpLog->Init(mEnv))
 		return false;
 	
 	mpLog->TraceInit("Core");
 	
-	mEnv.pConfig = mpConfig.get();
-	mEnv.pMemory = mpMemory.get();
-	mEnv.pLog = mpLog.get();
+	// NOTE: Max updates is 30Hz for now
+	SetUpdateFreq(30.0f);
+	
+	mpConfig->Init();
+	mpMemory->Init();
 	
 	mpEventManager = std::make_unique<CEventManager>(mEnv);
 	
-	mEnv.pEventManager = mpEventManager.get();
+	mpEventManager->Init();
 	
 	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix lifetime managing
 	//mpEventManager->AddListener(EchoEventListener);
@@ -77,21 +71,19 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv, this);
 	
-	mEnv.pCmdProcessor = mpCmdProcessor.get();
+	mpCmdProcessor->Init();
 	
 	mpSubSystemManager = std::make_unique<CSubSystemManager>();
 	
 	if(!mpSubSystemManager->Init(mEnv))
 		return false;
 	
-	mpPluginManager = std::make_unique<CPluginManager>();
+	mpPluginManager = std::make_unique<CPluginManager>(mEnv);
 	
 	// TODO: check that we should use plugins (read the config setting)
 	// and if should then init plugin manager here
 	if(!mpPluginManager->Init(mEnv))
 		return false;
-	
-	mEnv.pPluginManager = mpPluginManager.get();
 	
 	if(!mpPluginManager->LoadPlugin("TestPlugin"))
 		return false;
@@ -119,7 +111,7 @@ void CCore::Shutdown()
 
 void CCore::Frame()
 {
-	//assert(mbInitialized);
+	//ASSERT(mbInitialized);
 	
 	if(!mbInitialized || mbWantQuit) // NOTE: we can check for current state
 		return;
@@ -188,6 +180,8 @@ void CCore::Frame()
 	mpEventManager->BroadcastEvent(FrameEndEvent); // NOTE: potential timing issues?
 	
 	mStats.nTotalFrames++;
+	
+	mStats.fAvgFrameTime = mfFrameTimeAcc / mStats.nTotalFrames;
 };
 
 void CCore::RequestClose()
@@ -207,22 +201,8 @@ ISubSystem *CCore::GetSubSystem(const char *asName) const
 
 void CCore::PrintStats()
 {
-	mStats.fAvgFrameTime = mfFrameTimeAcc / mStats.nTotalFrames;
-	
 	// Print final stats
-	mpLog->Info("Statistics:\n"
-				 "\t- Total Frames: %d\n"
-				 "\t- Min. FPS: %.2f\n"
-				 "\t- Max. FPS: %.2f\n"
-				 "\t- Avg. FPS: %.2f\n"
-				 "\t- Avg. FrameTime %f",
-				 // TODO: UPS per core
-				 // TODO: Cores?
-				 mStats.nTotalFrames,
-				 mStats.fMinFPS,
-				 mStats.fMaxFPS,
-				 mStats.fAvgFPS,
-				 mStats.fAvgFrameTime);
+	mStats.Print(mpLog.get());
 };
 
 }; // namespace rz

@@ -19,6 +19,8 @@ class CLog;
 
 struct TEngineStatistics
 {
+	void Print();
+	
 	float fMinFPS{0.0f};
 	float fMaxFPS{0.0f};
 	

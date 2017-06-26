@@ -1,29 +1,26 @@
 #include "SubSystemManager.hpp"
 #include "core/ISubSystem.hpp"
 #include "core/TCoreEnv.hpp"
-#include "core/ILog.hpp"
 #include "core/CoreTypes.hpp"
 
 namespace rz
 {
 
-bool CSubSystemManager::Init(const TCoreEnv &aCoreEnv)
+bool CSubSystemManager::Init(TCoreEnv &aCoreEnv)
 {
-	mpCoreEnv = &aCoreEnv;
-	mpLog = aCoreEnv.pLog;
+	mCoreEnv.pLog->TraceInit("SubSystemManager");
 	
-	mpLog->TraceInit("SubSystemManager");
-	
+	aCoreEnv.pSubSystemManager = this;
 	return true;
 };
 
 void CSubSystemManager::Shutdown()
 {
-	mpLog->TraceShutdown("SubSystemManager");
+	mCoreEnv.pLog->TraceShutdown("SubSystemManager");
 	
 	for(auto It : mlstSubSystems)
 	{
-		mpLog->TraceShutdown(It->GetSubSystemName());
+		mCoreEnv.pLog->TraceShutdown(string(It->GetSubSystemName()).append(" SubSystem").c_str());
 		It->Shutdown();
 	};
 };
@@ -44,7 +41,7 @@ bool CSubSystemManager::Add(const ISubSystem &apSubSystem)
 	for(auto It : mlstSubSystems)
 		if(!strcmp(It->GetSubSystemName(), sName))
 		{
-			mpLog->Error("Cannot register the subsystem %s - already registered!", sName);
+			mCoreEnv.pLog->Error("Cannot register the subsystem %s - already registered!", sName);
 			return false;
 		};
 	
@@ -55,7 +52,11 @@ bool CSubSystemManager::Add(const ISubSystem &apSubSystem)
 	return true;
 };
 
-ISubSystem *CSubSystemManager::GetByName(const char *asName)
+//void CSubSystemManager::Remove(const ISubSystem &aSubSystem)
+//{
+//};
+
+ISubSystem *CSubSystemManager::GetByName(const char *asName) const
 {
 	for(auto It : mlstSubSystems)
 		if(!strcmp(It->GetSubSystemName(), asName))

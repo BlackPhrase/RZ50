@@ -8,17 +8,6 @@ namespace rz
 CNetwork::CNetwork(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 CNetwork::~CNetwork() = default;
 
-bool CNetwork::Init(const TCoreEnv &aCoreEnv)
-{
-	mCoreEnv.pLog->TraceInit("Network");
-	mCoreEnv.pLog->Info("Network: Null");
-	return true;
-};
-
-void CNetwork::Shutdown()
-{
-};
-
 void CNetwork::Update()
 {
 	//mCoreEnv.pUpdateLog->TraceUpdate("Network");

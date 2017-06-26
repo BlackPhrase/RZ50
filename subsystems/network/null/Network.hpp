@@ -13,15 +13,8 @@ public:
 	CNetwork(const TCoreEnv &aCoreEnv);
 	~CNetwork();
 	
-	bool Init(const TCoreEnv &aCoreEnv) override;
-	void Shutdown() override;
-	
-	void Update() override;
-	
 	INetServer *StartServer() override;
 	INetClient *StartClient() override;
-	
-	const char *GetSubSystemName() const override {return "Network";}
 private:
 	std::unique_ptr<INetServer> mpServer;
 	std::unique_ptr<INetClient> mpClient;

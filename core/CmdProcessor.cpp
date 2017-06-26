@@ -7,11 +7,13 @@
 namespace rz
 {
 
-void CCmdProcessor::Init()
+void CCmdProcessor::Init(TCoreEnv &aCoreEnv)
 {
 	ICmdHandler *pDefaultCmdHandler = new CDefaultCmdHandler(mCoreEnv);
 	//pDefaultCmdHandler->AddCommand();
 	mlstHandlers.push_back(pDefaultCmdHandler);
+	
+	aCoreEnv.pCmdProcessor = this;
 };
 
 void CCmdProcessor::Insert(const char *asCmd)

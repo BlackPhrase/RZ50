@@ -3,6 +3,11 @@
 namespace rz
 {
 
+void CEventManager::Init(TCoreEnv &aCoreEnv)
+{
+	aCoreEnv.pEventManager = this;
+};
+
 void CEventManager::Update()
 {
 	DispatchEvents();

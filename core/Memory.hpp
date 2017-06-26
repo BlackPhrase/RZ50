@@ -14,6 +14,8 @@ public:
 	CMemory() = default;
 	~CMemory() = default;
 	
+	void Init(TCoreEnv &aCoreEnv);
+	
 	void *Alloc(size_t anSize) override;
 	void Free(void *apData) override;
 	

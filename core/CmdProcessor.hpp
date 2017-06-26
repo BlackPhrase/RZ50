@@ -24,7 +24,7 @@ public:
 	~CCmdProcessor() = default;
 	
 	//void AddCmdHandler(const ICmdHandler &aHandler) override;
-	void Init();
+	void Init(TCoreEnv &aCoreEnv);
 	
 	void Insert(const char *asCmd) override; // InsertText
 	

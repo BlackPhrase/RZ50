@@ -13,7 +13,7 @@ public:
 	CLog(); //= default;
 	~CLog(); //= default;
 	
-	bool Init();
+	bool Init(TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	void Write(const char *asMsg) override;

@@ -6,7 +6,6 @@
 namespace rz
 {
 
-struct ILog;
 struct TCoreEnv;
 
 struct ISubSystem;
@@ -15,23 +14,23 @@ using tSubSystemList = std::list<ISubSystem*>;
 class CSubSystemManager : public ISubSystemManager
 {
 public:
-	CSubSystemManager() = default;
+	CSubSystemManager(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CSubSystemManager() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv);
+	bool Init(TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	void Update();
 	
 	bool Add(const ISubSystem &apSubSystem);
+	//void Remove(const ISubSystem &aSubSystem);
 	
-	ISubSystem *GetByName(const char *asName);
+	ISubSystem *GetByName(const char *asName) const;
 	//ISubSystem *GetByIndex(int anID);
 private:
 	tSubSystemList mlstSubSystems;
 	
-	const TCoreEnv *mpCoreEnv{nullptr};
-	ILog *mpLog{nullptr};
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz

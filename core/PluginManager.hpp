@@ -8,6 +8,7 @@ namespace rz
 {
 
 struct TCoreEnv;
+struct CPluginLoader;
 
 using tSharedLib = class shiftutil::CSharedLib;
 using tSharedLibList = std::list<tSharedLib*>;
@@ -32,29 +33,26 @@ private:
 	IPlugin *mpPlugin{nullptr};
 };
 
-class CPluginManager : public IPluginManager
+class CPluginManager final : public IPluginManager
 {
 public:
-	CPluginManager() = default;
+	CPluginManager(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CPluginManager() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv);
+	bool Init(TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	bool LoadPlugin(const char *asName) const override;
 	void UnloadAllPlugins();
-	
-	void RegisterSubSystem(const ISubSystem &aSubSystem);
-	void UnregisterSubSystem(const ISubSystem &aSubSystem);
-	
-	void *GetSubSystem(const char *asName) const;
 private:
 	tSharedLibList mlstPluginLibs;
 	tPluginList mlstPlugins;
 	
 	//tPluginHandleList mlstPlugins;
 	
-	const TCoreEnv *mpCoreEnv{nullptr};
+	std::unique_ptr<CPluginLoader> mpLoader;
+	
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz

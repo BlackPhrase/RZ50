@@ -15,6 +15,8 @@ public:
 	CConfig() = default;
 	~CConfig() = default;
 	
+	void Init(TCoreEnv &aCoreEnv);
+	
 	void SetString(const char *asKey, const char *asValue);
 	void SetInt(const char *asKey, int anValue);
 	void SetFloat(const char *asKey, float afValue);

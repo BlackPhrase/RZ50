@@ -3,6 +3,11 @@
 namespace rz
 {
 
+void CConfig::Init(TCoreEnv &aCoreEnv)
+{
+	aCoreEnv.pConfig = this;
+};
+
 void CConfig::SetString(const char *asKey, const char *asValue)
 {
 	mmapKeys[asKey] = asValue;

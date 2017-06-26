@@ -27,6 +27,6 @@ struct IPlugin
 	//const TPluginInfo &GetInfo() const = 0;
 };
 
-typedef IPlugin *(*pfnGetPluginExport)();
+using pfnGetPluginExport = IPlugin *(*)();
 
 }; // namespace rz

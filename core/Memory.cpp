@@ -5,6 +5,11 @@ namespace rz
 
 // TODO: Apply usage of mempools here
 
+void CMemory::Init(TCoreEnv &aCoreEnv)
+{
+	aCoreEnv.pMemory = this;
+};
+
 void *CMemory::Alloc(size_t anSize)
 {
 	// TODO: revisit
