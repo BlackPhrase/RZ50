@@ -34,11 +34,6 @@ struct ICore
 	/// @return true if close is requested
 	virtual bool IsCloseRequested() const = 0; // WantQuit
 	
-	//virtual ILog *GetLog() const = 0;
-	//virtual IMemory *GetMemory() const = 0;
-	//virtual IEventManager *GetEventManager() const = 0;
-	//virtual IFileSystem *GetFileSystem() const = 0;
-	
 	///
 	virtual const TCoreEnv &GetEnv() const = 0;
 	

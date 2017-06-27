@@ -20,6 +20,8 @@ struct IProfiler;
 /// Core environment
 struct TCoreEnv
 {
+	//virtual IFileSystem *GetFileSystem() const = 0;
+	
 	/// Command processor
 	ICmdProcessor *pCmdProcessor{nullptr}; // ref/GetCmdProcessor()
 	

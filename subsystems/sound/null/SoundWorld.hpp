@@ -5,8 +5,8 @@
 namespace rz
 {
 
-struct TSoundComponent; // CSoundEntity?
-using tSoundComponentVec = std::vector<TSoundComponent*>;
+struct ISoundComponent;
+using tSoundComponentVec = std::vector<ISoundComponent*>;
 
 class CSoundWorld : public ISoundWorld
 {
@@ -14,7 +14,7 @@ public:
 	CSoundWorld() = default;
 	~CSoundWorld() = default;
 	
-	void Update();
+	void Update() override;
 	
 	void Clear();
 	

@@ -23,6 +23,9 @@ void CSound::Update()
 	
 	//for(auto It : mvChannels)
 		//It->Update();
+	
+	if(mpWorld)
+		mpWorld->Update();
 };
 
 /*
@@ -32,5 +35,23 @@ ISoundChannel *CSound::CreateChannel()
 	return nullptr;
 };
 */
+
+const ISoundWorld &CSound::CreateWorld()
+{
+	return new CSoundWorldNull();
+};
+
+void CSound::DestroyWorld(ISoundWorld &aWorld)
+{
+	delete &aWorld;
+};
+
+void CSound::SetCurrentWorld(const ISoundWorld &aWorld)
+{
+	if(*mpWorld != aWorld)
+		*mpWorld = aWorld;
+};
+
+//ISoundWorld *CSound::GetCurrentWorld() const {return mpWorld;}
 
 }; // namespace rz

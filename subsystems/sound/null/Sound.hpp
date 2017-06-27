@@ -15,25 +15,22 @@ public:
 	CSound(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CSound() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv) override;
-	void Shutdown() override;
+	//ISoundChannel *CreateChannel() override;
 	
-	void Update() override;
+	const ISoundWorld &CreateWorld() override;
+	void DestroyWorld(ISoundWorld &aWorld) override;
 	
-	//ISoundChannel *CreateChannel();
-	
-	//ISoundWorld *CreateWorld();
-	
-	//void PlaySound(const char *asSample);
+	void SetCurrentWorld(const ISoundWorld &aWorld) override;
+	ISoundWorld *GetCurrentWorld() const override {return mpWorld;}
 	
 	//void SetMasterVolume(float afVolume);
 	//float GetMasterVolume() const;
-	
-	const char *GetSubSystemName() const override {return "Sound";}
 private:
 	//tSoundChannelVec mvChannels;
 	
 	const TCoreEnv &mCoreEnv;
+	
+	ISoundWorld *mpWorld{nullptr};
 };
 
 }; // namespace rz

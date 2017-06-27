@@ -5,7 +5,7 @@ namespace rz
 
 struct ISoundWorld
 {
-	//virtual void 
+	virtual void Update() = 0;
 };
 
 }; // namespace rz
