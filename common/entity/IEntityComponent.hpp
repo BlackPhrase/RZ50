@@ -1,12 +1,14 @@
 #pragma once
 
+#include "IEntityEventListener.hpp"
+
 namespace rz
 {
 
 struct IEntity;
 struct TEntityEvent;
 
-struct IEntityComponent
+struct IEntityComponent //: public IEntityEventListener
 {
 	virtual ~IEntityComponent() = default;
 	
