@@ -22,10 +22,10 @@ public:
 	void SetFloat(const char *asKey, float afValue);
 	void SetBool(const char *asKey, bool abValue);
 	
-	const char *GetString(const char *asKey, const char *asDefault = "") const override;
-	int GetInt(const char *asKey, int anDefault = 0) const override;
-	float GetFloat(const char *asKey, float afDefault = 0.0f) const override;
-	bool GetBool(const char *asKey, bool abDefault = true) const override;
+	const char *GetString(const char *asKey, const char *asDefValue = "") const override;
+	int GetInt(const char *asKey, int anDefValue = 0) const override;
+	float GetFloat(const char *asKey, float afDefValue = 0.0f) const override;
+	bool GetBool(const char *asKey, bool abDefValue = true) const override;
 private:
 	tKeyValueMap mmapKeys;
 };

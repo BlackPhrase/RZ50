@@ -3,31 +3,30 @@
 #include "Core.hpp"
 #include "ICmdHandler.hpp"
 #include "DefaultCmdHandler.hpp"
+#include "CmdBuffer.hpp"
+#include "CmdExecutor.hpp"
 
 namespace rz
 {
 
-void CCmdProcessor::Init(TCoreEnv &aCoreEnv)
+void CCmdProcessor::Init(TCoreEnv &aCoreEnv) // TODO: REV THIS
 {
-	ICmdHandler *pDefaultCmdHandler = new CDefaultCmdHandler(mCoreEnv);
-	//pDefaultCmdHandler->AddCommand();
-	mlstHandlers.push_back(pDefaultCmdHandler);
+	mpExecutor->Init();
 	
 	aCoreEnv.pCmdProcessor = this;
 };
 
-void CCmdProcessor::Insert(const char *asCmd)
+void CCmdProcessor::BufferText(const char *asText, InsertMode aeMode)
 {
-	// TODO: lock or atomic
-	
-	mCmdBuffer.emplace_front(asCmd);
-};
-
-void CCmdProcessor::Append(const char *asCmd)
-{
-	// TODO: lock or atomic
-	
-	mCmdBuffer.emplace_back(asCmd);
+	switch(InsertMode)
+	{
+	case Insert:
+		mpBuffer->InsertText(asText);
+		break;
+	case Append:
+		mpBuffer->AppendText(asText);
+		break;
+	};
 };
 
 void CCmdProcessor::ExecText(const char *asText)
@@ -37,28 +36,15 @@ void CCmdProcessor::ExecText(const char *asText)
 	mCoreEnv.pLog->Debug("CCmdProcessor::ExecText(\"%s\")", asText);
 	
 	if(!strcmp(asText, "exit"))
-		mpCore->RequestClose(); // hacky
+		mpCore->RequestClose(); // TODO: REMOVE THIS
 	
-	// TODO: command handlers
-	//CCmdArgs Cmd(asText);
-	//mpCmdHandler->Exec(Cmd);
-	
-	for(auto It : mlstHandlers)
-		if(It->HandleCmd(asText))
-			return;
-	
-	//mCoreEnv.pLog->Error("No valid handler for command \"%s\"", sCmdName.c_str());
+	CCmdArgs Cmd(asText);
+	mpExecutor->ExecArgs(Cmd);
 };
 
-void CCmdProcessor::Exec()
+void CCmdProcessor::ExecBuffer()
 {
-	// TODO: lock or atomic?
-	
-	while(!mCmdBuffer.empty())
-	{
-		ExecText(mCmdBuffer.front().c_str());
-		mCmdBuffer.pop_front();
-	};
+	mpBuffer->Exec();
 };
 
 }; // namespace rz

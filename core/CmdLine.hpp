@@ -5,7 +5,7 @@
 namespace rz
 {
 
-class CCmdLine
+class CCmdLine final
 {
 public:
 	CCmdLine(const char *asCmdLine);

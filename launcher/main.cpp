@@ -1,18 +1,15 @@
 #include <conio.h>
+
 #include "core/CoreTypes.hpp"
-#include "core/ICore.hpp"
+
+#include "EngineProxy.hpp"
+
 #include "input/IInput.hpp"
 #include "fs/IFileSystem.hpp"
 #include "graphics/IGraphics.hpp"
 #include "network/INetwork.hpp"
 #include "sound/ISound.hpp"
 #include "physics/IPhysics.hpp"
-
-#include "shiftutil/SharedLib.hpp"
-
-#ifndef RZ_CORE_STATIC
-	shiftutil::CSharedLib gCoreLib;
-#endif
 
 #ifndef RZ_INPUT_STATIC
 	shiftutil::CSharedLib gInputLib;
@@ -51,39 +48,6 @@ EXPORT unsigned long NvOptimusEnablement = 0x00000001;
 // enable AMD discrete card if both discrete and integrated are present
 EXPORT int AmdPowerXpressRequestHighPerformance = 1;
 
-};
-
-// TODO: EngineCoreHelper class?
-
-rz::ICore *LoadEngineCore()
-{
-#ifndef RZ_CORE_STATIC
-	rz::pfnGetCore fnGetCore{nullptr};
-	
-	if(!gCoreLib.Open("RZCore"))
-		return nullptr;
-	
-	fnGetCore = gCoreLib.GetExportFunc<rz::pfnGetCore>("GetCore");
-	
-	if(!fnGetCore)
-		return nullptr;
-#else
-	extern rz::ICore *fnGetCore();
-#endif
-
-	return fnGetCore();
-};
-
-bool UnloadEngineCore(rz::ICore *apCore)
-{
-#ifndef RZ_CORE_STATIC
-	// TODO: unload the core module
-	// NOTE: Currently handled by shiftutil::CSharedLib which will 
-	// free the lib at destruction
-#endif
-	
-	apCore = nullptr;
-	return true;
 };
 
 rz::ISubSystem *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
@@ -231,22 +195,19 @@ int main(int argc, char **argv)
 	if(atexit(atexit_handler) != 0)
 		return EXIT_FAILURE;
 	
-	rz::ICore *pCore = LoadEngineCore();
+	CEngineProxy EngineProxy;
+	
+	if(!EngineProxy.Load())
+		return EXIT_FAILURE;
 	
 	// TODO: error handling (open an error message box?)
-	
-	if(!pCore)
-	{
-		printf("pCore is invalid! (%p)\n", pCore);
-		return EXIT_FAILURE;
-	};
 	
 	rz::TCoreInitParams InitParams{};
 	
 	strcpy(InitParams.sConfigName, "Default");
 	
 	// Init the core and all registered subsystems
-	if(!pCore->Init(InitParams))
+	if(!EngineProxy.Init(InitParams))
 	{
 		printf("Failed to init the core module!\n");
 		return EXIT_FAILURE;
@@ -254,38 +215,32 @@ int main(int argc, char **argv)
 	
 	// TODO: fix this crap below
 	
-	const rz::TCoreEnv &CoreEnv = pCore->GetEnv();
+	const rz::TCoreEnv *CoreEnv = EngineProxy.GetEnv();
 	
-	rz::ISubSystem *pInput = LoadInputModule(CoreEnv);
-	rz::ISubSystem *pFS = LoadFSModule(CoreEnv);
-	rz::ISubSystem *pGraphics = LoadGraphicsModule(CoreEnv);
-	rz::ISubSystem *pNetwork = LoadNetworkModule(CoreEnv);
-	rz::ISubSystem *pSound = LoadSoundModule(CoreEnv);
-	rz::ISubSystem *pPhysics = LoadPhysicsModule(CoreEnv);
+	rz::ISubSystem *pInput = LoadInputModule(*CoreEnv);
+	rz::ISubSystem *pFS = LoadFSModule(*CoreEnv);
+	rz::ISubSystem *pGraphics = LoadGraphicsModule(*CoreEnv);
+	rz::ISubSystem *pNetwork = LoadNetworkModule(*CoreEnv);
+	rz::ISubSystem *pSound = LoadSoundModule(*CoreEnv);
+	rz::ISubSystem *pPhysics = LoadPhysicsModule(*CoreEnv);
 	
 	// Engine subsystems should be registered from the config file
 	// (EngineConfig.ini->[SubSystems] section or something)
 	// Different config file names can be used for various configurations
 	// (Example: dedicated server/headless mode)
 	
-	pCore->RegisterSubSystem(*pInput);
-	pCore->RegisterSubSystem(*pFS);
-	pCore->RegisterSubSystem(*pGraphics);
-	pCore->RegisterSubSystem(*pNetwork);
-	pCore->RegisterSubSystem(*pSound);
-	pCore->RegisterSubSystem(*pPhysics);
+	EngineProxy.RegisterSubSystem(*pInput);
+	EngineProxy.RegisterSubSystem(*pFS);
+	EngineProxy.RegisterSubSystem(*pGraphics);
+	EngineProxy.RegisterSubSystem(*pNetwork);
+	EngineProxy.RegisterSubSystem(*pSound);
+	EngineProxy.RegisterSubSystem(*pPhysics);
 	
-	while(!pCore->IsCloseRequested()) //WantQuit())
-	{
-		//if(!ProcessEvents())
-			//break;
-		//else
-			pCore->Frame(); // update the core and each registered subsystem
-	};
+	EngineProxy.Run();
 	
-	pCore->Shutdown(); // shutdown all
+	EngineProxy.Shutdown(); // shutdown all
 	
-	UnloadEngineCore(pCore);
+	EngineProxy.Unload();
 	
 	return EXIT_SUCCESS;
 };

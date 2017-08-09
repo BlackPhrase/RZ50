@@ -19,7 +19,7 @@ class CLog;
 
 struct TEngineStatistics
 {
-	void Print();
+	void Print(ILog *apLog); // TODO: remove (self-printing; SRP braking)
 	
 	float fMinFPS{0.0f};
 	float fMaxFPS{0.0f};
