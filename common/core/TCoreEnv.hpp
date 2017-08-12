@@ -5,6 +5,7 @@
 #include "IConfig.hpp"
 #include "IEventSystem.hpp"
 #include "IScheduler.hpp"
+#include "ISubSystemManager.hpp"
 
 namespace rz
 {
@@ -45,6 +46,9 @@ struct TCoreEnv
 	
 	/// Scheduler
 	IScheduler *pScheduler{nullptr}; // ref/GetScheduler
+	
+	/// Sub-system manager
+	ISubSystemManager *pSubSystemManager{nullptr}; // ref/GetSubSystemManager
 };
 
 }; // namespace rz

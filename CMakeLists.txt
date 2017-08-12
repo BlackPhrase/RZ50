@@ -4,7 +4,7 @@ project(RZ-50)
 # Setup version
 set(RZ_VERSION_MAJOR 0)
 set(RZ_VERSION_MINOR 3)
-set(RZ_VERSION_PATCH 2)
+set(RZ_VERSION_PATCH 3)
 
 # Detect the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -38,13 +38,10 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O3")
 # Add include directories
 include_directories(
 	${CMAKE_SOURCE_DIR}/common
-	${CMAKE_SOURCE_DIR}/../shiftutil/include
+	${CMAKE_SOURCE_DIR}/external/shiftutil/include
 )
 
 # Add subdirectories
+add_subdirectory(external)
+add_subdirectory(src)
 add_subdirectory(tests)
-add_subdirectory(launcher)
-add_subdirectory(core)
-add_subdirectory(subsystems)
-#add_subdirectory(game)
-add_subdirectory(plugins)
