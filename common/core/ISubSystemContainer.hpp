@@ -5,7 +5,7 @@ namespace rz
 
 struct ISubSystem;
 
-struct ISubSystemManager
+struct ISubSystemContainer
 {
 	///
 	//virtual void Register(const ISubSystem &aSubSystem) = 0;

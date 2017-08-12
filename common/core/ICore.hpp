@@ -34,11 +34,8 @@ struct ICore
 	/// @return true if close is requested
 	virtual bool IsCloseRequested() const = 0; // WantQuit
 	
-	///
+	/// @return set of common components
 	virtual const TCoreEnv &GetEnv() const = 0;
-	
-	virtual bool RegisterSubSystem(const ISubSystem &apSubSystem) = 0;
-	virtual ISubSystem *GetSubSystem(const char *asName) const = 0;
 };
 
 using pfnGetCore = ICore *(*)();

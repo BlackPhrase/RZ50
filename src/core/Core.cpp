@@ -1,7 +1,8 @@
 #include "Core.hpp"
-#include "SubSystemManager.hpp"
+#include "SubSystemContainer.hpp"
+#include "EventDispatcher.hpp"
 #include "PluginManager.hpp"
-#include "EventManager.hpp"
+#include "StatsPrinter.hpp"
 #include "CmdProcessor.hpp"
 #include "ConfigFactory.hpp"
 #include "CmdLine.hpp"
@@ -67,26 +68,28 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpMemory->Init(mEnv);
 	
-	mpEventManager = std::make_unique<CEventManager>(mEnv);
+	mpEventDispatcher = std::make_unique<CEventDispatcher>(mEnv);
 	
-	mpEventManager->Init(mEnv);
+	mpEventDispatcher->Init(mEnv);
 	
 	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix lifetime managing
-	//mpEventManager->AddListener(EchoEventListener);
+	//mpEventDispatcher->AddListener(EchoEventListener);
 	
 	static CMouseEventListener MouseEventListener(mEnv); // TODO: fix lifetime managing
-	mpEventManager->AddListener(MouseEventListener);
+	mpEventDispatcher->AddListener(MouseEventListener);
 	
 	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv, this);
 	
 	//mpCmdProcessor->Init(mEnv);
 	
-	mpSubSystemManager = std::make_unique<CSubSystemManager>(mEnv);
+	mpSubSystemContainer = std::make_unique<CSubSystemContainer>(mEnv);
 	
-	if(!mpSubSystemManager->Init(mEnv))
+	if(!mpSubSystemContainer->Init(mEnv))
 		return false;
 	
 	mpPluginManager = std::make_unique<CPluginManager>(mEnv);
+	
+	mpStatsPrinter = std::make_unique<CStatsPrinter>();
 	
 	// TODO: check that we should use plugins (read the config setting)
 	// and if should then init plugin manager here
@@ -109,13 +112,14 @@ void CCore::Shutdown()
 		return;
 	
 	mpPluginManager->Shutdown();
-	mpSubSystemManager->Shutdown();
+	mpSubSystemContainer->Shutdown();
 	
 	mpLog->TraceShutdown("Core");
 	
 	mpTextConsole->Shutdown();
 	
-	PrintStats();
+	// Print final stats
+	mpStatsPrinter->PrintToLog(mStats, mpLog.get());
 };
 
 void CCore::Frame()
@@ -129,7 +133,7 @@ void CCore::Frame()
 	// Start timing
 	
 	TFrameBeginEvent FrameBeginEvent;
-	mpEventManager->BroadcastEvent(FrameBeginEvent); // NOTE: potential timing issues?
+	mpEventDispatcher->BroadcastEvent(FrameBeginEvent); // NOTE: potential timing issues?
 	
 	static int nFrame = 1; // NOTE: move to stats?
 	//mpLog->Debug("Core frame #%d", nFrame);
@@ -153,7 +157,7 @@ void CCore::Frame()
 	
 	static float fFPS = 0.0f;
 	
-	//mpSubSystemManager->Update();
+	//mpSubSystemContainer->Update();
 	
 	// NOTE: when the "exit" command received this loop will still be processing updates
 	// So we check for a pending quit flag here to prevent that
@@ -163,14 +167,14 @@ void CCore::Frame()
 
 		mpCmdProcessor->ExecBuffer();
 
-		mpEventManager->DispatchEvents(); //Update();
+		mpEventDispatcher->DispatchEvents(); //Update();
 
-		mpSubSystemManager->Update(); // FixedUpdate();
+		mpSubSystemContainer->Update(); // FixedUpdate();
 		
 		fLag -= GetTimeStep();
 	};
 	
-	//mpSubSystemManager->PostUpdate();
+	//mpSubSystemContainer->PostUpdate();
 	
 	// Gather statistics
 	// End frame profiling
@@ -186,7 +190,7 @@ void CCore::Frame()
 		mStats.fMaxFPS = fFPS;
 	
 	TFrameEndEvent FrameEndEvent;
-	mpEventManager->BroadcastEvent(FrameEndEvent); // NOTE: potential timing issues?
+	mpEventDispatcher->BroadcastEvent(FrameEndEvent); // NOTE: potential timing issues?
 	
 	mStats.nTotalFrames++;
 	
@@ -196,22 +200,6 @@ void CCore::Frame()
 void CCore::RequestClose()
 {
 	mbWantQuit = true;
-};
-
-bool CCore::RegisterSubSystem(const ISubSystem &apSubSystem)
-{
-	return mpSubSystemManager->Add(apSubSystem);
-};
-
-ISubSystem *CCore::GetSubSystem(const char *asName) const
-{
-	return mpSubSystemManager->GetByName(asName);
-};
-
-void CCore::PrintStats()
-{
-	// Print final stats
-	mStats.Print(mpLog.get());
 };
 
 }; // namespace rz

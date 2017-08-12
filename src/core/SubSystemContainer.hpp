@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "core/ISubSystemManager.hpp"
+#include "core/ISubSystemContainer.hpp"
 
 namespace rz
 {
@@ -11,11 +11,11 @@ struct TCoreEnv;
 struct ISubSystem;
 using tSubSystemList = std::list<ISubSystem*>;
 
-class CSubSystemManager : public ISubSystemManager
+class CSubSystemContainer : public ISubSystemContainer
 {
 public:
-	CSubSystemManager(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
-	~CSubSystemManager() = default;
+	CSubSystemContainer(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+	~CSubSystemContainer() = default;
 	
 	bool Init(TCoreEnv &aCoreEnv);
 	void Shutdown();

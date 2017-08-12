@@ -3,12 +3,12 @@
 namespace rz
 {
 
-struct IConfig
+struct IConfig // IConfigReader
 {
-	virtual const char *GetString(const char *asKey, const char *asDefault = "") const = 0;
-	virtual int GetInt(const char *asKey, int anDefault = 0) const = 0;
-	virtual float GetFloat(const char *asKey, float afDefault = 0.0f) const = 0;
-	virtual bool GetBool(const char *asKey, bool abDefault = true) const = 0;
+	virtual const char *GetString(const char *asKey, const char *asDefValue = "") const = 0;
+	virtual int GetInt(const char *asKey, int anDefValue = 0) const = 0;
+	virtual float GetFloat(const char *asKey, float afDefValue = 0.0f) const = 0;
+	virtual bool GetBool(const char *asKey, bool abDefValue = true) const = 0;
 };
 
 }; // namespace rz

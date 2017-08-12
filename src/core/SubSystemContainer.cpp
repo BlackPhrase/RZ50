@@ -1,4 +1,4 @@
-#include "SubSystemManager.hpp"
+#include "SubSystemContainer.hpp"
 #include "core/ISubSystem.hpp"
 #include "core/TCoreEnv.hpp"
 #include "core/CoreTypes.hpp"
@@ -6,7 +6,7 @@
 namespace rz
 {
 
-bool CSubSystemManager::Init(TCoreEnv &aCoreEnv)
+bool CSubSystemContainer::Init(TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("SubSystemManager");
 	
@@ -14,7 +14,7 @@ bool CSubSystemManager::Init(TCoreEnv &aCoreEnv)
 	return true;
 };
 
-void CSubSystemManager::Shutdown()
+void CSubSystemContainer::Shutdown()
 {
 	mCoreEnv.pLog->TraceShutdown("SubSystemManager");
 	
@@ -25,7 +25,7 @@ void CSubSystemManager::Shutdown()
 	};
 };
 
-void CSubSystemManager::Update()
+void CSubSystemContainer::Update()
 {
 	for(auto It : mlstSubSystems)
 	{
@@ -34,7 +34,7 @@ void CSubSystemManager::Update()
 	};
 };
 
-bool CSubSystemManager::Add(const ISubSystem &apSubSystem)
+bool CSubSystemContainer::Add(const ISubSystem &apSubSystem)
 {
 	const char *sName = apSubSystem.GetSubSystemName();
 	
@@ -52,11 +52,11 @@ bool CSubSystemManager::Add(const ISubSystem &apSubSystem)
 	return true;
 };
 
-//void CSubSystemManager::Remove(const ISubSystem &aSubSystem)
+//void CSubSystemContainer::Remove(const ISubSystem &aSubSystem)
 //{
 //};
 
-ISubSystem *CSubSystemManager::GetByName(const char *asName) const
+ISubSystem *CSubSystemContainer::GetByName(const char *asName) const
 {
 	for(auto It : mlstSubSystems)
 		if(!strcmp(It->GetSubSystemName(), asName))

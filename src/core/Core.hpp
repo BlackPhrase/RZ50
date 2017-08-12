@@ -7,9 +7,10 @@
 namespace rz
 {
 
-class CSubSystemManager;
+class CSubSystemContainer;
+class CEventDispatcher;
 class CPluginManager;
-class CEventManager;
+class CStatsPrinter;
 class CCmdProcessor;
 struct ITextConsole;
 class CConfigFactory;
@@ -19,10 +20,8 @@ class CIniConfig;
 class CMemory;
 class CLog;
 
-struct TEngineStatistics
+struct TEngineStatistics // TEngineStats
 {
-	void Print(ILog *apLog); // TODO: remove (self-printing; SRP braking)
-	
 	float fMinFPS{0.0f};
 	float fMaxFPS{0.0f};
 	
@@ -51,13 +50,8 @@ public:
 	
 	const TCoreEnv &GetEnv() const override {return mEnv;}
 	
-	bool RegisterSubSystem(const ISubSystem &apSubSystem);
-	ISubSystem *GetSubSystem(const char *asName) const;
-	
 	void GetStatistics(TEngineStatistics &aStatistics);
 private:
-	void PrintStats();
-	
 	double GetTimeStep() const {return 1.0f / mfUpdateFreq;}
 	
 	void SetUpdateFreq(float fFreq){mfUpdateFreq = fFreq;}
@@ -66,9 +60,10 @@ private:
 	TCoreEnv mEnv{};
 	TEngineStatistics mStats{};
 	
-	std::unique_ptr<CSubSystemManager> mpSubSystemManager;
+	std::unique_ptr<CSubSystemContainer> mpSubSystemContainer;
+	std::unique_ptr<CEventDispatcher> mpEventDispatcher;
 	std::unique_ptr<CPluginManager> mpPluginManager;
-	std::unique_ptr<CEventManager> mpEventManager;
+	std::unique_ptr<CStatsPrinter> mpStatsPrinter;
 	std::unique_ptr<CCmdProcessor> mpCmdProcessor;
 	std::unique_ptr<ITextConsole> mpTextConsole;
 	//std::unique_ptr<CConfigFactory> mpConfigFactory;

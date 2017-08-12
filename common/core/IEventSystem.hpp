@@ -111,15 +111,6 @@ struct IEventListener
 
 struct IEventDispatcher
 {
-	///
-	virtual void AddListener(const IEventListener &aListener) = 0;
-	
-	///
-	virtual void RemoveListener(const IEventListener &aListener) = 0;
-};
-
-struct IEventManager
-{
 	/// Dispatch the event immediately
 	virtual void BroadcastEvent(const TEvent &aEvent) = 0;
 	

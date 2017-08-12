@@ -5,7 +5,7 @@
 #include "IConfig.hpp"
 #include "IEventSystem.hpp"
 #include "IScheduler.hpp"
-#include "ISubSystemManager.hpp"
+#include "ISubSystemContainer.hpp"
 
 namespace rz
 {
@@ -13,9 +13,9 @@ namespace rz
 //struct ICmdProcessor;
 //struct ILog;
 //struct IConfig;
-struct IMemory;
-struct IPluginManager;
-struct IProfiler;
+//struct IMemory;
+//struct IPluginManager;
+//struct IProfiler;
 //struct IScheduler;
 
 /// Core environment
@@ -33,7 +33,7 @@ struct TCoreEnv
 	IConfig *pConfig{nullptr}; // ref/GetConfig()
 	
 	/// Event manager
-	IEventManager *pEventManager{nullptr}; // ref/GetEventManager()
+	IEventManager *pEventDispatcher{nullptr}; // ref/GetEventDispatcher()
 	
 	/// Memory manager
 	IMemory *pMemory{nullptr}; // ref/GetMemory
@@ -48,7 +48,7 @@ struct TCoreEnv
 	IScheduler *pScheduler{nullptr}; // ref/GetScheduler
 	
 	/// Sub-system manager
-	ISubSystemManager *pSubSystemManager{nullptr}; // ref/GetSubSystemManager
+	ISubSystemContainer *pSubSystemContainer{nullptr}; // ref/GetSubSystemContainer
 };
 
 }; // namespace rz
