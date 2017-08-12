@@ -14,11 +14,11 @@ using tEventListenerList = std::list<IEventListener*>;
 using tEventDeque = std::deque<TEvent*>;
 
 //CEventHandler
-class CEventManager final : public IEventManager
+class CEventDispatcher final : public IEventDispatcher
 {
 public:
-	CEventManager(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
-	~CEventManager() = default;
+	CEventDispatcher(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+	~CEventDispatcher() = default;
 	
 	void Init(TCoreEnv &aCoreEnv);
 	

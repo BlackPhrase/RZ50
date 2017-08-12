@@ -6,17 +6,17 @@ RZ engine is a server-oriented game engine. That means that it has no GUI native
 
 The engine is in development from absolute scratch. It's aimed on use many features of the latest C++ standards.
 
-## INSTALLATION
+## Installation
 
 TODO
 
-## CONTRIBUTING
+## Contributing
 
 You can provide help in development if you wish  
 Any help is appreciated (mostly coders and wiki/documentation writers are required)  
 See [CONTRIBUTORS](CONTRIBUTORS.md) file for additional info
 
-## LICENSE
+## License
 
 The RZ Engine is licensed under terms of ??? license  
 See [LICENSE](LICENSE) file

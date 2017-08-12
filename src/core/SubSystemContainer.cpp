@@ -10,7 +10,7 @@ bool CSubSystemContainer::Init(TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("SubSystemManager");
 	
-	aCoreEnv.pSubSystemManager = this;
+	aCoreEnv.pSubSystemContainer = this;
 	return true;
 };
 

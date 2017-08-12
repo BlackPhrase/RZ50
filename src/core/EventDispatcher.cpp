@@ -1,19 +1,19 @@
-#include "EventManager.hpp"
+#include "EventDispatcher.hpp"
 
 namespace rz
 {
 
-void CEventManager::Init(TCoreEnv &aCoreEnv)
+void CEventDispatcher::Init(TCoreEnv &aCoreEnv)
 {
-	aCoreEnv.pEventManager = this;
+	aCoreEnv.pEventDispatcher = this;
 };
 
-void CEventManager::Update()
+void CEventDispatcher::Update()
 {
 	DispatchEvents();
 };
 
-void CEventManager::BroadcastEvent(const TEvent &aEvent)
+void CEventDispatcher::BroadcastEvent(const TEvent &aEvent)
 {
 	// TODO: lock or atomic?
 	
@@ -23,7 +23,7 @@ void CEventManager::BroadcastEvent(const TEvent &aEvent)
 		It->OnEvent(aEvent);
 };
 
-void CEventManager::QueEvent(const TEvent &aEvent)
+void CEventDispatcher::QueEvent(const TEvent &aEvent)
 {
 	// TODO: lock or atomic
 	
@@ -34,7 +34,7 @@ void CEventManager::QueEvent(const TEvent &aEvent)
 	mEventQue.push_back(const_cast<TEvent*>(&aEvent));
 };
 
-void CEventManager::DispatchEvents()
+void CEventDispatcher::DispatchEvents()
 {
 	// TODO: lock or atomic?
 	
@@ -58,7 +58,7 @@ void CEventManager::DispatchEvents()
 };
 
 // TODO: Event filters or specific event listeners/dispatchers
-void CEventManager::AddListener(const IEventListener &aListener)
+void CEventDispatcher::AddListener(const IEventListener &aListener)
 {
 	// TODO: lock or atomic
 	
@@ -69,7 +69,7 @@ void CEventManager::AddListener(const IEventListener &aListener)
 	mlstListeners.push_back((IEventListener*)&aListener);
 };
 
-void CEventManager::RemoveListener(const IEventListener &aListener)
+void CEventDispatcher::RemoveListener(const IEventListener &aListener)
 {
 	// TODO: lock or atomic
 	
@@ -79,7 +79,7 @@ void CEventManager::RemoveListener(const IEventListener &aListener)
 };
 
 /*
-bool CEventManager::Poll(TEvent &aEvent)
+bool CEventDispatcher::Poll(TEvent &aEvent)
 {
 	auto It = mEventQueue.begin();
 	
@@ -92,7 +92,7 @@ bool CEventManager::Poll(TEvent &aEvent)
 	return false;
 };
 
-bool CEventManager::Get(TEvent &aEvent)
+bool CEventDispatcher::Get(TEvent &aEvent)
 {
 	return false;
 };

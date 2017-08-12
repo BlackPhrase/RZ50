@@ -1,4 +1,6 @@
 #include "StatsPrinter.hpp"
+#include "Core.hpp"
+#include "core/ILog.hpp"
 
 namespace rz
 {

@@ -13,8 +13,8 @@ namespace rz
 //struct ICmdProcessor;
 //struct ILog;
 //struct IConfig;
-//struct IMemory;
-//struct IPluginManager;
+struct IMemory;
+struct IPluginManager;
 //struct IProfiler;
 //struct IScheduler;
 
@@ -33,7 +33,7 @@ struct TCoreEnv
 	IConfig *pConfig{nullptr}; // ref/GetConfig()
 	
 	/// Event manager
-	IEventManager *pEventDispatcher{nullptr}; // ref/GetEventDispatcher()
+	IEventDispatcher *pEventDispatcher{nullptr}; // ref/GetEventDispatcher()
 	
 	/// Memory manager
 	IMemory *pMemory{nullptr}; // ref/GetMemory

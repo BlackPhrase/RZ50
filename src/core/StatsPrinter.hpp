@@ -3,6 +3,7 @@
 namespace rz
 {
 
+struct ILog;
 struct TEngineStatistics;
 
 class CStatsPrinter final

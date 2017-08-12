@@ -4,7 +4,7 @@ project(RZ-50)
 # Setup version
 set(RZ_VERSION_MAJOR 0)
 set(RZ_VERSION_MINOR 3)
-set(RZ_VERSION_PATCH 3)
+set(RZ_VERSION_PATCH 4)
 
 # Detect the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -13,7 +13,11 @@ if(NOT CMAKE_BUILD_TYPE)
         FORCE
 	)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
-		None Debug Release RelWithDebInfo MinSizeRel
+		None
+		Debug
+		Release
+		RelWithDebInfo
+		MinSizeRel
 	)
 endif()
 
@@ -24,8 +28,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 17)
 
 # Set compiled binaries output directory
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin) #CMAKE_BINARY_DIR
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin) #CMAKE_BINARY_DIR
 
 # Set flags for C++ code compilation
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
