@@ -1,7 +1,7 @@
 add_custom_target(
    iniparser
    COMMAND make
-   WORKING_DIRECTORY ./iniparser
+   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/iniparser
 )
 
 #add_executable(myexecutable myexcutable.c)

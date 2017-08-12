@@ -3,8 +3,10 @@
 #include "PluginManager.hpp"
 #include "EventManager.hpp"
 #include "CmdProcessor.hpp"
+#include "ConfigFactory.hpp"
 #include "CmdLine.hpp"
-#include "Config.hpp"
+#include "core/IConfig.hpp"
+#include "IniConfig.hpp"
 #include "Memory.hpp"
 #include "Log.hpp"
 
@@ -45,7 +47,12 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine);
 	mpMemory = std::make_unique<CMemory>();
-	mpConfig = std::make_unique<CConfig>();
+	
+	//mpConfigFactory = std::make_unique<CConfigFactory>();
+	//mpConfig = std::make_unique<IConfig>();
+	
+	mpConfig = std::make_unique<CIniConfig>("EngineConfig-Test.ini");
+	
 	mpLog = std::make_unique<CLog>();
 	
 	if(!mpLog->Init(mEnv))
@@ -57,6 +64,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	SetUpdateFreq(30.0f);
 	
 	mpConfig->Init(mEnv);
+	
 	mpMemory->Init(mEnv);
 	
 	mpEventManager = std::make_unique<CEventManager>(mEnv);
@@ -86,6 +94,8 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 		return false;
 	
 	mpPluginManager->LoadPlugin("TestPlugin");
+	
+	mpLog->Debug("Config: [General] Test: %s", mpConfig->GetString("General:Test", "Default"));
 	
 	mpLog->Info("Update freq is %f / TimeStep is %.16f", GetUpdateFreq(), GetTimeStep());
 	

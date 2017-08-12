@@ -38,6 +38,7 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O3")
 # Add include directories
 include_directories(
 	${CMAKE_SOURCE_DIR}/common
+	${CMAKE_SOURCE_DIR}/external
 	${CMAKE_SOURCE_DIR}/external/shiftutil/include
 )
 

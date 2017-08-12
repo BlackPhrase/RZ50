@@ -12,8 +12,10 @@ class CPluginManager;
 class CEventManager;
 class CCmdProcessor;
 struct ITextConsole;
+class CConfigFactory;
 class CCmdLine;
-class CConfig;
+struct IConfig;
+class CIniConfig;
 class CMemory;
 class CLog;
 
@@ -69,8 +71,10 @@ private:
 	std::unique_ptr<CEventManager> mpEventManager;
 	std::unique_ptr<CCmdProcessor> mpCmdProcessor;
 	std::unique_ptr<ITextConsole> mpTextConsole;
+	//std::unique_ptr<CConfigFactory> mpConfigFactory;
 	std::unique_ptr<CCmdLine> mpCmdLine;
-	std::unique_ptr<CConfig> mpConfig;
+	//std::unique_ptr<IConfig> mpConfig;
+	std::unique_ptr<CIniConfig> mpConfig;
 	std::unique_ptr<CMemory> mpMemory;
 	std::unique_ptr<CLog> mpLog;
 	
