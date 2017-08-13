@@ -16,7 +16,7 @@ bool CPluginManager::Init(TCoreEnv &aCoreEnv)
 	
 	aCoreEnv.pPluginManager = this;
 	
-	mpLoader = std::make_unique<CPluginLoader>();
+	mpLoader = std::make_unique<CPluginLoader>(mCoreEnv);
 	return true;
 };
 
@@ -27,7 +27,7 @@ void CPluginManager::Shutdown()
 	UnloadAllPlugins();
 };
 
-bool CPluginManager::LoadPlugin(const char *asName) const
+bool CPluginManager::LoadPlugin(const char *asName)
 {
 	// No name?
 	if(!asName || !*asName)
@@ -51,7 +51,7 @@ bool CPluginManager::LoadPlugin(const char *asName) const
 		return false;
 	};
 	
-	//mlstPluginLibs.push_back(PluginLib);
+	mlstPluginLibs.push_back(PluginLib);
 	return true;
 };
 

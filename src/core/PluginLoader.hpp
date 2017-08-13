@@ -8,14 +8,17 @@ namespace shiftutil
 namespace rz
 {
 
+struct TCoreEnv;
+
 class CPluginLoader
 {
 public:
-	CPluginLoader(); //= default;
-	~CPluginLoader(); //= default;
+	CPluginLoader(const TCoreEnv &aCoreEnv);
+	~CPluginLoader();
 	
 	shiftutil::CSharedLib *LoadPlugin(const char *asName);
 private:
+	const TCoreEnv &mCoreEnv;
 };
 
 }; // namespace rz

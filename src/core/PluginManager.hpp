@@ -37,13 +37,13 @@ private:
 class CPluginManager final : public IPluginManager
 {
 public:
-	CPluginManager(const TCoreEnv &aCoreEnv); //: mCoreEnv(aCoreEnv){}
-	~CPluginManager(); //= default;
+	CPluginManager(const TCoreEnv &aCoreEnv);
+	~CPluginManager();
 	
 	bool Init(TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
-	bool LoadPlugin(const char *asName) const override;
+	bool LoadPlugin(const char *asName) override;
 	void UnloadAllPlugins();
 private:
 	tSharedLibList mlstPluginLibs;
