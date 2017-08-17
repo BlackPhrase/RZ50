@@ -12,9 +12,10 @@ IConfig *CConfigFactory::LoadFromFile(const char *asName)
 	//if(!pDict)
 		//return nullptr;
 	
-	std::unique_ptr<IConfig> pConfig = std::make_unique<CIniConfig>(asName);
+	//std::unique_ptr<IConfig> pConfig = std::make_unique<CIniConfig>(asName);
 	
-	return pConfig.release();
+	//return pConfig.release();
+	return nullptr;
 };
 
 }; // namespace rz

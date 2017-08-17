@@ -49,10 +49,15 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine);
 	mpMemory = std::make_unique<CMemory>();
 	
-	//mpConfigFactory = std::make_unique<CConfigFactory>();
-	//mpConfig = std::make_unique<IConfig>();
+	mpConfigFactory = std::make_unique<CConfigFactory>();
+	//mpConfig = std::make_unique<IConfig>(); // destructor should be accessible
 	
 	mpConfig = std::make_unique<CIniConfig>("EngineConfig-Test.ini");
+	
+	IConfig *pConfig = mpConfigFactory->LoadFromFile("EngineConfig-Test.ini");
+	
+	//if(pConfig)
+		//mpLog->Debug("Loaded config: %s", pConfig->GetName());
 	
 	mpLog = std::make_unique<CLog>();
 	
@@ -61,7 +66,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpLog->TraceInit("Core");
 	
-	// NOTE: Max updates is 30Hz for now
+	// NOTE: Max update rate is 30Hz for now
 	SetUpdateFreq(30.0f);
 	
 	mpConfig->Init(mEnv);
@@ -72,15 +77,15 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpEventDispatcher->Init(mEnv);
 	
-	//static CEchoEventListener EchoEventListener(mEnv); // TODO: fix lifetime managing
+	//CEchoEventListener &EchoEventListener = new CEchoEventListener(mEnv);
 	//mpEventDispatcher->AddListener(EchoEventListener);
 	
-	static CMouseEventListener MouseEventListener(mEnv); // TODO: fix lifetime managing
+	CMouseEventListener &MouseEventListener = new CMouseEventListener(mEnv);
 	mpEventDispatcher->AddListener(MouseEventListener);
 	
-	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv, this);
+	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv);
 	
-	//mpCmdProcessor->Init(mEnv);
+	mpCmdProcessor->Init(mEnv, this);
 	
 	mpSubSystemContainer = std::make_unique<CSubSystemContainer>(mEnv);
 	
@@ -98,7 +103,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpPluginManager->LoadPlugin("TestPlugin");
 	
-	mpLog->Debug("Config: [General] Test: %s", mpConfig->GetString("General:Test", "Default"));
+	//mpLog->Debug("Config: [General] SubSystems: %s", mpConfig->GetString("General:SubSystems"));
 	
 	mpLog->Info("Update freq is %f / TimeStep is %.16f", GetUpdateFreq(), GetTimeStep());
 	

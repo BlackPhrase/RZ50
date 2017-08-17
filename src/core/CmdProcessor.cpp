@@ -1,20 +1,21 @@
-#include <cstring>
 #include "CmdProcessor.hpp"
 #include "Core.hpp"
 #include "ICmdHandler.hpp"
 #include "CmdBuffer.hpp"
 #include "CmdExecutor.hpp"
+#include "CmdContainer.hpp"
 
 namespace rz
 {
 
-CCmdProcessor::CCmdProcessor(const TCoreEnv &aCoreEnv, CCore *apCore) : mCoreEnv(aCoreEnv), mpCore(apCore){Init(const_cast<TCoreEnv&>(mCoreEnv));} //= default;
+CCmdProcessor::CCmdProcessor(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
 CCmdProcessor::~CCmdProcessor() = default;
 
-void CCmdProcessor::Init(TCoreEnv &aCoreEnv) // TODO: REV THIS
+void CCmdProcessor::Init(TCoreEnv &aCoreEnv, CCore *apCore) // TODO: REV THIS
 {
-	mpExecutor = std::make_unique<CCmdExecutor>();
+	mpExecutor = std::make_unique<CCmdExecutor>(apCore);
 	mpBuffer = std::make_unique<CCmdBuffer>(mpExecutor.get());
+	mpContainer = std::make_unique<CCmdContainer>();
 	
 	mpExecutor->Init();
 	
@@ -23,8 +24,10 @@ void CCmdProcessor::Init(TCoreEnv &aCoreEnv) // TODO: REV THIS
 
 void CCmdProcessor::AddCommand(const char *asName, pfnCmdCallback afnCallback, const char *asDesc)
 {
-	//mlstCmds.emplace_back(asName, afnCallback, asDesc);
-	mlstCmds.push_back(new CCmd(asName, afnCallback, asDesc));
+	//if(mpVarContainer->IsPresent(asName))
+		//return;
+	
+	mpContainer->Add(asName, afnCallback, asDesc);
 };
 
 void CCmdProcessor::BufferText(const char *asText, InsertMode aeMode)
@@ -48,11 +51,10 @@ void CCmdProcessor::ExecText(const char *asText)
 	
 	mCoreEnv.pLog->Debug("CCmdProcessor::ExecText(\"%s\")", asText);
 	
-	if(!strcmp(asText, "exit"))
-		mpCore->RequestClose(); // TODO: REMOVE THIS
-	
 	//CCmdArgs Cmd(asText);
 	//mpExecutor->ExecArgs(Cmd);
+	
+	mpExecutor->ExecString(asText);
 };
 
 void CCmdProcessor::ExecBuffer()

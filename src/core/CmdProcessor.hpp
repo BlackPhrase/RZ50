@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <list>
 #include "core/CoreTypes.hpp"
 #include "core/ICmdProcessor.hpp"
 #include "core/TCoreEnv.hpp"
@@ -14,27 +13,15 @@ class CCore;
 
 class CCmdBuffer;
 class CCmdExecutor;
-
-struct CCmd
-{
-	CCmd(const char *asName, pfnCmdCallback afnCallback, const char *asDesc)
-		: sName(asName), sDesc(asDesc), fnCallback(afnCallback){}
-	
-	const char *sName{""};
-	const char *sDesc{""};
-	
-	pfnCmdCallback fnCallback{nullptr};
-};
-
-using tCmdList = std::list<CCmd*>;
+class CCmdContainer;
 
 class CCmdProcessor final : public ICmdProcessor
 {
 public:
-	CCmdProcessor(const TCoreEnv &aCoreEnv, CCore *apCore);
+	CCmdProcessor(const TCoreEnv &aCoreEnv);
 	~CCmdProcessor();
 	
-	void Init(TCoreEnv &aCoreEnv);
+	void Init(TCoreEnv &aCoreEnv, CCore *apCore);
 	
 	void AddCommand(const char *asName, pfnCmdCallback afnCallback, const char *asDesc) override;
 	
@@ -43,14 +30,11 @@ public:
 	
 	void ExecBuffer() override;
 private:
-	tCmdList mlstCmds;
-	
 	std::unique_ptr<CCmdBuffer> mpBuffer;
 	std::unique_ptr<CCmdExecutor> mpExecutor;
+	std::unique_ptr<CCmdContainer> mpContainer;
 	
 	const TCoreEnv &mCoreEnv;
-	
-	CCore *mpCore{nullptr};
 };
 
 }; // namespace rz

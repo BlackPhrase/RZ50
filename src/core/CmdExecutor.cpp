@@ -1,10 +1,11 @@
 #include <cstring>
 #include "CmdExecutor.hpp"
+#include "Core.hpp"
 
 namespace rz
 {
 
-CCmdExecutor::CCmdExecutor() = default;
+CCmdExecutor::CCmdExecutor(CCore *apCore) : mpCore(apCore){}
 CCmdExecutor::~CCmdExecutor() = default;
 
 void CCmdExecutor::Init()
@@ -38,6 +39,17 @@ bool CCmdExecutor::ExecArgs(const ICmdArgs &aArgs)
 				//return true;
 	
 	//mCoreEnv.pLog->Error("No valid handler for command \"%s\"", sCmdName.c_str());
+	return false;
+};
+
+bool CCmdExecutor::ExecString(const char *asText)
+{
+	if(!strcmp(asText, "exit"))
+	{
+		mpCore->RequestClose(); // TODO: REMOVE THIS
+		return true;
+	};
+	
 	return false;
 };
 

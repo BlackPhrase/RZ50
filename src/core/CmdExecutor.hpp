@@ -5,6 +5,8 @@
 namespace rz
 {
 
+class CCore;
+
 struct ICmdArgs;
 
 struct ICmdHandler;
@@ -13,7 +15,7 @@ using tCmdHandlerList = std::list<ICmdHandler*>;
 class CCmdExecutor final
 {
 public:
-	CCmdExecutor();
+	CCmdExecutor(CCore *apCore);
 	~CCmdExecutor();
 	
 	void Init();
@@ -23,8 +25,11 @@ public:
 	void RemoveHandler(ICmdHandler *apHandler);
 	
 	bool ExecArgs(const ICmdArgs &aArgs);
+	bool ExecString(const char *asText); // ExecText; remove?
 private:
 	tCmdHandlerList mlstHandlers;
+	
+	CCore *mpCore{nullptr};
 };
 
 }; // namespace rz

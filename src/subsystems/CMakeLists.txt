@@ -1,4 +1,4 @@
-add_subdirectory(fs)
+#add_subdirectory(fs)
 add_subdirectory(graphics)
 add_subdirectory(input)
 add_subdirectory(network)
