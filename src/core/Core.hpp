@@ -2,12 +2,13 @@
 
 #include <memory>
 #include "core/ICore.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
 
 namespace rz
 {
 
-class CSubSystemContainer;
+class CServiceLocator;
+class CModuleContainer;
 class CEventDispatcher;
 class CPluginManager;
 class CStatsPrinter;
@@ -48,7 +49,7 @@ public:
 	void RequestClose();
 	bool IsCloseRequested() const override {return mbWantQuit;}
 	
-	const TCoreEnv &GetEnv() const override {return mEnv;}
+	const IServiceLocator &GetEnv() const override {return mpEnv.get();}
 	
 	void GetStatistics(TEngineStatistics &aStatistics);
 private:
@@ -57,10 +58,11 @@ private:
 	void SetUpdateFreq(float fFreq){mfUpdateFreq = fFreq;}
 	float GetUpdateFreq() const {return mfUpdateFreq;}
 	
-	TCoreEnv mEnv{};
+	//TCoreEnv mEnv{};
 	TEngineStatistics mStats{};
 	
-	std::unique_ptr<CSubSystemContainer> mpSubSystemContainer;
+	std::unique_ptr<CServiceLocator> mpEnv;
+	std::unique_ptr<CModuleContainer> mpModuleContainer;
 	std::unique_ptr<CEventDispatcher> mpEventDispatcher;
 	std::unique_ptr<CPluginManager> mpPluginManager;
 	std::unique_ptr<CStatsPrinter> mpStatsPrinter;

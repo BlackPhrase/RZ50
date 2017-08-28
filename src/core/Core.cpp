@@ -1,5 +1,6 @@
 #include "Core.hpp"
-#include "SubSystemContainer.hpp"
+#include "ServiceLocator.hpp"
+#include "ModuleContainer.hpp"
 #include "EventDispatcher.hpp"
 #include "PluginManager.hpp"
 #include "StatsPrinter.hpp"
@@ -87,9 +88,9 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpCmdProcessor->Init(mEnv, this);
 	
-	mpSubSystemContainer = std::make_unique<CSubSystemContainer>(mEnv);
+	mpModuleContainer = std::make_unique<CModuleContainer>(mEnv);
 	
-	if(!mpSubSystemContainer->Init(mEnv))
+	if(!mpModuleContainer->Init(mEnv))
 		return false;
 	
 	mpPluginManager = std::make_unique<CPluginManager>(mEnv);

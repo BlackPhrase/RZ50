@@ -4,7 +4,7 @@ project(RZ-50)
 # Setup version
 set(RZ_VERSION_MAJOR 0)
 set(RZ_VERSION_MINOR 3)
-set(RZ_VERSION_PATCH 4)
+set(RZ_VERSION_PATCH 5)
 
 # Detect the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -41,7 +41,7 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O3")
 
 # Add include directories
 include_directories(
-	${CMAKE_SOURCE_DIR}/common
+	${CMAKE_SOURCE_DIR}/include/rz
 	${CMAKE_SOURCE_DIR}/external
 	${CMAKE_SOURCE_DIR}/external/shiftutil/include
 )
