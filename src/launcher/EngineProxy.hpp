@@ -7,7 +7,7 @@ namespace rz
 {
 	struct ICore;
 	struct TCoreInitParams;
-	struct TCoreEnv;
+	struct IServiceLocator;
 };
 
 //CEngineCoreHelper
@@ -28,7 +28,7 @@ public:
 	void Run();
 	//void Frame();
 	
-	const rz::TCoreEnv *GetEnv() const;
+	const rz::IServiceLocator *GetEnv() const;
 private:
 #ifndef RZ_CORE_STATIC
 	shiftutil::CSharedLib mCoreLib;

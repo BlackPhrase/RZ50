@@ -3,7 +3,7 @@
 #include <list>
 #include <deque>
 #include "core/IEventSystem.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
 
 namespace rz
 {
@@ -17,10 +17,8 @@ using tEventDeque = std::deque<TEvent*>;
 class CEventDispatcher final : public IEventDispatcher
 {
 public:
-	CEventDispatcher(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+	CEventDispatcher(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CEventDispatcher() = default;
-	
-	void Init(TCoreEnv &aCoreEnv);
 	
 	void Update(); // TODO: updateable component interface
 	
@@ -38,7 +36,7 @@ private:
 	tEventListenerList mlstListeners;
 	tEventDeque mEventQue;
 	
-	const TCoreEnv &mCoreEnv;
+	const IServiceLocator &mCoreEnv;
 };
 
 }; // namespace rz

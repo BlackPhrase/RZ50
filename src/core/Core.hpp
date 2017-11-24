@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <functional>
 #include "core/ICore.hpp"
 #include "core/IServiceLocator.hpp"
 
@@ -49,7 +50,7 @@ public:
 	void RequestClose();
 	bool IsCloseRequested() const override {return mbWantQuit;}
 	
-	const IServiceLocator &GetEnv() const override {return mpEnv.get();}
+	const IServiceLocator &GetEnv() const override {return (const IServiceLocator &)*mpEnv.get();}
 	
 	void GetStatistics(TEngineStatistics &aStatistics);
 private:

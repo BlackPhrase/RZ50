@@ -66,7 +66,7 @@ const ICmdProcessor &CServiceLocator::GetCmdProcessor() const
 	return *mpCmdProcessor;
 };
 
-const ILog &CServiceLocator::GetLog() const
+ILog &CServiceLocator::GetLog() const
 {
 	return *mpLog;
 };

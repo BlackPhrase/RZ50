@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/IEventSystem.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
 
 namespace rz
 {
@@ -9,12 +9,12 @@ namespace rz
 class CEchoEventListener : public IEventListener
 {
 public:
-	CEchoEventListener(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+	CEchoEventListener(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CEchoEventListener() = default;
 	
 	void OnEvent(const TEvent &aEvent);
 private:
-	const TCoreEnv &mCoreEnv;
+	const IServiceLocator &mCoreEnv;
 };
 
 }; // namespace rz

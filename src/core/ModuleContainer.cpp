@@ -1,26 +1,24 @@
 #include "ModuleContainer.hpp"
 #include "core/IModule.hpp"
-#include "core/TServiceLocator.hpp"
+#include "core/IServiceLocator.hpp"
 #include "core/CoreTypes.hpp"
 
 namespace rz
 {
 
-bool CModuleContainer::Init(IServiceLocator &aCoreEnv)
+bool CModuleContainer::Init()
 {
-	mCoreEnv.pLog->TraceInit("ModuleManager");
-	
-	aCoreEnv.pModuleContainer = this;
+	mCoreEnv.GetLog().TraceInit("ModuleManager");
 	return true;
 };
 
 void CModuleContainer::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("ModuleManager");
+	mCoreEnv.GetLog().TraceShutdown("ModuleManager");
 	
 	for(auto It : mlstModules)
 	{
-		mCoreEnv.pLog->TraceShutdown(string(It->GetModuleName()).append(" Module").c_str());
+		mCoreEnv.GetLog().TraceShutdown(string(It->GetModuleName()).append(" Module").c_str());
 		It->Shutdown();
 	};
 };
@@ -41,7 +39,7 @@ bool CModuleContainer::Add(const IModule &aModule)
 	for(auto It : mlstModules)
 		if(!strcmp(It->GetModuleName(), sName))
 		{
-			mCoreEnv->GetLog()->Error("Cannot register the module %s - already registered!", sName);
+			mCoreEnv.GetLog().Error("Cannot register the module %s - already registered!", sName);
 			return false;
 		};
 	
@@ -56,7 +54,7 @@ bool CModuleContainer::Add(const IModule &aModule)
 //{
 //};
 
-ISubSystem *CModuleContainer::GetByName(const char *asName) const
+IModule *CModuleContainer::GetByName(const char *asName) const
 {
 	for(auto It : mlstModules)
 		if(!strcmp(It->GetModuleName(), asName))

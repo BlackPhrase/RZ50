@@ -8,15 +8,11 @@ typedef struct _dictionary_ dictionary;
 namespace rz
 {
 
-struct TCoreEnv;
-
 class CIniConfig final : public IConfig
 {
 public:
 	CIniConfig(const char *asName);
 	~CIniConfig();
-	
-	void Init(TCoreEnv &aCoreEnv);
 	
 	void SetString(const char *asKey, const char *asValue);
 	void SetInt(const char *asKey, int anValue);

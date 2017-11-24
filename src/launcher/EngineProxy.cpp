@@ -88,7 +88,7 @@ void CEngineProxy::Run()
 	//Shutdown();
 };
 
-const rz::TCoreEnv *CEngineProxy::GetEnv() const
+const rz::IServiceLocator *CEngineProxy::GetEnv() const
 {
 	if(mpCore)
 		return &mpCore->GetEnv();

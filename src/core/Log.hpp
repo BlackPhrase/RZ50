@@ -5,16 +5,14 @@
 namespace rz
 {
 
-struct TCoreEnv;
 class CLogFile;
 
 class CLog final : public ILog
 {
 public:
-	CLog(); //= default;
+	CLog();
 	~CLog(); //= default;
 	
-	bool Init(TCoreEnv &aCoreEnv);
 	void Shutdown();
 	
 	void Write(const char *asMsg) override;

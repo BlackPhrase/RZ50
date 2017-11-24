@@ -24,7 +24,7 @@ public:
 	
 	//const IFileSystem &GetFileSystem() const override;
 	const ICmdProcessor &GetCmdProcessor() const override;
-	const ILog &GetLog() const override;
+	ILog &GetLog() const override;
 	const IConfig &GetConfig() const override;
 	const IEventDispatcher &GetEventDispatcher() const override;
 	const IMemory &GetMemory() const override;

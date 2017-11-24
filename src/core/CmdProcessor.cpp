@@ -8,10 +8,10 @@
 namespace rz
 {
 
-CCmdProcessor::CCmdProcessor(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+CCmdProcessor::CCmdProcessor(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 CCmdProcessor::~CCmdProcessor() = default;
 
-void CCmdProcessor::Init(TCoreEnv &aCoreEnv, CCore *apCore) // TODO: REV THIS
+void CCmdProcessor::Init(IServiceLocator &aCoreEnv, CCore *apCore) // TODO: REV THIS
 {
 	mpExecutor = std::make_unique<CCmdExecutor>(apCore);
 	mpBuffer = std::make_unique<CCmdBuffer>(mpExecutor.get());
@@ -19,7 +19,7 @@ void CCmdProcessor::Init(TCoreEnv &aCoreEnv, CCore *apCore) // TODO: REV THIS
 	
 	mpExecutor->Init();
 	
-	aCoreEnv.pCmdProcessor = this;
+	aCoreEnv.ProvideCmdProcessor(*this);
 };
 
 void CCmdProcessor::AddCommand(const char *asName, pfnCmdCallback afnCallback, const char *asDesc)
@@ -49,7 +49,7 @@ void CCmdProcessor::ExecText(const char *asText)
 {
 	// TODO: lock or atomic?
 	
-	mCoreEnv.pLog->Debug("CCmdProcessor::ExecText(\"%s\")", asText);
+	mCoreEnv.GetLog().Debug("CCmdProcessor::ExecText(\"%s\")", asText);
 	
 	//CCmdArgs Cmd(asText);
 	//mpExecutor->ExecArgs(Cmd);

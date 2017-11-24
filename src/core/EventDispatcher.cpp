@@ -3,11 +3,6 @@
 namespace rz
 {
 
-void CEventDispatcher::Init(TCoreEnv &aCoreEnv)
-{
-	aCoreEnv.pEventDispatcher = this;
-};
-
 void CEventDispatcher::Update()
 {
 	DispatchEvents();

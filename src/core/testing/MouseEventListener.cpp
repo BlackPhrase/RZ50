@@ -15,7 +15,7 @@ void CMouseEventListener::OnEvent(const TEvent &aEvent)
 		if(!MouseMoveEvent)
 			return;
 		
-		mCoreEnv.pLog->Debug("Got a mouse move event: %d, %d", MouseMoveEvent->nDeltaX, MouseMoveEvent->nDeltaY);
+		mCoreEnv.GetLog().Debug("Got a mouse move event: %d, %d", MouseMoveEvent->nDeltaX, MouseMoveEvent->nDeltaY);
 		break;
 	};
 };

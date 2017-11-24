@@ -1,4 +1,4 @@
-# RZ-50 (R-Zet) Engine
+# RZ50 (R-Zet) Engine
 
 The game engine is still in development which means that many (or most) of things could be changed
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TCoreEnv.hpp"
+#include "IServiceLocator.hpp"
 
 namespace rz
 {
@@ -19,7 +19,7 @@ struct TPluginInfo
 
 struct IPlugin
 {
-	virtual bool Init(const TCoreEnv &aCoreEnv) = 0;
+	virtual bool Init(const IServiceLocator &aCoreEnv) = 0;
 	virtual void Shutdown() = 0;
 	
 	virtual int GetVersion() const = 0;

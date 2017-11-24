@@ -7,8 +7,6 @@
 namespace rz
 {
 
-struct TCoreEnv;
-
 using tKeyValueMap = std::unordered_map<string, string>;
 
 class CConfig final : public IConfig
@@ -16,8 +14,6 @@ class CConfig final : public IConfig
 public:
 	CConfig() = default;
 	~CConfig() = default;
-	
-	void Init(TCoreEnv &aCoreEnv);
 	
 	void SetString(const char *asKey, const char *asValue);
 	void SetInt(const char *asKey, int anValue);

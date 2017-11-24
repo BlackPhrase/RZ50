@@ -1,15 +1,9 @@
 #include "Memory.hpp"
-#include "core/TCoreEnv.hpp"
 
 namespace rz
 {
 
 // TODO: Apply usage of mempools here
-
-void CMemory::Init(TCoreEnv &aCoreEnv)
-{
-	aCoreEnv.pMemory = this;
-};
 
 void *CMemory::Alloc(size_t anSize)
 {

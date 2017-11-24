@@ -55,6 +55,8 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpConfig = std::make_unique<CIniConfig>("EngineConfig-Test.ini");
 	
+	mpEnv->ProvideConfig(*mpConfig.get());
+	
 	IConfig *pConfig = mpConfigFactory->LoadFromFile("EngineConfig-Test.ini");
 	
 	//if(pConfig)
@@ -62,45 +64,48 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpLog = std::make_unique<CLog>();
 	
-	if(!mpLog->Init(mEnv))
-		return false;
+	mpEnv->ProvideLog(*mpLog.get());
 	
 	mpLog->TraceInit("Core");
 	
 	// NOTE: Max update rate is 30Hz for now
 	SetUpdateFreq(30.0f);
 	
-	mpConfig->Init(mEnv);
+	mpEnv->ProvideConfig(*mpConfig.get());
 	
-	mpMemory->Init(mEnv);
+	mpEnv->ProvideMemory(*mpMemory.get());
 	
-	mpEventDispatcher = std::make_unique<CEventDispatcher>(mEnv);
+	mpEventDispatcher = std::make_unique<CEventDispatcher>(*mpEnv.get());
 	
-	mpEventDispatcher->Init(mEnv);
+	mpEnv->ProvideEventDispatcher(*mpEventDispatcher.get());
 	
-	//CEchoEventListener &EchoEventListener = new CEchoEventListener(mEnv);
+	//CEchoEventListener &EchoEventListener = new CEchoEventListener(*mpEnv.get());
 	//mpEventDispatcher->AddListener(EchoEventListener);
 	
-	CMouseEventListener &MouseEventListener = new CMouseEventListener(mEnv);
+	CMouseEventListener &MouseEventListener = *new CMouseEventListener(*mpEnv.get());
 	mpEventDispatcher->AddListener(MouseEventListener);
 	
-	mpCmdProcessor = std::make_unique<CCmdProcessor>(mEnv);
+	mpCmdProcessor = std::make_unique<CCmdProcessor>(*mpEnv.get());
 	
-	mpCmdProcessor->Init(mEnv, this);
+	mpCmdProcessor->Init(*mpEnv.get(), this);
 	
-	mpModuleContainer = std::make_unique<CModuleContainer>(mEnv);
+	mpModuleContainer = std::make_unique<CModuleContainer>(*mpEnv.get());
 	
-	if(!mpModuleContainer->Init(mEnv))
+	mpEnv->ProvideModuleContainer(*mpModuleContainer.get());
+	
+	if(!mpModuleContainer->Init())
 		return false;
 	
-	mpPluginManager = std::make_unique<CPluginManager>(mEnv);
+	mpPluginManager = std::make_unique<CPluginManager>(*mpEnv.get());
 	
-	mpStatsPrinter = std::make_unique<CStatsPrinter>();
+	mpEnv->ProvidePluginManager(*mpPluginManager.get());
 	
 	// TODO: check that we should use plugins (read the config setting)
 	// and if should then init plugin manager here
-	if(!mpPluginManager->Init(mEnv))
+	if(!mpPluginManager->Init())
 		return false;
+	
+	mpStatsPrinter = std::make_unique<CStatsPrinter>();
 	
 	mpPluginManager->LoadPlugin("TestPlugin");
 	
@@ -118,7 +123,7 @@ void CCore::Shutdown()
 		return;
 	
 	mpPluginManager->Shutdown();
-	mpSubSystemContainer->Shutdown();
+	mpModuleContainer->Shutdown();
 	
 	mpLog->TraceShutdown("Core");
 	
@@ -163,7 +168,7 @@ void CCore::Frame()
 	
 	static float fFPS = 0.0f;
 	
-	//mpSubSystemContainer->Update();
+	//mpModuleContainer->Update();
 	
 	// NOTE: when the "exit" command received this loop will still be processing updates
 	// So we check for a pending quit flag here to prevent that
@@ -175,12 +180,12 @@ void CCore::Frame()
 
 		mpEventDispatcher->DispatchEvents(); //Update();
 
-		mpSubSystemContainer->Update(); // FixedUpdate();
+		mpModuleContainer->Update(); // FixedUpdate();
 		
 		fLag -= GetTimeStep();
 	};
 	
-	//mpSubSystemContainer->PostUpdate();
+	//mpModuleContainer->PostUpdate();
 	
 	// Gather statistics
 	// End frame profiling

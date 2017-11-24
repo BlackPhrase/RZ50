@@ -3,6 +3,8 @@
 #include "ICmdProcessor.hpp"
 #include "ILog.hpp"
 #include "IConfig.hpp"
+#include "IMemory.hpp"
+#include "IPluginManager.hpp"
 #include "IEventSystem.hpp"
 #include "IScheduler.hpp"
 #include "IModuleContainer.hpp"
@@ -13,8 +15,8 @@ namespace rz
 //struct ICmdProcessor;
 //struct ILog;
 //struct IConfig;
-struct IMemory;
-struct IPluginManager;
+//struct IMemory;
+//struct IPluginManager;
 //struct IProfiler;
 //struct IScheduler;
 
@@ -58,7 +60,7 @@ struct IServiceLocator
 	virtual const ICmdProcessor &GetCmdProcessor() const = 0;
 	
 	/// Direct logging functionality
-	virtual const ILog &GetLog() const = 0;
+	virtual ILog &GetLog() const = 0;
 	
 	/// Configuration settings
 	virtual const IConfig &GetConfig() const = 0;

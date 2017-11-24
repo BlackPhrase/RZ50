@@ -219,7 +219,7 @@ int main(int argc, char **argv)
 	
 	// TODO: fix this crap below
 	
-	const rz::TCoreEnv *CoreEnv = EngineProxy.GetEnv();
+	const rz::IServiceLocator *CoreEnv = EngineProxy.GetEnv();
 	
 	/*
 	rz::ISubSystem *pInput = LoadInputModule(*CoreEnv);

@@ -3,12 +3,12 @@
 #include <memory>
 #include "core/CoreTypes.hpp"
 #include "core/ICmdProcessor.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
 
 namespace rz
 {
 
-struct TCoreEnv;
+struct IServiceLocator;
 class CCore;
 
 class CCmdBuffer;
@@ -18,10 +18,10 @@ class CCmdContainer;
 class CCmdProcessor final : public ICmdProcessor
 {
 public:
-	CCmdProcessor(const TCoreEnv &aCoreEnv);
+	CCmdProcessor(const IServiceLocator &aCoreEnv);
 	~CCmdProcessor();
 	
-	void Init(TCoreEnv &aCoreEnv, CCore *apCore);
+	void Init(IServiceLocator &aCoreEnv, CCore *apCore);
 	
 	void AddCommand(const char *asName, pfnCmdCallback afnCallback, const char *asDesc) override;
 	
@@ -34,7 +34,7 @@ private:
 	std::unique_ptr<CCmdExecutor> mpExecutor;
 	std::unique_ptr<CCmdContainer> mpContainer;
 	
-	const TCoreEnv &mCoreEnv;
+	const IServiceLocator &mCoreEnv;
 };
 
 }; // namespace rz

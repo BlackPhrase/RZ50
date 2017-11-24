@@ -4,7 +4,7 @@ namespace rz
 {
 
 struct ISubSystem;
-struct TCoreEnv;
+struct IServiceLocator;
 
 /// Core initialization parameters
 struct TCoreInitParams
@@ -35,7 +35,7 @@ struct ICore
 	virtual bool IsCloseRequested() const = 0; // WantQuit
 	
 	/// @return set of common components
-	virtual const TCoreEnv &GetEnv() const = 0;
+	virtual const IServiceLocator &GetEnv() const = 0;
 };
 
 using pfnGetCore = ICore *(*)();

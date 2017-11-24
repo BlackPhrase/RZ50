@@ -5,7 +5,7 @@
 namespace rz
 {
 
-bool CPluginHandle::Init(const TCoreEnv &aCoreEnv)
+bool CPluginHandle::Init(const IServiceLocator &aCoreEnv)
 {
 	if(mpPlugin)
 		return mpPlugin->Init(aCoreEnv);

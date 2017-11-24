@@ -1,20 +1,18 @@
 #include "PluginManager.hpp"
 #include "core/CoreTypes.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
 #include "core/IPlugin.hpp"
 #include "PluginLoader.hpp"
 
 namespace rz
 {
 
-CPluginManager::CPluginManager(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+CPluginManager::CPluginManager(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 CPluginManager::~CPluginManager() = default;
 
-bool CPluginManager::Init(TCoreEnv &aCoreEnv)
+bool CPluginManager::Init()
 {
-	mCoreEnv.pLog->TraceInit("PluginManager");
-	
-	aCoreEnv.pPluginManager = this;
+	mCoreEnv.GetLog().TraceInit("PluginManager");
 	
 	mpLoader = std::make_unique<CPluginLoader>(mCoreEnv);
 	return true;
@@ -22,7 +20,7 @@ bool CPluginManager::Init(TCoreEnv &aCoreEnv)
 
 void CPluginManager::Shutdown()
 {
-	mCoreEnv.pLog->TraceShutdown("PluginManager");
+	mCoreEnv.GetLog().TraceShutdown("PluginManager");
 	
 	UnloadAllPlugins();
 };
@@ -32,7 +30,7 @@ bool CPluginManager::LoadPlugin(const char *asName)
 	// No name?
 	if(!asName || !*asName)
 	{
-		mCoreEnv.pLog->Error("Cannot load a plugin with no name specified!");
+		mCoreEnv.GetLog().Error("Cannot load a plugin with no name specified!");
 		return false;
 	};
 	
@@ -47,7 +45,7 @@ bool CPluginManager::LoadPlugin(const char *asName)
 	
 	if(!PluginLib)
 	{
-		mCoreEnv.pLog->Error("Failed to load the plugin \"%s\"!", asName);
+		mCoreEnv.GetLog().Error("Failed to load the plugin \"%s\"!", asName);
 		return false;
 	};
 	

@@ -7,7 +7,7 @@
 namespace rz
 {
 
-CPluginLoader::CPluginLoader(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+CPluginLoader::CPluginLoader(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 CPluginLoader::~CPluginLoader() = default;
 
 shiftutil::CSharedLib *CPluginLoader::LoadPlugin(const char *asName)
@@ -18,7 +18,7 @@ shiftutil::CSharedLib *CPluginLoader::LoadPlugin(const char *asName)
 	
 	if(!fnGetPluginExport)
 	{
-		mCoreEnv.pLog->Error("Plugin \"%s\" is missing the export function!", asName);
+		mCoreEnv.GetLog().Error("Plugin \"%s\" is missing the export function!", asName);
 		return nullptr;
 	};
 	
@@ -31,13 +31,13 @@ shiftutil::CSharedLib *CPluginLoader::LoadPlugin(const char *asName)
 	
 	if(pPluginVersion != PLUGIN_INTERFACE_VERSION)
 	{
-		mCoreEnv.pLog->Error("Plugin \"%s\" has an incompatible version! (%d vs %d)", asName, pPluginVersion, PLUGIN_INTERFACE_VERSION);
+		mCoreEnv.GetLog().Error("Plugin \"%s\" has an incompatible version! (%d vs %d)", asName, pPluginVersion, PLUGIN_INTERFACE_VERSION);
 		return nullptr;
 	};
 	
 	if(!pPlugin->Init(mCoreEnv))
 	{
-		mCoreEnv.pLog->Error("Failed to initialize the plugin \"%s\"!", asName);
+		mCoreEnv.GetLog().Error("Failed to initialize the plugin \"%s\"!", asName);
 		return nullptr;
 	};
 	

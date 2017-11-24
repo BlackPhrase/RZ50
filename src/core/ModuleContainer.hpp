@@ -17,7 +17,7 @@ public:
 	CModuleContainer(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CModuleContainer() = default;
 	
-	bool Init(IServiceLocator &aCoreEnv);
+	bool Init();
 	void Shutdown();
 	
 	void Update();

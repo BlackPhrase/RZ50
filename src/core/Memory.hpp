@@ -6,8 +6,6 @@
 namespace rz
 {
 
-struct TCoreEnv;
-
 using tMemPoolList = std::list<IMemPool*>;
 
 class CMemory final : public IMemory
@@ -15,8 +13,6 @@ class CMemory final : public IMemory
 public:
 	CMemory() = default;
 	~CMemory() = default;
-	
-	void Init(TCoreEnv &aCoreEnv);
 	
 	void *Alloc(size_t anSize) override;
 	void Free(void *apData) override;

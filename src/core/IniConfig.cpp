@@ -1,5 +1,4 @@
 #include "IniConfig.hpp"
-#include "core/TCoreEnv.hpp"
 #include "iniparser/src/iniparser.h"
 
 namespace rz
@@ -16,11 +15,6 @@ CIniConfig::CIniConfig(const char *asName)
 CIniConfig::~CIniConfig()
 {
 	iniparser_freedict(mpDict);
-};
-
-void CIniConfig::Init(TCoreEnv &aCoreEnv)
-{
-	aCoreEnv.pConfig = this;
 };
 
 void CIniConfig::SetString(const char *asKey, const char *asValue)

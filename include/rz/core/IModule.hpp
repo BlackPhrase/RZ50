@@ -3,7 +3,7 @@
 namespace rz
 {
 
-struct TCoreEnv;
+struct IServiceLocator;
 
 struct IModule
 {
@@ -12,7 +12,7 @@ struct IModule
 	//virtual bool PreInit() = 0;
 	
 	/// Module initialization
-	virtual bool Init(const TCoreEnv &aCoreEnv) = 0;
+	virtual bool Init(const IServiceLocator &aCoreEnv) = 0;
 	
 	/// Called after module was initialized
 	//virtual void PostInit() = 0;

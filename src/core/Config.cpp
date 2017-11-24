@@ -1,13 +1,7 @@
 #include "Config.hpp"
-#include "core/TCoreEnv.hpp"
 
 namespace rz
 {
-
-void CConfig::Init(TCoreEnv &aCoreEnv)
-{
-	aCoreEnv.pConfig = this;
-};
 
 void CConfig::SetString(const char *asKey, const char *asValue)
 {
