@@ -2,7 +2,7 @@
 #include "TextConsoleWin.hpp"
 
 #include <windows.h>
-#include <stdio.h>
+#include <cstdio>
 #include <fcntl.h>
 #include <io.h>
 #include <iostream>
@@ -11,7 +11,20 @@
 using namespace std;
 
 // maximum mumber of lines the output console should have
-static const WORD MAX_CONSOLE_LINES = 500;
+static const WORD MAX_CONSOLE_LINES{500};
+
+BOOL CtrlHandler(DWORD fdwCtrlType) 
+{
+	switch(fdwCtrlType)
+	{
+	case CTRL_CLOSE_EVENT:
+		return TRUE;
+	default:
+		break;
+	};
+	
+	return FALSE;
+};
 
 void RedirectIOToConsole()
 {
@@ -67,6 +80,9 @@ namespace rz
 
 bool CTextConsoleWin::Init()
 {
+	//if(!SetConsoleCtrlHandler((PHANDLER_ROUTINE)CtrlHandler, TRUE))
+		//return false;
+	
 	::RedirectIOToConsole();
 	
 	/*
