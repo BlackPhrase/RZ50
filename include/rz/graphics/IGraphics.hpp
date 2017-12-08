@@ -5,14 +5,14 @@
 namespace rz
 {
 
-struct ISubSystem;
-struct TCoreEnv;
+struct IModule;
+struct IServiceLocator;
 
 struct IGraphics
 {
 	
 };
 
-using pfnGetGraphics = ISubSystem *(*)(const TCoreEnv &aCoreEnv);
+using pfnGetGraphics = IModule *(*)(const IServiceLocator &aCoreEnv);
 
 }; // namespace rz

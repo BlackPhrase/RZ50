@@ -3,11 +3,11 @@
 namespace rz
 {
 
-struct TCoreEnv;
+struct IServiceLocator;
 
 struct IGraphicsImpl
 {
-	virtual bool Init(const TCoreEnv &aCoreEnv) = 0;
+	virtual bool Init(const IServiceLocator &aCoreEnv) = 0;
 	
 	virtual bool OpenWindow(int anWidth, int anHeight) = 0;
 	

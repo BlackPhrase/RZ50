@@ -10,7 +10,7 @@
 
 //DECLARE_SUBSYSTEM(CGraphics, GetGraphicsSubSystem)
 
-C_EXPORT rz::ISubSystem *GetGraphics(const rz::TCoreEnv &aCoreEnv)
+C_EXPORT rz::IModule *GetGraphics(const rz::IServiceLocator &aCoreEnv)
 {
 #ifdef _WIN32
 	static rz::CGraphicsWin GraphicsImpl;

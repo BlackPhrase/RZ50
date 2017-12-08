@@ -5,14 +5,14 @@
 namespace rz
 {
 
-bool CGraphics::Init(const TCoreEnv &aCoreEnv)
+bool CGraphics::Init(const IServiceLocator &aCoreEnv)
 {
-	mCoreEnv.pLog->TraceInit("Graphics");
-	mCoreEnv.pLog->Info("Graphics: Null");
+	mCoreEnv.GetLog().TraceInit("Graphics");
+	mCoreEnv.GetLog().Info("Graphics: Null");
 	
 	if(!OpenWindow())
 	{
-		mCoreEnv.pLog->Error("Failed to open the rendering window!");
+		mCoreEnv.GetLog().Error("Failed to open the rendering window!");
 		return false;
 	};
 	
@@ -53,7 +53,7 @@ void CGraphics::OnEvent(const TEvent &aEvent)
 
 bool CGraphics::OpenWindow()
 {
-	mCoreEnv.pLog->Debug("Opening a rendering window...");
+	mCoreEnv.GetLog().Debug("Opening a rendering window...");
 	return mpImpl->OpenWindow(mCoreEnv.pConfig->GetInt("Graphics:WindowWidth", 1280), mCoreEnv.pConfig->GetInt("Graphics:WindowHeight", 600));
 };
 

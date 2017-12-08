@@ -11,7 +11,7 @@ CGraphicsWin::~CGraphicsWin() //Shutdown
 		DestroyWindow(mhWnd);
 };
 
-bool CGraphicsWin::Init(const TCoreEnv &aCoreEnv)
+bool CGraphicsWin::Init(const IServiceLocator &aCoreEnv)
 {
 	pGraphicsWin = this;
 	mpCoreEnv = &aCoreEnv;

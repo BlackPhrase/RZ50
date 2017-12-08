@@ -2,7 +2,7 @@
 
 #include <windows.h>
 #include "IGraphicsImpl.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
 
 namespace rz
 {
@@ -13,7 +13,7 @@ public:
 	CGraphicsWin() = default;
 	~CGraphicsWin(); // = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv) override;
+	bool Init(const IServiceLocator &aCoreEnv) override;
 	//void Shutdown() override;
 	
 	bool OpenWindow(int anWidth, int anHeight) override;
@@ -26,7 +26,7 @@ public:
 private:
 	static LRESULT WINAPI WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const IServiceLocator *mpCoreEnv{nullptr};
 	
 	HWND mhWnd{nullptr};
 };
