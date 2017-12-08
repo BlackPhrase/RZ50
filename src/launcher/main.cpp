@@ -188,6 +188,70 @@ bool ProcessEvents()
 	return true;
 };
 
+/*
+bool Engine_Load();
+void Engine_Unload(); // bool?
+
+bool Engine_IsLoaded() const;
+*/
+
+bool Engine_Load()
+{
+#ifndef RZ_CORE_STATIC
+	rz::pfnGetCore fnGetCore{nullptr};
+	
+	if(!mCoreLib.Open("RZCore"))
+		return false;
+	
+	fnGetCore = mCoreLib.GetExportFunc<rz::pfnGetCore>("GetCore");
+	
+	if(!fnGetCore)
+		return false;
+#else
+	extern rz::ICore *fnGetCore();
+#endif
+
+	mpCore = fnGetCore();
+	
+	if(!mpCore)
+	{
+		printf("pCore is invalid! (%p)\n", mpCore);
+		return false;
+	};
+	
+	return true;
+};
+
+/*
+bool Engine_IsLoaded() const
+{
+	if(mpCore)
+		return true;
+	
+	return false;
+};
+*/
+
+void Engine_Unload(rz::ICore &aEngine)
+{
+	if(!Engine_IsLoaded())
+		return;
+	
+	//aEngine.Shutdown();
+	
+#ifndef RZ_CORE_STATIC
+	// TODO: unload the core module
+	// NOTE: Currently handled by shiftutil::CSharedLib which will 
+	// free the lib at destruction
+#endif
+	
+	mpCore = nullptr;
+	
+	//mCoreLib.Free();
+	
+	//return true;
+};
+
 static void atexit_handler()
 {
 	printf("Press any key to continue...\n");
@@ -199,9 +263,13 @@ int main(int argc, char **argv)
 	if(atexit(atexit_handler) != 0)
 		return EXIT_FAILURE;
 	
-	CEngineProxy EngineProxy;
+#ifndef RZ_CORE_STATIC
+	shiftutil::CSharedLib CoreLib;
+#endif
+
+	CEngineWrapper Engine;
 	
-	if(!EngineProxy.Load())
+	if(!Engine_Load())
 		return EXIT_FAILURE;
 	
 	// TODO: error handling (open an error message box?)
@@ -211,7 +279,7 @@ int main(int argc, char **argv)
 	strcpy(InitParams.sConfigName, "Default");
 	
 	// Init the core and all registered subsystems
-	if(!EngineProxy.Init(InitParams))
+	if(!Engine.Init(InitParams))
 	{
 		printf("Failed to init the core module!\n");
 		return EXIT_FAILURE;
@@ -219,7 +287,7 @@ int main(int argc, char **argv)
 	
 	// TODO: fix this crap below
 	
-	const rz::IServiceLocator *CoreEnv = EngineProxy.GetEnv();
+	const rz::IServiceLocator *CoreEnv = Engine.GetEnv();
 	
 	/*
 	rz::ISubSystem *pInput = LoadInputModule(*CoreEnv);
@@ -236,19 +304,19 @@ int main(int argc, char **argv)
 	// (Example: dedicated server/headless mode)
 	
 	/*
-	EngineProxy.RegisterSubSystem(*pInput);
-	EngineProxy.RegisterSubSystem(*pFS);
-	EngineProxy.RegisterSubSystem(*pGraphics);
-	EngineProxy.RegisterSubSystem(*pNetwork);
-	EngineProxy.RegisterSubSystem(*pSound);
-	EngineProxy.RegisterSubSystem(*pPhysics);
+	Engine.RegisterSubSystem(*pInput);
+	Engine.RegisterSubSystem(*pFS);
+	Engine.RegisterSubSystem(*pGraphics);
+	Engine.RegisterSubSystem(*pNetwork);
+	Engine.RegisterSubSystem(*pSound);
+	Engine.RegisterSubSystem(*pPhysics);
 	*/
 	
-	EngineProxy.Run();
+	Engine.Run();
 	
-	EngineProxy.Shutdown(); // shutdown all
+	Engine.Shutdown(); // shutdown all
 	
-	EngineProxy.Unload();
+	Engine.Unload();
 	
 	return EXIT_SUCCESS;
 };
