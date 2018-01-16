@@ -1,10 +1,10 @@
 #include "core/CoreTypes.hpp"
-#include "Input.hpp"
+#include "InputModule.hpp"
 
 //DECLARE_SUBSYSTEM(CInput, GetInputSubSystem)
 
-C_EXPORT rz::ISubSystem *GetInput(const rz::TCoreEnv &aCoreEnv)
+C_EXPORT rz::IModule *GetModule(const rz::IServiceLocator &aCoreEnv)
 {
-	static rz::CInput Input(aCoreEnv);
-	return &Input;
+	static rz::CInputModule InputModule(aCoreEnv);
+	return &InputModule;
 };

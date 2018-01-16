@@ -1,16 +1,16 @@
 #include "core/CoreTypes.hpp"
-#include "Input.hpp"
 #include "input/IInputDevice.hpp"
-#include "core/TCoreEnv.hpp"
+#include "core/IServiceLocator.hpp"
+#include "Input.hpp"
 #include "Mouse.hpp"
 
 namespace rz
 {
 
-bool CInput::Init(const TCoreEnv &aCoreEnv)
+bool CInput::Init(const IServiceLocator &aCoreEnv)
 {
-	mCoreEnv.pLog->TraceInit("Input");
-	mCoreEnv.pLog->Info("Input: Null");
+	mCoreEnv.GetLog().TraceInit("Input");
+	mCoreEnv.GetLog().Info("Input: Null");
 	
 	mlstDevices.push_back(new CNullMouse(aCoreEnv));
 	return true;
@@ -32,8 +32,8 @@ void CInput::Update()
 {
 	//mCoreEnv.pUpdateLog->TraceUpdate("Input");
 	
-	mCoreEnv.pCmdProcessor->Append("backward;left;right");
-	mCoreEnv.pCmdProcessor->Insert("forward");
+	mCoreEnv.GetCmdProcessor().BufferText("backward;left;right", ICmdProcessor::InsertMode::Append);
+	mCoreEnv.GetCmdProcessor().BufferText("forward", ICmdProcessor::InsertMode::Insert);
 	
 	for(auto It : mlstDevices)
 		It->Update();

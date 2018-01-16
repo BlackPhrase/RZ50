@@ -12,22 +12,20 @@ using tInputDeviceList = std::list<IInputDevice*>;
 class CInput final : public IInput
 {
 public:
-	CInput(const TCoreEnv &aCoreEnv) : mCoreEnv(aCoreEnv){}
+	CInput(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
 	~CInput() = default;
 	
-	bool Init(const TCoreEnv &aCoreEnv) override;
-	void Shutdown() override;
+	bool Init(const IServiceLocator &aCoreEnv);
+	void Shutdown();
 	
-	void Update() override;
+	void Update();
 	
 	void RegisterDevice(IInputDevice &aDevice) override;
 	void UnregisterDevice(IInputDevice &aDevice) override;
-	
-	const char *GetSubSystemName() const override {return "Input";}
 private:
 	tInputDeviceList mlstDevices;
 	
-	const TCoreEnv &mCoreEnv;
+	const IServiceLocator &mCoreEnv;
 };
 
 }; // namespace rz
