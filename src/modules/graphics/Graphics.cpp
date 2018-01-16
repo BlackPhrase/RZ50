@@ -16,7 +16,7 @@ bool CGraphics::Init(const IServiceLocator &aCoreEnv)
 		return false;
 	};
 	
-	mCoreEnv.pEventManager->AddListener(*this);
+	mCoreEnv.GetEventDispatcher().AddListener(*this);
 	
 	// TODO: pass a window interface?
 	//if(!mpRender->Init(0, 0, 1280, 600))
@@ -54,7 +54,7 @@ void CGraphics::OnEvent(const TEvent &aEvent)
 bool CGraphics::OpenWindow()
 {
 	mCoreEnv.GetLog().Debug("Opening a rendering window...");
-	return mpImpl->OpenWindow(mCoreEnv.pConfig->GetInt("Graphics:WindowWidth", 1280), mCoreEnv.pConfig->GetInt("Graphics:WindowHeight", 600));
+	return mpImpl->OpenWindow(mCoreEnv.GetConfig().GetInt("Graphics:WindowWidth", 1280), mCoreEnv.GetConfig().GetInt("Graphics:WindowHeight", 600));
 };
 
 void CGraphics::ProcessEvents()

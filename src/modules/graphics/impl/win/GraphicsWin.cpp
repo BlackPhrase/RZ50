@@ -97,7 +97,7 @@ void CGraphicsWin::ProcessEvents()
 
 void CGraphicsWin::RequestClose()
 {
-	mpCoreEnv->pCmdProcessor->ExecText("exit");
+	mpCoreEnv->GetCmdProcessor().ExecText("exit");
 };
 
 LRESULT WINAPI CGraphicsWin::WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
