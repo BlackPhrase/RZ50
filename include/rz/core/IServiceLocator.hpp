@@ -57,7 +57,7 @@ struct IServiceLocator
 	//virtual const IFileSystem &GetFileSystem() const = 0;
 	
 	/// Command processor
-	virtual const ICmdProcessor &GetCmdProcessor() const = 0;
+	virtual ICmdProcessor &GetCmdProcessor() const = 0;
 	
 	/// Direct logging functionality
 	virtual ILog &GetLog() const = 0;
@@ -66,7 +66,7 @@ struct IServiceLocator
 	virtual const IConfig &GetConfig() const = 0;
 	
 	/// Event manager
-	virtual const IEventDispatcher &GetEventDispatcher() const = 0;
+	virtual IEventDispatcher &GetEventDispatcher() const = 0;
 	
 	/// Memory manager
 	virtual const IMemory &GetMemory() const = 0;

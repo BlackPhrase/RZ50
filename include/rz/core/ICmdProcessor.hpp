@@ -13,8 +13,8 @@ struct ICmdProcessor
 	/// BufferText insert modes
 	enum class InsertMode : int
 	{
-		Insert = 0,
-		Append
+		Insert = 0, // TODO: front/head
+		Append // TODO: back/tail
 	};
 	
 	/// Insert the command text at the beginning of the buffer

@@ -118,7 +118,7 @@ struct IEventDispatcher
 	virtual void QueEvent(const TEvent &aEvent) = 0;
 	
 	/// Add the event listener
-	virtual void AddListener(const IEventListener &aListener) = 0;
+	virtual void AddListener(IEventListener &aListener) = 0;
 	
 	/// Remove the event listener
 	virtual void RemoveListener(const IEventListener &aListener) = 0;

@@ -53,7 +53,7 @@ void CEventDispatcher::DispatchEvents()
 };
 
 // TODO: Event filters or specific event listeners/dispatchers
-void CEventDispatcher::AddListener(const IEventListener &aListener)
+void CEventDispatcher::AddListener(IEventListener &aListener)
 {
 	// TODO: lock or atomic
 	
@@ -61,7 +61,7 @@ void CEventDispatcher::AddListener(const IEventListener &aListener)
 		if(It == &aListener)
 			return;
 
-	mlstListeners.push_back((IEventListener*)&aListener);
+	mlstListeners.push_back(&aListener);
 };
 
 void CEventDispatcher::RemoveListener(const IEventListener &aListener)

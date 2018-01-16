@@ -23,10 +23,10 @@ public:
 	void ProvideModuleContainer(IModuleContainer &aModuleContainer) override;
 	
 	//const IFileSystem &GetFileSystem() const override;
-	const ICmdProcessor &GetCmdProcessor() const override;
+	ICmdProcessor &GetCmdProcessor() const override;
 	ILog &GetLog() const override;
 	const IConfig &GetConfig() const override;
-	const IEventDispatcher &GetEventDispatcher() const override;
+	IEventDispatcher &GetEventDispatcher() const override;
 	const IMemory &GetMemory() const override;
 	const IPluginManager &GetPluginManager() const override;
 	//const IProfiler &GetProfiler() const override;

@@ -20,15 +20,6 @@ struct IModule
 	/// This method will be called when the module gets shutdown
 	virtual void Shutdown() = 0;
 	
-	/// @return true if should apply an update
-	//virtual bool PreUpdate() = 0;
-	
-	/// Update the module
-	virtual void Update() = 0;
-	
-	///
-	//virtual void PostUpdate();
-	
 	/// @return module name
 	virtual const char *GetModuleName() const = 0; // GetName?
 	

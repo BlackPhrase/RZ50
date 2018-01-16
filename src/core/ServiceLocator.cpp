@@ -8,52 +8,52 @@ CServiceLocator::~CServiceLocator() = default;
 
 //void CServiceLocator::ProvideFileSystem(IFileSystem &aFileSystem)
 //{
-	//*mpFileSystem = aFileSystem;
+	//mpFileSystem = std::addressof(aFileSystem);
 //};
 
 void CServiceLocator::ProvideCmdProcessor(ICmdProcessor &aCmdProcessor)
 {
-	*mpCmdProcessor = aCmdProcessor;
+	mpCmdProcessor = std::addressof(aCmdProcessor);
 };
 
 void CServiceLocator::ProvideLog(ILog &aLog)
 {
-	*mpLog = aLog;
+	mpLog = std::addressof(aLog);
 };
 
 void CServiceLocator::ProvideConfig(IConfig &aConfig)
 {
-	*mpConfig = aConfig;
+	mpConfig = std::addressof(aConfig);
 };
 
 void CServiceLocator::ProvideEventDispatcher(IEventDispatcher &aEventDispatcher)
 {
-	*mpEventDispatcher = aEventDispatcher;
+	mpEventDispatcher = std::addressof(aEventDispatcher);
 };
 
 void CServiceLocator::ProvideMemory(IMemory &aMemory)
 {
-	*mpMemory = aMemory;
+	mpMemory = std::addressof(aMemory);
 };
 
 void CServiceLocator::ProvidePluginManager(IPluginManager &aPluginManager)
 {
-	*mpPluginManager = aPluginManager;
+	mpPluginManager = std::addressof(aPluginManager);
 };
 
 //void CServiceLocator::ProvideProfiler(IProfiler &aProfiler)
 //{
-	//*mpProfiler = aProfiler;
+	//mpProfiler = std::addressof(aProfiler);
 //};
 
 void CServiceLocator::ProvideScheduler(IScheduler &aScheduler)
 {
-	*mpScheduler = aScheduler;
+	mpScheduler = std::addressof(aScheduler);
 };
 
 void CServiceLocator::ProvideModuleContainer(IModuleContainer &aModuleContainer)
 {
-	*mpModuleContainer = aModuleContainer;
+	mpModuleContainer = std::addressof(aModuleContainer);
 };
 
 //const IFileSystem &CServiceLocator::GetFileSystem() const
@@ -61,7 +61,7 @@ void CServiceLocator::ProvideModuleContainer(IModuleContainer &aModuleContainer)
 	//return *mpFileSystem;
 //};
 
-const ICmdProcessor &CServiceLocator::GetCmdProcessor() const
+ICmdProcessor &CServiceLocator::GetCmdProcessor() const
 {
 	return *mpCmdProcessor;
 };
@@ -76,7 +76,7 @@ const IConfig &CServiceLocator::GetConfig() const
 	return *mpConfig;
 };
 
-const IEventDispatcher &CServiceLocator::GetEventDispatcher() const
+IEventDispatcher &CServiceLocator::GetEventDispatcher() const
 {
 	return *mpEventDispatcher;
 };

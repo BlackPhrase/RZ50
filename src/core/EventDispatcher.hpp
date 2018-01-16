@@ -27,7 +27,7 @@ public:
 	
 	void DispatchEvents();
 	
-	void AddListener(const IEventListener &aListener) override;
+	void AddListener(IEventListener &aListener) override;
 	void RemoveListener(const IEventListener &aListener) override;
 private:
 	//bool Poll(TEvent &aEvent);

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "IniConfig.hpp"
 #include "iniparser/src/iniparser.h"
 
@@ -8,8 +9,8 @@ CIniConfig::CIniConfig(const char *asName)
 {
 	mpDict = iniparser_load(asName);
 	
-	//if(!mpDict)
-		//std::runtime_error("Unable to load the ini config file!");
+	if(!mpDict)
+		throw std::runtime_error("Unable to load the ini config file!");
 };
 
 CIniConfig::~CIniConfig()

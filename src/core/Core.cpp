@@ -31,7 +31,7 @@ namespace rz
 CCore::CCore() = default;
 CCore::~CCore() = default;
 
-bool CCore::Init(const TCoreInitParams &aInitParams)
+bool CCore::Init(const TInitParams &aInitParams)
 {
 	// TODO: remove local usage of core env?
 	
@@ -50,8 +50,10 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	mpCmdLine = std::make_unique<CCmdLine>(aInitParams.sCmdLine);
 	mpMemory = std::make_unique<CMemory>();
 	
+	mpEnv = std::make_unique<CServiceLocator>();
+	
 	mpConfigFactory = std::make_unique<CConfigFactory>();
-	//mpConfig = std::make_unique<IConfig>(); // destructor should be accessible
+	//mpConfig = std::make_unique<IConfig>(); // TODO: destructor should be accessible
 	
 	mpConfig = std::make_unique<CIniConfig>("EngineConfig-Test.ini");
 	
@@ -71,7 +73,7 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	// NOTE: Max update rate is 30Hz for now
 	SetUpdateFreq(30.0f);
 	
-	mpEnv->ProvideConfig(*mpConfig.get());
+	//mpEnv->ProvideConfig(*mpConfig.get());
 	
 	mpEnv->ProvideMemory(*mpMemory.get());
 	
@@ -79,11 +81,9 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpEnv->ProvideEventDispatcher(*mpEventDispatcher.get());
 	
-	//CEchoEventListener &EchoEventListener = new CEchoEventListener(*mpEnv.get());
-	//mpEventDispatcher->AddListener(EchoEventListener);
+	//mpEventDispatcher->AddListener(*new CEchoEventListener(*mpEnv.get()));
 	
-	CMouseEventListener &MouseEventListener = *new CMouseEventListener(*mpEnv.get());
-	mpEventDispatcher->AddListener(MouseEventListener);
+	mpEventDispatcher->AddListener(*new CMouseEventListener(*mpEnv.get()));
 	
 	mpCmdProcessor = std::make_unique<CCmdProcessor>(*mpEnv.get());
 	
@@ -91,10 +91,10 @@ bool CCore::Init(const TCoreInitParams &aInitParams)
 	
 	mpModuleContainer = std::make_unique<CModuleContainer>(*mpEnv.get());
 	
-	mpEnv->ProvideModuleContainer(*mpModuleContainer.get());
-	
 	if(!mpModuleContainer->Init())
 		return false;
+	
+	mpEnv->ProvideModuleContainer(*mpModuleContainer.get());
 	
 	mpPluginManager = std::make_unique<CPluginManager>(*mpEnv.get());
 	

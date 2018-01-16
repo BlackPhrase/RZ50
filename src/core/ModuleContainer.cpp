@@ -28,7 +28,7 @@ void CModuleContainer::Update()
 	for(auto It : mlstModules)
 	{
 		//mpUpdateLog->TraceUpdate(It->GetModuleName());
-		It->Update();
+		//It->Update();
 	};
 };
 

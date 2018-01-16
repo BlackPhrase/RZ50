@@ -3,25 +3,24 @@
 namespace rz
 {
 
-struct ISubSystem;
 struct IServiceLocator;
-
-/// Core initialization parameters
-struct TCoreInitParams
-{
-	char sConfigName[32] = {};  ///< Name of the config file to use
-	const char *sCmdLine{""};   ///< Application command line
-
-	//tWinHandle hCustomWindow{}; ///< Custom application window
-	
-	//int nMaxUPS{0}; ///< Max updates per second
-	//int nMaxFPS{0}; ///< Max frames per second
-};
 
 struct ICore
 {
+	/// Initialization parameters
+	struct TInitParams
+	{
+		char sConfigName[32] = {};  ///< Name of the config file to use
+		const char *sCmdLine{""};   ///< Application command line
+
+		//tWinHandle hCustomWindow{}; ///< Custom application window
+		
+		//int nMaxUPS{0}; ///< Max updates per second
+		//int nMaxFPS{0}; ///< Max frames per second
+	};
+	
 	/// Initialize the core
-	virtual bool Init(const TCoreInitParams &aInitParams) = 0;
+	virtual bool Init(const TInitParams &aInitParams) = 0;
 	
 	/// Shutdown the core
 	virtual void Shutdown() = 0;

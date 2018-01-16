@@ -42,7 +42,7 @@ public:
 	CCore();
 	~CCore();
 	
-	bool Init(const TCoreInitParams &aInitParams) override;
+	bool Init(const TInitParams &aInitParams) override;
 	void Shutdown() override;
 	
 	void Frame() override;
