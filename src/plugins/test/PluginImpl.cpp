@@ -1,14 +1,14 @@
 #include "PluginImpl.hpp"
 
-bool CPluginImpl::Init(const rz::TCoreEnv &aCoreEnv)
+bool CPluginImpl::Init(const rz::IServiceLocator &aCoreEnv)
 {
 	mpCoreEnv = &aCoreEnv;
 	
-	mpCoreEnv->pLog->TraceInit("TestPlugin");
+	mpCoreEnv->GetLog().TraceInit("TestPlugin");
 	return true;
 };
 
 void CPluginImpl::Shutdown()
 {
-	mpCoreEnv->pLog->TraceShutdown("TestPlugin");
+	mpCoreEnv->GetLog().TraceShutdown("TestPlugin");
 };
