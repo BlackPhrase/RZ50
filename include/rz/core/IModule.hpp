@@ -27,6 +27,6 @@ struct IModule
 	//virtual bool IsInitialized() const = 0;
 };
 
-using pfnGetModule = IModule *(*)();
+using pfnGetModule = IModule *(*)(/*const IServiceLocator &aCoreEnv*/);
 
 }; // namespace rz

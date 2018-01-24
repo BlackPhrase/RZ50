@@ -1,8 +1,6 @@
 #include <conio.h>
-
 #include "core/CoreTypes.hpp"
-
-#include "EngineProxy.hpp"
+#include "EngineWrapper.hpp"
 
 /*
 #include "input/IInput.hpp"
@@ -44,16 +42,16 @@ extern "C"
 
 // http://developer.download.nvidia.com/devzone/devcenter/gamegraphics/files/OptimusRenderingPolicies.pdf
 // The following line is to favor the high performance NVIDIA GPU if there are multiple GPUs
-// enable NVIDIA High Performance Graphics while using Integrated Graphics
+// Enable NVIDIA High Performance Graphics while using Integrated Graphics
 EXPORT unsigned long NvOptimusEnablement = 0x00000001;
 
-// enable AMD discrete card if both discrete and integrated are present
+// Prefer AMD discrete card if both discrete and integrated are present
 EXPORT int AmdPowerXpressRequestHighPerformance = 1;
 
 };
 
 /*
-rz::ISubSystem *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
+rz::IModule *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_INPUT_STATIC
 	rz::pfnGetInput fnGetInput{nullptr};
@@ -66,13 +64,13 @@ rz::ISubSystem *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
 	if(!fnGetInput)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetInput(const rz::TCoreEnv &aCoreEnv);
+	extern rz::IModule *fnGetInput(const rz::TCoreEnv &aCoreEnv);
 #endif
 
 	return fnGetInput(aCoreEnv);
 };
 
-rz::ISubSystem *LoadFSModule(const rz::TCoreEnv &aCoreEnv)
+rz::IModule *LoadFSModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_FS_STATIC
 	rz::pfnGetFS fnGetFS{nullptr};
@@ -85,13 +83,13 @@ rz::ISubSystem *LoadFSModule(const rz::TCoreEnv &aCoreEnv)
 	if(!fnGetFS)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetFS(const rz::TCoreEnv &aCoreEnv);
+	extern rz::IModule *fnGetFS(const rz::TCoreEnv &aCoreEnv);
 #endif
 
 	return fnGetFS(aCoreEnv);
 };
 
-rz::ISubSystem *LoadGraphicsModule(const rz::TCoreEnv &aCoreEnv)
+rz::IModule *LoadGraphicsModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_GRAPHICS_STATIC
 	rz::pfnGetGraphics fnGetGraphics{nullptr};
@@ -104,13 +102,13 @@ rz::ISubSystem *LoadGraphicsModule(const rz::TCoreEnv &aCoreEnv)
 	if(!fnGetGraphics)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetGraphics(const rz::TCoreEnv &aCoreEnv);
+	extern rz::IModule *fnGetGraphics(const rz::TCoreEnv &aCoreEnv);
 #endif
 
 	return fnGetGraphics(aCoreEnv);
 };
 
-rz::ISubSystem *LoadNetworkModule(const rz::TCoreEnv &aCoreEnv)
+rz::IModule *LoadNetworkModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_NETWORK_STATIC
 	rz::pfnGetNetwork fnGetNetwork{nullptr};
@@ -123,13 +121,13 @@ rz::ISubSystem *LoadNetworkModule(const rz::TCoreEnv &aCoreEnv)
 	if(!fnGetNetwork)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetNetwork(const rz::TCoreEnv &aCoreEnv);
+	extern rz::IModule *fnGetNetwork(const rz::TCoreEnv &aCoreEnv);
 #endif
 
 	return fnGetNetwork(aCoreEnv);
 };
 
-rz::ISubSystem *LoadSoundModule(const rz::TCoreEnv &aCoreEnv)
+rz::IModule *LoadSoundModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_SOUND_STATIC
 	rz::pfnGetSound fnGetSound{nullptr};
@@ -142,13 +140,13 @@ rz::ISubSystem *LoadSoundModule(const rz::TCoreEnv &aCoreEnv)
 	if(!fnGetSound)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetSound(const rz::TCoreEnv &aCoreEnv);
+	extern rz::IModule *fnGetSound(const rz::TCoreEnv &aCoreEnv);
 #endif
 
 	return fnGetSound(aCoreEnv);
 };
 
-rz::ISubSystem *LoadPhysicsModule(const rz::TCoreEnv &aCoreEnv)
+rz::IModule *LoadPhysicsModule(const rz::TCoreEnv &aCoreEnv)
 {
 #ifndef RZ_PHYSICS_STATIC
 	rz::pfnGetPhysics fnGetPhysics{nullptr};
@@ -161,7 +159,7 @@ rz::ISubSystem *LoadPhysicsModule(const rz::TCoreEnv &aCoreEnv)
 	if(!fnGetPhysics)
 		return nullptr;
 #else
-	extern rz::ISubSystem *fnGetPhysics(const rz::TCoreEnv &aCoreEnv);
+	extern rz::IModule *fnGetPhysics(const rz::TCoreEnv &aCoreEnv);
 #endif
 
 	return fnGetPhysics(aCoreEnv);
@@ -198,12 +196,10 @@ bool Engine_IsLoaded() const;
 bool Engine_Load()
 {
 #ifndef RZ_CORE_STATIC
-	rz::pfnGetCore fnGetCore{nullptr};
-	
-	if(!mCoreLib.Open("RZCore"))
+	if(!CoreLib.Open("RZCore"))
 		return false;
 	
-	fnGetCore = mCoreLib.GetExportFunc<rz::pfnGetCore>("GetCore");
+	rz::pfnGetCore fnGetCore{CoreLib.GetExportFunc<rz::pfnGetCore>("GetCore")};
 	
 	if(!fnGetCore)
 		return false;
@@ -211,11 +207,11 @@ bool Engine_Load()
 	extern rz::ICore *fnGetCore();
 #endif
 
-	mpCore = fnGetCore();
+	pCore = fnGetCore();
 	
-	if(!mpCore)
+	if(!pCore)
 	{
-		printf("pCore is invalid! (%p)\n", mpCore);
+		printf("pCore is invalid! (%p)\n", pCore);
 		return false;
 	};
 	
@@ -225,7 +221,7 @@ bool Engine_Load()
 /*
 bool Engine_IsLoaded() const
 {
-	if(mpCore)
+	if(pCore)
 		return true;
 	
 	return false;
@@ -245,9 +241,9 @@ void Engine_Unload(rz::ICore &aEngine)
 	// free the lib at destruction
 #endif
 	
-	mpCore = nullptr;
+	pCore = nullptr;
 	
-	//mCoreLib.Free();
+	//CoreLib.Free();
 	
 	//return true;
 };
@@ -274,7 +270,7 @@ int main(int argc, char **argv)
 	
 	// TODO: error handling (open an error message box?)
 	
-	rz::TCoreInitParams InitParams{};
+	rz::ICore::TInitParams InitParams{};
 	
 	strcpy(InitParams.sConfigName, "Default");
 	
@@ -290,12 +286,12 @@ int main(int argc, char **argv)
 	const rz::IServiceLocator *CoreEnv = Engine.GetEnv();
 	
 	/*
-	rz::ISubSystem *pInput = LoadInputModule(*CoreEnv);
-	rz::ISubSystem *pFS = LoadFSModule(*CoreEnv);
-	rz::ISubSystem *pGraphics = LoadGraphicsModule(*CoreEnv);
-	rz::ISubSystem *pNetwork = LoadNetworkModule(*CoreEnv);
-	rz::ISubSystem *pSound = LoadSoundModule(*CoreEnv);
-	rz::ISubSystem *pPhysics = LoadPhysicsModule(*CoreEnv);
+	rz::IModule *pInput = LoadInputModule(*CoreEnv);
+	rz::IModule *pFS = LoadFSModule(*CoreEnv);
+	rz::IModule *pGraphics = LoadGraphicsModule(*CoreEnv);
+	rz::IModule *pNetwork = LoadNetworkModule(*CoreEnv);
+	rz::IModule *pSound = LoadSoundModule(*CoreEnv);
+	rz::IModule *pPhysics = LoadPhysicsModule(*CoreEnv);
 	*/
 	
 	// Engine subsystems should be registered from the config file

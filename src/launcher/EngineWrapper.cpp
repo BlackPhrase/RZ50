@@ -1,7 +1,7 @@
 #include <cstdio>
 #include "EngineWrapper.hpp"
 
-bool CEngineWrapper::Init(const rz::TCoreInitParams &aInitParams)
+bool CEngineWrapper::Init(const rz::ICore::TInitParams &aInitParams)
 {
 	if(mpCore)
 		return mpCore->Init(aInitParams);

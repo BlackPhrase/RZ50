@@ -21,3 +21,9 @@ add_library(${PROJECT_TARGET_GRAPHICS} MODULE ${PROJECT_SOURCES})
 set_target_properties(${PROJECT_TARGET_GRAPHICS} PROPERTIES
 	PREFIX ""
 )
+
+if(WIN32)
+	target_link_libraries(${PROJECT_TARGET_GRAPHICS} -lopengl32)
+else()
+# TODO
+endif()

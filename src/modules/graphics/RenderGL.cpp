@@ -1,5 +1,7 @@
 #include "RenderGL.hpp"
 
+#include "GL/GL.h"
+
 namespace rz
 {
 
@@ -7,10 +9,20 @@ bool CRenderGL::Init(tWinHandle aWinHandle, int anPosX, int anPosY, int anWidth,
 {
 	mWinHandle = aWinHandle;
 	
-	//glViewport(anPosX, anPosY, anWidth, anHeight);
+	glViewport(anPosX, anPosY, anWidth, anHeight);
 	
 	if(!CreateContext())
 		return false;
+	
+	//SetClearColor(Color::Black, 1.0f);
+	
+	glFrontFace(GL_CW);
+	glCullFace(GL_BACK);
+	
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	
+	//glEnable(GL_FRAMEBUFFER_SRGB);
 	
 	return true;
 };
@@ -22,22 +34,22 @@ void CRenderGL::Shutdown()
 
 void CRenderGL::FrameBegin()
 {
-	//glBegin(GL_TRIANGLES);
+	glBegin(GL_TRIANGLES);
 };
 
 void CRenderGL::FrameEnd()
 {
-	//glEnd();
+	glEnd();
 };
 
 void CRenderGL::SetClearColor(const TColor4 &aColor)
 {
-	//glClearColor((GLfloat)aColor.r, (GLfloat)aColor.g, (GLfloat)aColor.b, (GLfloat)aColor.a);
+	glClearColor((GLfloat)aColor.r, (GLfloat)aColor.g, (GLfloat)aColor.b, (GLfloat)aColor.a);
 };
 
 void CRenderGL::ClearScreen()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 };
 
 bool CRenderGL::CreateContext()

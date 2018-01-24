@@ -19,7 +19,7 @@ public:
 	
 	operator bool(){return mpCore != nullptr;}
 	
-	bool Init(const rz::TCoreInitParams &aInitParams);
+	bool Init(const rz::ICore::TInitParams &aInitParams);
 	void Shutdown();
 	
 	void Run(); // TODO: return bool?

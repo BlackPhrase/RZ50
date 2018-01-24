@@ -5,14 +5,11 @@
 namespace rz
 {
 
-struct IModule;
-struct IServiceLocator;
+struct IWindow;
 
 struct IGraphics
 {
-	
+	virtual IWindow *GetWindow() const = 0;
 };
-
-using pfnGetGraphics = IModule *(*)(const IServiceLocator &aCoreEnv);
 
 }; // namespace rz
