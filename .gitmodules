@@ -3,4 +3,4 @@
 	url = https://github.com/ndevilla/iniparser
 [submodule "shiftutil"]
 	path = external/shiftutil
-	url = https://github.com/sh1ft0x0ef/shiftutil
+	url = https://github.com/BlackPhrase/shiftutil
