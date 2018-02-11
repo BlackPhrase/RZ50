@@ -6,6 +6,9 @@ namespace rz
 struct ITexture
 {
 	///
+	//virtual void Release() = 0;
+	
+	///
 	virtual void Bind() = 0;
 	
 	///

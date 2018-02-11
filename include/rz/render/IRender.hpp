@@ -5,6 +5,8 @@
 namespace rz
 {
 
+struct ITexture;
+
 struct TColor4
 {
 	byte r;
@@ -35,6 +37,14 @@ struct IRender
 	
 	///
 	//virtual void SwapBuffers() = 0;
+	
+	/// TEXTURES
+	
+	///
+	virtual ITexture *CreateTexture(int anWidth, int anHeight, int anBPP) = 0;
+	
+	///
+	virtual void DestroyTexture(ITexture *apTexture) = 0;
 };
 
 }; // namespace rz

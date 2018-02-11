@@ -1,4 +1,5 @@
 #include "RenderGL.hpp"
+#include "TextureGL.hpp"
 
 namespace rz
 {
@@ -61,6 +62,20 @@ void CRenderGL::SwapBuffers()
 {
 };
 */
+
+ITexture *CRenderGL::CreateTexture(int anWidth, int anHeight, int anBPP)
+{
+	return new CTextureGL();
+};
+
+void CRenderGL::DestroyTexture(ITexture *apTexture)
+{
+	if(apTexture)
+	{
+		delete apTexture;
+		apTexture = nullptr;
+	};
+};
 
 bool CRenderGL::CreateContext()
 {
