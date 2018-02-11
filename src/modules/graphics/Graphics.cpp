@@ -1,6 +1,6 @@
 #include "Graphics.hpp"
 #include "IGraphicsImpl.hpp"
-#include "IRender.hpp"
+#include "render/IRender.hpp"
 
 namespace rz
 {

@@ -1,7 +1,7 @@
 #include "core/IServiceLocator.hpp"
 #include "GraphicsModule.hpp"
 #include "Graphics.hpp"
-#include "RenderGL.hpp"
+#include "render/IRender.hpp"
 
 #ifdef _WIN32
 	#include "impl/win/GraphicsWin.hpp"
@@ -12,6 +12,13 @@
 namespace rz
 {
 
+IRender *LoadRenderModule(const char *name)
+{
+	IRender *pRender{nullptr};
+	
+	return pRender;
+};
+
 bool CGraphicsModule::Init(const IServiceLocator &aCoreEnv)
 {
 #ifdef _WIN32
@@ -19,10 +26,9 @@ bool CGraphicsModule::Init(const IServiceLocator &aCoreEnv)
 #elif
 	static rz::CGraphicsUnix GraphicsImpl;
 #endif
-
-	static rz::CRenderGL RenderGL;
 	
-	static rz::CGraphics Graphics(aCoreEnv, &GraphicsImpl, &RenderGL);
+	IRender *pRender = LoadRenderModule("RZRender-GL2");
+	static rz::CGraphics Graphics(aCoreEnv, &GraphicsImpl, pRender);
 	
 	return true;
 };

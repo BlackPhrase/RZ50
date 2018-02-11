@@ -1,14 +1,14 @@
 #pragma once
 
-#include <gl/GL.h>
+#include <GL/gl.h>
 
 #ifdef _WIN32
 #else
 	// TODO
-	#include <gl/glx.h>
+	#include <GL/glx.h>
 #endif
 
-#include "IRender.hpp"
+#include "render/IRender.hpp"
 
 namespace rz
 {
@@ -28,18 +28,21 @@ public:
 	void SetClearColor(const TColor4 &aColor) override;
 	
 	void ClearScreen() override;
+	
+	//void SwapBuffers() override;
 private:
+	bool CreateContext();
+	void FreeContext();
+	
 	tWinHandle mWinHandle;
 	
 #ifdef _WIN32
-	HDC hDeviceContext;
-	HGLRC hGLRC;
+	HDC mhDeviceContext{0};
+	HGLRC mhGLRC{0};
 #else
-	// TODO
+	Display *mpDisplay{nullptr};
+	GLXContext mhGLRC;
 #endif
-	
-	bool CreateContext();
-	void FreeContext();
 };
 
 }; // namespace rz

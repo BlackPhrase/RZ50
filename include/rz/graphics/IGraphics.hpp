@@ -9,7 +9,7 @@ struct IWindow;
 
 struct IGraphics
 {
-	virtual IWindow *GetWindow() const = 0;
+	//virtual IWindow *GetWindow() const = 0;
 };
 
 }; // namespace rz

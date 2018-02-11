@@ -1,6 +1,7 @@
 #add_subdirectory(fs)
 
 add_subdirectory(graphics)
+add_subdirectory(render)
 add_subdirectory(input)
 #add_subdirectory(sound)
 
