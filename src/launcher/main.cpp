@@ -11,27 +11,27 @@
 #include "physics/IPhysics.hpp"
 
 #ifndef RZ_INPUT_STATIC
-	shiftutil::CSharedLib gInputLib;
+	shiftutil::shared_lib gInputLib;
 #endif
 
 #ifndef RZ_FS_STATIC
-	shiftutil::CSharedLib gFSLib;
+	shiftutil::shared_lib gFSLib;
 #endif
 
 #ifndef RZ_GRAPHICS_STATIC
-	shiftutil::CSharedLib gGraphicsLib;
+	shiftutil::shared_lib gGraphicsLib;
 #endif
 
 #ifndef RZ_NETWORK_STATIC
-	shiftutil::CSharedLib gNetworkLib;
+	shiftutil::shared_lib gNetworkLib;
 #endif
 
 #ifndef RZ_SOUND_STATIC
-	shiftutil::CSharedLib gSoundLib;
+	shiftutil::shared_lib gSoundLib;
 #endif
 
 #ifndef RZ_PHYSICS_STATIC
-	shiftutil::CSharedLib gPhysicsLib;
+	shiftutil::shared_lib gPhysicsLib;
 #endif
 */
 
@@ -237,7 +237,7 @@ void Engine_Unload(rz::ICore &aEngine)
 	
 #ifndef RZ_CORE_STATIC
 	// TODO: unload the core module
-	// NOTE: Currently handled by shiftutil::CSharedLib which will 
+	// NOTE: Currently handled by shiftutil::shared_lib which will 
 	// free the lib at destruction
 #endif
 	
@@ -260,7 +260,7 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	
 #ifndef RZ_CORE_STATIC
-	shiftutil::CSharedLib CoreLib;
+	shiftutil::shared_lib CoreLib;
 #endif
 
 	CEngineWrapper Engine;
@@ -272,7 +272,7 @@ int main(int argc, char **argv)
 	
 	rz::ICore::TInitParams InitParams{};
 	
-	strcpy(InitParams.sConfigName, "Default");
+	InitParams.sConfigName = "Default";
 	
 	// Init the core and all registered subsystems
 	if(!Engine.Init(InitParams))

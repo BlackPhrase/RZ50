@@ -1,16 +1,18 @@
+/// @file
+/// @brief engine module wrapper
+
 #pragma once
 
-#include "shiftutil/SharedLib.hpp"
+#include "shiftutil/shared_lib.hpp"
 #include "core/ICore.hpp"
 
 namespace rz
 {
 	struct ICore;
-	struct TCoreInitParams; // TODO: Move inside the ICore interface (ICore::InitParams)
 	struct IServiceLocator;
 };
 
-//CEngineCoreHelper
+//CEngineCoreWrapper
 class CEngineWrapper final
 {
 public:
