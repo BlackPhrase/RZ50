@@ -17,26 +17,20 @@
 
 #pragma once
 
-#include "core/ISubSystem.hpp"
-#include "system/ISystem.hpp"
+#include "core/ISystem.hpp"
 
 namespace rz
 {
 
-class CSystem final : public ISubSystem, ISystem
+struct IServiceLocator;
+
+class CSystem final : public ISystem
 {
 public:
-	CSystem() = default;
-	~CSystem() = default;
-	
-	bool Init(const TCoreEnv &aCoreEnv) override;
-	void Shutdown() override;
-	
-	void Update() override;
-	
-	const char *GetSubSystemName() const override {return "System";}
+	CSystem(const IServiceLocator &aCoreEnv);
+	~CSystem();
 private:
-	const TCoreEnv *mpCoreEnv{nullptr};
+	const IServiceLocator &mCoreEnv;
 };
 
 }; // namespace rz

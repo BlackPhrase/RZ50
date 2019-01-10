@@ -16,11 +16,19 @@
 */
 
 #include "System.hpp"
+#include "core/IServiceLocator.hpp"
 
-//DECLARE_SUBSYSTEM(CSystem, GetSystemSubSystem)
-
-C_EXPORT rz::ISubSystem *GetSystemSubSystem()
+namespace rz
 {
-	static CSystem System;
-	return &System;
+
+CSystem::CSystem(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv)
+{
+	mCoreEnv.GetLog().TraceInit("System");
 };
+
+CSystem::~CSystem()
+{
+	mCoreEnv.GetLog().TraceShutdown("System");
+};
+
+}; // namespace rz
