@@ -22,7 +22,6 @@
 #include "PluginManager.hpp"
 #include "StatsPrinter.hpp"
 #include "CmdProcessor.hpp"
-#include "ConfigFactory.hpp"
 #include "CmdLine.hpp"
 #include "core/IConfig.hpp"
 #include "IniConfig.hpp"
@@ -69,14 +68,11 @@ bool CCore::Init(const TInitParams &aInitParams)
 	
 	mpEnv = std::make_unique<CServiceLocator>();
 	
-	mpConfigFactory = std::make_unique<CConfigFactory>();
 	//mpConfig = std::make_unique<IConfig>(); // TODO: destructor should be accessible
 	
 	mpConfig = std::make_unique<CIniConfig>("EngineConfig-Test.ini");
 	
 	mpEnv->ProvideConfig(*mpConfig.get());
-	
-	IConfig *pConfig = mpConfigFactory->LoadFromFile("EngineConfig-Test.ini");
 	
 	//if(pConfig)
 		//mpLog->Debug("Loaded config: %s", pConfig->GetName());

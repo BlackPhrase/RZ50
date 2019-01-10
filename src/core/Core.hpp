@@ -32,7 +32,6 @@ class CPluginManager;
 class CStatsPrinter;
 class CCmdProcessor;
 struct ITextConsole;
-class CConfigFactory;
 class CCmdLine;
 struct IConfig;
 class CIniConfig;
@@ -86,7 +85,6 @@ private:
 	std::unique_ptr<CStatsPrinter> mpStatsPrinter;
 	std::unique_ptr<CCmdProcessor> mpCmdProcessor;
 	std::unique_ptr<ITextConsole> mpTextConsole;
-	std::unique_ptr<CConfigFactory> mpConfigFactory;
 	std::unique_ptr<CCmdLine> mpCmdLine;
 	//std::unique_ptr<IConfig> mpConfig;
 	std::unique_ptr<CIniConfig> mpConfig;
