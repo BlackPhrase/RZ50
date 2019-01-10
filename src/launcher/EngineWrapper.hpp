@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include "shiftutil/shared_lib.hpp"
+#include "konbini/shared_lib.hpp"
 #include "core/ICore.hpp"
 
 namespace rz

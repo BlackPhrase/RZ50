@@ -28,27 +28,27 @@
 #include "physics/IPhysics.hpp"
 
 #ifndef RZ_INPUT_STATIC
-	shiftutil::shared_lib gInputLib;
+	konbini::shared_lib gInputLib;
 #endif
 
 #ifndef RZ_FS_STATIC
-	shiftutil::shared_lib gFSLib;
+	konbini::shared_lib gFSLib;
 #endif
 
 #ifndef RZ_GRAPHICS_STATIC
-	shiftutil::shared_lib gGraphicsLib;
+	konbini::shared_lib gGraphicsLib;
 #endif
 
 #ifndef RZ_NETWORK_STATIC
-	shiftutil::shared_lib gNetworkLib;
+	konbini::shared_lib gNetworkLib;
 #endif
 
 #ifndef RZ_SOUND_STATIC
-	shiftutil::shared_lib gSoundLib;
+	konbini::shared_lib gSoundLib;
 #endif
 
 #ifndef RZ_PHYSICS_STATIC
-	shiftutil::shared_lib gPhysicsLib;
+	konbini::shared_lib gPhysicsLib;
 #endif
 */
 
@@ -76,7 +76,7 @@ rz::IModule *LoadInputModule(const rz::TCoreEnv &aCoreEnv)
 	if(!gInputLib.Open("RZInput"))
 		return nullptr;
 	
-	fnGetInput = gInputLib.GetExportFunc<rz::pfnGetInput>("GetInput");
+	fnGetInput = gInputLib.getexportfunc<rz::pfnGetInput>("GetInput");
 	
 	if(!fnGetInput)
 		return nullptr;
@@ -95,7 +95,7 @@ rz::IModule *LoadFSModule(const rz::TCoreEnv &aCoreEnv)
 	if(!gFSLib.Open("RZFileSystem"))
 		return nullptr;
 	
-	fnGetFS = gFSLib.GetExportFunc<rz::pfnGetFS>("GetFS");
+	fnGetFS = gFSLib.getexportfunc<rz::pfnGetFS>("GetFS");
 	
 	if(!fnGetFS)
 		return nullptr;
@@ -114,7 +114,7 @@ rz::IModule *LoadGraphicsModule(const rz::TCoreEnv &aCoreEnv)
 	if(!gGraphicsLib.Open("RZGraphics"))
 		return nullptr;
 	
-	fnGetGraphics = gGraphicsLib.GetExportFunc<rz::pfnGetGraphics>("GetGraphics");
+	fnGetGraphics = gGraphicsLib.getexportfunc<rz::pfnGetGraphics>("GetGraphics");
 	
 	if(!fnGetGraphics)
 		return nullptr;
@@ -133,7 +133,7 @@ rz::IModule *LoadNetworkModule(const rz::TCoreEnv &aCoreEnv)
 	if(!gNetworkLib.Open("RZNetwork"))
 		return nullptr;
 	
-	fnGetNetwork = gNetworkLib.GetExportFunc<rz::pfnGetNetwork>("GetNetwork");
+	fnGetNetwork = gNetworkLib.getexportfunc<rz::pfnGetNetwork>("GetNetwork");
 	
 	if(!fnGetNetwork)
 		return nullptr;
@@ -152,7 +152,7 @@ rz::IModule *LoadSoundModule(const rz::TCoreEnv &aCoreEnv)
 	if(!gSoundLib.Open("RZSound"))
 		return nullptr;
 	
-	fnGetSound = gSoundLib.GetExportFunc<rz::pfnGetSound>("GetSound");
+	fnGetSound = gSoundLib.getexportfunc<rz::pfnGetSound>("GetSound");
 	
 	if(!fnGetSound)
 		return nullptr;
@@ -171,7 +171,7 @@ rz::IModule *LoadPhysicsModule(const rz::TCoreEnv &aCoreEnv)
 	if(!gPhysicsLib.Open("RZPhysics"))
 		return nullptr;
 	
-	fnGetPhysics = gPhysicsLib.GetExportFunc<rz::pfnGetPhysics>("GetPhysics");
+	fnGetPhysics = gPhysicsLib.getexportfunc<rz::pfnGetPhysics>("GetPhysics");
 	
 	if(!fnGetPhysics)
 		return nullptr;
@@ -216,7 +216,7 @@ bool Engine_Load()
 	if(!CoreLib.Open("RZCore"))
 		return false;
 	
-	rz::pfnGetCore fnGetCore{CoreLib.GetExportFunc<rz::pfnGetCore>("GetCore")};
+	auto fnGetCore{CoreLib.getexportfunc<rz::pfnGetCore>("GetCore")};
 	
 	if(!fnGetCore)
 		return false;
@@ -254,7 +254,7 @@ void Engine_Unload(rz::ICore &aEngine)
 	
 #ifndef RZ_CORE_STATIC
 	// TODO: unload the core module
-	// NOTE: Currently handled by shiftutil::shared_lib which will 
+	// NOTE: Currently handled by konbini::shared_lib which will 
 	// free the lib at destruction
 #endif
 	
@@ -277,7 +277,7 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	
 #ifndef RZ_CORE_STATIC
-	shiftutil::shared_lib CoreLib;
+	konbini::shared_lib CoreLib;
 #endif
 
 	CEngineWrapper Engine;
