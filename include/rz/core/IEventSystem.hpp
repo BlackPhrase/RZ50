@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct TEvent
@@ -147,4 +147,4 @@ struct IEventDispatcher
 	//virtual void GetEvent(TEvent &aEvent) = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::core

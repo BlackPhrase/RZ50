@@ -20,7 +20,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct IServiceLocator;
@@ -60,4 +60,4 @@ struct ICore
 
 using pfnGetCore = ICore *(*)();
 
-}; // namespace rz
+}; // namespace rz::core
