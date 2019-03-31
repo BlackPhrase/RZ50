@@ -17,7 +17,7 @@
 
 #include "LogFile.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CLogFile::CLogFile(const string &asName) : msName(asName + ".log"), mpHandle(std::fopen(msName.c_str(), "w+"))
@@ -54,4 +54,4 @@ void CLogFile::Close()
 	fclose(mpHandle);
 };
 
-}; // namespace rz
+}; // namespace rz::core

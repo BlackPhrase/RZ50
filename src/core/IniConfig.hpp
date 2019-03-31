@@ -22,7 +22,7 @@
 
 typedef struct _dictionary_ dictionary;
 
-namespace rz
+namespace rz::core
 {
 
 class CIniConfig final : public IConfig
@@ -44,4 +44,4 @@ private:
 	dictionary *mpDict{nullptr};
 };
 
-}; // namespace rz
+}; // namespace rz::core

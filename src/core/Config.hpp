@@ -21,7 +21,7 @@
 #include "core/CoreTypes.hpp"
 #include "core/IConfig.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 using tKeyValueMap = std::unordered_map<string, string>;
@@ -45,4 +45,4 @@ private:
 	tKeyValueMap mmapKeys;
 };
 
-}; // namespace rz
+}; // namespace rz::core

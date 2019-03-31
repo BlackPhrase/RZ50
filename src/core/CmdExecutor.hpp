@@ -19,7 +19,7 @@
 
 #include <list>
 
-namespace rz
+namespace rz::core
 {
 
 class CCore;
@@ -49,4 +49,4 @@ private:
 	CCore *mpCore{nullptr};
 };
 
-}; // namespace rz
+}; // namespace rz::core

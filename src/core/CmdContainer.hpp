@@ -20,7 +20,7 @@
 #include <list>
 #include "core/ICmdProcessor.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 struct CCmd
@@ -52,4 +52,4 @@ private:
 	tCmdList mlstCmds;
 };
 
-}; // namespace rz
+}; // namespace rz::core

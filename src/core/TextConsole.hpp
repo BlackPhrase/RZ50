@@ -19,7 +19,7 @@
 
 #include "ITextConsole.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 class CTextConsole : public ITextConsole
@@ -29,4 +29,4 @@ public:
 	virtual ~CTextConsole() = default;
 };
 
-}; // namespace rz
+}; // namespace rz::core

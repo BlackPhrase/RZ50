@@ -17,9 +17,9 @@
 
 #include "TextConsole.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 
 
-}; // namespace rz
+}; // namespace rz::core

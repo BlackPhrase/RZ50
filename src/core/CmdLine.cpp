@@ -17,7 +17,7 @@
 
 #include "CmdLine.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CCmdLine::CCmdLine(const char *asCmdLine)
@@ -43,4 +43,4 @@ uint CCmdLine::GetArgCount() const
 	return 0;
 };
 
-}; // namespace rz
+}; // namespace rz::core

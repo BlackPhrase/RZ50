@@ -17,7 +17,7 @@
 
 #include "JobManager.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 /*
@@ -45,4 +45,4 @@ CJobManager::CJobManager()
 		//mvThreadPool.push_back(new std::thread(CThreadLoop));
 };
 
-}; // namespace rz
+}; // namespace rz::core

@@ -19,7 +19,7 @@
 #include "CmdExecutor.hpp"
 #include "Core.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CCmdExecutor::CCmdExecutor(CCore *apCore) : mpCore(apCore){}
@@ -70,4 +70,4 @@ bool CCmdExecutor::ExecString(const char *asText)
 	return false;
 };
 
-}; // namespace rz
+}; // namespace rz::core

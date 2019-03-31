@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct ILog;
@@ -32,4 +32,4 @@ public:
 	void PrintToLog(const TEngineStatistics &aStats, ILog *apLog);
 };
 
-}; // namespace rz
+}; // namespace rz::core

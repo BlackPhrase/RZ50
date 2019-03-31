@@ -19,7 +19,7 @@
 #include "Core.hpp"
 #include "core/ILog.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 void CStatsPrinter::PrintToLog(const TEngineStatistics &aStats, ILog *apLog)
@@ -42,4 +42,4 @@ void CStatsPrinter::PrintToLog(const TEngineStatistics &aStats, ILog *apLog)
 				aStats.fAvgFrameTime);
 };
 
-}; // namespace rz
+}; // namespace rz::core

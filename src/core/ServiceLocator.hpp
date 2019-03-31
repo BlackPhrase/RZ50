@@ -19,7 +19,7 @@
 
 #include "core/IServiceLocator.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 class CServiceLocator final : public IServiceLocator
@@ -62,4 +62,4 @@ private:
 	IModuleContainer *mpModuleContainer{nullptr};
 };
 
-}; // namespace rz
+}; // namespace rz::core

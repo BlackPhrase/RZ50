@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct ITextConsole
@@ -38,4 +38,4 @@ struct ITextConsole
 	virtual void Error(const char *asMsg, ...) = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::core

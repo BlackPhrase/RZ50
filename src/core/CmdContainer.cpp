@@ -18,7 +18,7 @@
 #include <cstring>
 #include "CmdContainer.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 bool CCmdContainer::Add(const char *asName, pfnCmdCallback afnCallback, const char *asDesc)
@@ -60,4 +60,4 @@ bool CCmdContainer::IsPresent(const char *asName) const
 	return Find(asName) ? true : false;
 };
 
-}; // namespace rz
+}; // namespace rz::core

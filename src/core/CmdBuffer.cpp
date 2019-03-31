@@ -18,7 +18,7 @@
 #include "CmdBuffer.hpp"
 #include "CmdExecutor.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CCmdBuffer::CCmdBuffer(CCmdExecutor *apExecutor) : mpExecutor(apExecutor){}
@@ -49,4 +49,4 @@ void CCmdBuffer::Exec()
 	};
 };
 
-}; // namespace rz
+}; // namespace rz::core

@@ -17,7 +17,7 @@
 
 #include "EventDispatcher.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 void CEventDispatcher::Update()
@@ -110,4 +110,4 @@ bool CEventDispatcher::Get(TEvent &aEvent)
 };
 */
 
-}; // namespace rz
+}; // namespace rz::core

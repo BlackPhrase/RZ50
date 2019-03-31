@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct IFrameListener
@@ -33,4 +33,4 @@ struct IFrameListener
 	//virtual void PostUpdate();
 };
 
-}; // namespace rz
+}; // namespace rz::core

@@ -41,7 +41,7 @@
 // (pfnGetSubSystem(const TCoreEnv &aCoreEnv) <- pass the env here)
 // This way it would be possible to store the reference to env inside the class members
 
-namespace rz
+namespace rz::core
 {
 
 CCore::CCore() = default;
@@ -226,4 +226,4 @@ void CCore::RequestClose()
 	mbWantQuit = true;
 };
 
-}; // namespace rz
+}; // namespace rz::core

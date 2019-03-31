@@ -21,7 +21,7 @@
 #include <list>
 #include "core/CoreTypes.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 class CCmdExecutor;
@@ -44,4 +44,4 @@ private:
 	CCmdExecutor *mpExecutor{nullptr};
 };
 
-}; // namespace rz
+}; // namespace rz::core

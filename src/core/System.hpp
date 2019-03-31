@@ -19,7 +19,7 @@
 
 #include "core/ISystem.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 struct IServiceLocator;
@@ -33,4 +33,4 @@ private:
 	const IServiceLocator &mCoreEnv;
 };
 
-}; // namespace rz
+}; // namespace rz::core

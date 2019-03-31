@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct TProfileResult
@@ -39,4 +39,4 @@ struct IProfiler
 	virtual IProfileTimer &StartTiming(const char *asName) = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::core

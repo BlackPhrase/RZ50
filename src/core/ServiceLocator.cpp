@@ -17,7 +17,7 @@
 
 #include "ServiceLocator.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CServiceLocator::CServiceLocator() = default;
@@ -123,4 +123,4 @@ const IModuleContainer &CServiceLocator::GetModuleContainer() const
 	return *mpModuleContainer;
 };
 
-}; // namespace rz
+}; // namespace rz::core

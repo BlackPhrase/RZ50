@@ -22,7 +22,7 @@
 #include "core/ICmdProcessor.hpp"
 #include "core/IServiceLocator.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 struct IServiceLocator;
@@ -54,4 +54,4 @@ private:
 	const IServiceLocator &mCoreEnv;
 };
 
-}; // namespace rz
+}; // namespace rz::core

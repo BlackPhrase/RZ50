@@ -19,7 +19,7 @@
 
 #include "core/ILog.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 class CLogFile;
@@ -47,4 +47,4 @@ private:
 	std::unique_ptr<CLogFile> mpFile;
 };
 
-}; // namespace rz
+}; // namespace rz::core

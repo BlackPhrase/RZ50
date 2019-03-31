@@ -26,7 +26,7 @@
 #include "IScheduler.hpp"
 #include "IModuleContainer.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 //struct ICmdProcessor;
@@ -101,4 +101,4 @@ struct IServiceLocator
 	virtual const IModuleContainer &GetModuleContainer() const = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::core

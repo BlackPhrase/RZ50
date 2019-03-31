@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 // Each thread should be connected to this functor
@@ -51,4 +51,4 @@ private:
 	// TODO: ring buffer of jobs
 };
 
-}; // namespace rz
+}; // namespace rz::core

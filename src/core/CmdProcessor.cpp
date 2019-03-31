@@ -22,7 +22,7 @@
 #include "CmdExecutor.hpp"
 #include "CmdContainer.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CCmdProcessor::CCmdProcessor(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv){}
@@ -79,4 +79,4 @@ void CCmdProcessor::ExecBuffer()
 	mpBuffer->Exec();
 };
 
-}; // namespace rz
+}; // namespace rz::core

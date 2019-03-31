@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct ICmdHandler
@@ -25,4 +25,4 @@ struct ICmdHandler
 	virtual bool HandleCmd(const char *asText) = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::core

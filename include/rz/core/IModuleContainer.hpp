@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::core
 {
 
 struct IModule;
@@ -38,4 +38,4 @@ struct IModuleContainer
 	//inline T *GetSubSystem() const {return GetSubSystem(T);}
 };
 
-}; // namespace rz
+}; // namespace rz::core

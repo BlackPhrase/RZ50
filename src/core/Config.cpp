@@ -17,7 +17,7 @@
 
 #include "Config.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 void CConfig::SetString(const char *asKey, const char *asValue)
@@ -80,4 +80,4 @@ bool CConfig::GetBool(const char *asKey, bool abDefault) const
 	return abDefault;
 };
 
-}; // namespace rz
+}; // namespace rz::core

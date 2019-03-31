@@ -19,7 +19,7 @@
 
 #include "core/CoreTypes.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 class CCmdLine final
@@ -38,4 +38,4 @@ private:
 	// TODO
 };
 
-}; // namespace rz
+}; // namespace rz::core

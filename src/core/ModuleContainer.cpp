@@ -20,7 +20,7 @@
 #include "core/IServiceLocator.hpp"
 #include "core/CoreTypes.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 bool CModuleContainer::Init()
@@ -80,4 +80,4 @@ IModule *CModuleContainer::GetByName(const char *asName) const
 	return nullptr;
 };
 
-}; // namespace rz
+}; // namespace rz::core

@@ -19,7 +19,7 @@
 #include "IniConfig.hpp"
 #include "iniparser/src/iniparser.h"
 
-namespace rz
+namespace rz::core
 {
 
 CIniConfig::CIniConfig(const char *asName)
@@ -75,4 +75,4 @@ bool CIniConfig::GetBool(const char *asKey, bool abDefault) const
 	return iniparser_getboolean(mpDict, asKey, abDefault);
 };
 
-}; // namespace rz
+}; // namespace rz::core

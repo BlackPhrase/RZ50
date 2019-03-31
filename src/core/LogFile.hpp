@@ -19,7 +19,7 @@
 
 #include "core/CoreTypes.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 // TODO: inherit it from the CFile
@@ -44,4 +44,4 @@ private:
 	FILE *mpHandle{nullptr};
 };
 
-}; // namespace rz
+}; // namespace rz::core

@@ -18,7 +18,7 @@
 #include "System.hpp"
 #include "core/IServiceLocator.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 CSystem::CSystem(const IServiceLocator &aCoreEnv) : mCoreEnv(aCoreEnv)
@@ -31,4 +31,4 @@ CSystem::~CSystem()
 	mCoreEnv.GetLog().TraceShutdown("System");
 };
 
-}; // namespace rz
+}; // namespace rz::core

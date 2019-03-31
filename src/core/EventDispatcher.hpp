@@ -22,7 +22,7 @@
 #include "core/IEventSystem.hpp"
 #include "core/IServiceLocator.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 using tEventListenerList = std::list<IEventListener*>;
@@ -56,4 +56,4 @@ private:
 	const IServiceLocator &mCoreEnv;
 };
 
-}; // namespace rz
+}; // namespace rz::core

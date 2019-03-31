@@ -22,7 +22,7 @@
 #include "core/ICore.hpp"
 #include "core/IServiceLocator.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 class CServiceLocator;
@@ -100,4 +100,4 @@ private:
 	bool mbWantQuit{false};
 };
 
-}; // namespace rz
+}; // namespace rz::core

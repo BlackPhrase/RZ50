@@ -20,7 +20,7 @@
 #include <list>
 #include "core/IModuleContainer.hpp"
 
-namespace rz
+namespace rz::core
 {
 
 struct IServiceLocator;
@@ -50,4 +50,4 @@ private:
 	const IServiceLocator &mCoreEnv;
 };
 
-}; // namespace rz
+}; // namespace rz::core

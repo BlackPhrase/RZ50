@@ -23,7 +23,7 @@
 // TODO: optimization
 // TODO: remove dups
 
-namespace rz
+namespace rz::core
 {
 
 CLog::CLog()
@@ -149,4 +149,4 @@ void CLog::TraceShutdown(const char *asMsg)
 	Write(sMsg);
 };
 
-}; // namespace rz
+}; // namespace rz::core
