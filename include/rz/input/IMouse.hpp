@@ -24,6 +24,8 @@ namespace rz::input
 
 struct IMouse : public IInputDevice
 {
+	static IInputDevice::Type Type{IInputDevice::Type::Mouse};
+	
 	enum class Button : int
 	{
 		Left,
@@ -31,7 +33,7 @@ struct IMouse : public IInputDevice
 		Middle
 	};
 	
-	virtual bool IsButtonPressed(Button aeButton) const = 0;
+	virtual bool IsButtonDown(Button aeButton) const = 0;
 	
 	const char *GetName() const override final {return "Mouse";}
 };

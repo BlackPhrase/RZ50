@@ -24,6 +24,8 @@ namespace rz::input
 
 struct IKeyboard : public IInputDevice
 {
+	static IInputDevice::Type Type{IInputDevice::Type::Keyboard};
+	
 	enum class Key : int
 	{
 		W,
@@ -96,7 +98,7 @@ struct IKeyboard : public IInputDevice
 	virtual bool IsKeyDown(Key aeKey) const = 0;
 	virtual bool IsAnyKeyDown() const = 0;
 	
-	const char *GetDeviceName() const {return "Keyboard";}
+	const char *GetName() const override final {return "Keyboard";}
 };
 
 }; // namespace rz::input

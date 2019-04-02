@@ -22,12 +22,19 @@ namespace rz::input
 
 struct IInputDevice
 {
-	virtual const char *GetName() const = 0;
-	//virtual const char *GetType() const = 0;
+	enum class Type : int
+	{
+		Keyboard,
+		Mouse,
+		Gamepad
+	};
+	
+	//virtual void Release() = 0;
 	
 	virtual void Update() = 0;
 	
-	//virtual void Release() = 0;
+	virtual const char *GetName() const = 0; // GetDeviceName?
+	//virtual Type GetType() const = 0; // GetDeviceType?
 };
 
 }; // namespace rz::input

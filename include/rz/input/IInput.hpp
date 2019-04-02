@@ -21,11 +21,25 @@ namespace rz::input
 {
 
 struct IInputDevice;
+struct IWindow;
 
 struct IInput
 {
+	///
+	virtual void AttachToWindow(IWindow *apWindow) = 0;
+	
+	///
 	virtual void RegisterDevice(IInputDevice &aDevice) = 0;
+	
+	///
 	virtual void UnregisterDevice(IInputDevice &aDevice) = 0;
+	
+	///
+	virtual IInputDevice *GetDevice(IInputDevice::Type aeType, int anIndex = 0) const = 0;
+	
+	///
+	template<typename T>
+	inline T *GetDevice(int anIndex = 0) const {return static_cast<T*>(GetDevice(T::Type, anIndex));}
 };
 
 }; // namespace rz::input
