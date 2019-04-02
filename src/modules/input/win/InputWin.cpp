@@ -24,7 +24,7 @@ LRESULT CALLBACK InputSystemWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 };
 */
 
-namespace rz
+namespace rz::input
 {
 
 CInputWin *gInput{nullptr};
@@ -52,4 +52,4 @@ void CInputWin::AttachToWindow(tWinHandle ahWindow)
 	SetWindowLongPtr((HWND)mhWindow, GWLP_WNDPROC, (LONG_PTR)WindowProc);
 };
 
-}; // namespace rz
+}; // namespace rz::input

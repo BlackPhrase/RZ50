@@ -19,7 +19,7 @@
 
 #include "IInputDevice.hpp"
 
-namespace rz
+namespace rz::input
 {
 
 struct IKeyboard : public IInputDevice
@@ -99,4 +99,4 @@ struct IKeyboard : public IInputDevice
 	const char *GetDeviceName() const {return "Keyboard";}
 };
 
-}; // namespace rz
+}; // namespace rz::input

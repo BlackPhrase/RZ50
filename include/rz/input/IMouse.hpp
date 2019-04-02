@@ -19,7 +19,7 @@
 
 #include "IInputDevice.hpp"
 
-namespace rz
+namespace rz::input
 {
 
 struct IMouse : public IInputDevice
@@ -36,4 +36,4 @@ struct IMouse : public IInputDevice
 	const char *GetName() const override final {return "Mouse";}
 };
 
-}; // namespace rz
+}; // namespace rz::input

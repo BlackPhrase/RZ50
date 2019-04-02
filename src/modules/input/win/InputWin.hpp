@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::input
 {
 
 class CInputWin final
@@ -33,4 +33,4 @@ private:
 	tWinHandle mhWindow{0};
 };
 
-}; // namespace rz
+}; // namespace rz::input

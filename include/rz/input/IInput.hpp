@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::input
 {
 
 struct IInputDevice;
@@ -28,4 +28,4 @@ struct IInput
 	virtual void UnregisterDevice(IInputDevice &aDevice) = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::input

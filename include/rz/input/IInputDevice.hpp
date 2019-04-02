@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::input
 {
 
 struct IInputDevice
@@ -30,4 +30,4 @@ struct IInputDevice
 	//virtual void Release() = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::input
