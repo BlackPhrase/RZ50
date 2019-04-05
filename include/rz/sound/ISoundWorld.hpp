@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::sound
 {
 
 struct ISoundWorld
@@ -25,4 +25,4 @@ struct ISoundWorld
 	virtual void Update() = 0;
 };
 
-}; // namespace rz
+}; // namespace rz::sound

@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace rz
+namespace rz::sound
 {
 
 struct ISubSystem;
@@ -39,4 +39,4 @@ struct ISound
 
 using pfnGetSound = ISubSystem *(*)(const TCoreEnv &aCoreEnv);
 
-}; // namespace rz
+}; // namespace rz::sound
