@@ -20,9 +20,18 @@
 namespace rz::sound
 {
 
+struct ISoundEmitter;
+
 struct ISoundWorld
 {
-	virtual void Update() = 0;
+	///
+	virtual void Update(float afTimeStep) = 0;
+	
+	///
+	virtual ISoundEmitter *CreateEmitter() = 0;
+	
+	///
+	virtual void DestroyEmitter(ISoundEmitter *apEmitter) = 0;
 };
 
 }; // namespace rz::sound
