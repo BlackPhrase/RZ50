@@ -1,17 +1,17 @@
 /* 
  * This file is part of RZ Engine
- * Copyright (c) 2017-2018 BlackPhrase
+ * Copyright (c) 2017-2019 BlackPhrase
  * 
  * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ * it under the terms of the GNU Lesser General Public License as published by  
  * the Free Software Foundation, version 3.
  *
  * This program is distributed in the hope that it will be useful, but 
  * WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
- * General Public License for more details.
+ * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU Lesser General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
@@ -21,15 +21,14 @@
 #include "Input.hpp"
 #include "Mouse.hpp"
 
-namespace rz
+namespace rz::input
 {
 
 bool CInput::Init(const IServiceLocator &aCoreEnv)
 {
 	mCoreEnv.GetLog().TraceInit("Input");
-	mCoreEnv.GetLog().Info("Input: Null");
 	
-	mlstDevices.push_back(new CNullMouse(aCoreEnv));
+	mlstDevices.push_back(*new CMouse(aCoreEnv));
 	return true;
 };
 
@@ -37,7 +36,7 @@ void CInput::Shutdown()
 {
 	// NOTE: move to destructor?
 	
-	auto It = mlstDevices.begin();
+	auto It{mlstDevices.begin()};
 	while(It != mlstDevices.end())
 	{
 		//It->Release(); // delete itself
@@ -53,27 +52,27 @@ void CInput::Update()
 	mCoreEnv.GetCmdProcessor().BufferText("forward", ICmdProcessor::InsertMode::Insert);
 	
 	for(auto It : mlstDevices)
-		It->Update();
+		It.get().Update();
 };
 
 void CInput::RegisterDevice(IInputDevice &aDevice)
 {
-	// Skip duplication
+	// Prevent duplication
 	for(auto It : mlstDevices)
-		if(!strcmp(It->GetName(), aDevice.GetName()))
+		if(!strcmp(It.get().GetName(), aDevice.GetName()))
 			return;
 	
-	mlstDevices.push_back(&aDevice);
+	mlstDevices.push_back(aDevice);
 };
 
 void CInput::UnregisterDevice(IInputDevice &aDevice)
 {
 	for(auto It : mlstDevices)
-		if(!strcmp(It->GetName(), aDevice.GetName()))
+		if(!strcmp(It.get().GetName(), aDevice.GetName()))
 		{
 			//It->Release();
 			mlstDevices.remove(It);
 		};
 };
 
-}; // namespace rz
+}; // namespace rz::input
