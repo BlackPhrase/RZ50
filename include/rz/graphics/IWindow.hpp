@@ -65,8 +65,6 @@ struct IWindow
 		///
 		virtual void OnEvent(const Event &aEvent) = 0;
 	};
-	///
-	//virtual const char *GetTitle() const = 0;
 	
 	///
 	//virtual void SetX(int anX) = 0;
@@ -87,9 +85,8 @@ struct IWindow
 	///
 	//virtual const vec2 &GetPos() const = 0;
 	
-	
 	/// @return platform (OS) specific handle
-	virtual tWinHandle GetHandle() const = 0;
+	//virtual tWinHandle GetHandle() const = 0;
 };
 
 }; // namespace rz
