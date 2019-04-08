@@ -27,17 +27,22 @@ class CWindowWin : public IWindow
 {
 public:
 	CWindowWin() = default;
-	~CWindowWin() = default;
+	~CWindowWin();
 	
-	int GetX() const;
-	int GetY() const;
+	void Update() override;
 	
-	int GetWidth() const;
-	int GetHeight() const;
+	void AddEventListener(EventListener &aListener) override;
+	void RemoveEventListener(EventListener &aListener) override;
 	
-	tWinHandle GetHandle() const {return mHandle;}
+	//tWinHandle GetHandle() const {return mHandle;}
+	
+	//static CGraphicsWin *pGraphicsWin;
 private:
-	tWinHandle mHandle{nullptr};
+	static LRESULT WINAPI WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	
+	SWindowProps mProps{};
+	
+	tWinHandle mHandle{nullptr}; // HWND mhWnd{nullptr};
 };
 
 }; // namespace rz
