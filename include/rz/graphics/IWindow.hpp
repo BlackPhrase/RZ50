@@ -60,14 +60,22 @@ struct IWindow
 	///
 	//virtual void SetTitle(const char *asTitle) = 0;
 	
+	struct EventListener
+	{
+		///
+		virtual void OnEvent(const Event &aEvent) = 0;
+	};
 	///
 	//virtual const char *GetTitle() const = 0;
 	
 	///
 	//virtual void SetX(int anX) = 0;
 	
+	///
+	virtual void AddEventListener(EventListener &aListener) = 0;
 	
 	///
+	virtual void RemoveEventListener(EventListener &aListener) = 0;
 	//virtual void SetY(int anY) = 0;
 	
 	///
