@@ -39,6 +39,24 @@ struct IWindow
 {
 	//constexpr auto InvalidHandle{-1};
 	
+	struct Event
+	{
+		Event(Type aeType) : meType(aeType){}
+		
+		enum class Type : int
+		{
+			Invalid = -1,
+			
+			Close,
+			Move,
+			PreResize,
+			BeginResize,
+			EndResize,
+			PostResize,
+		};
+		
+		Type meType{Type::Invalid};
+	};
 	///
 	//virtual void SetTitle(const char *asTitle) = 0;
 	
