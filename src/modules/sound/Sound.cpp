@@ -1,35 +1,40 @@
 /* 
  * This file is part of RZ Engine
- * Copyright (c) 2017-2018 BlackPhrase
+ * Copyright (c) 2017-2019 BlackPhrase
  * 
  * This program is free software: you can redistribute it and/or modify  
- * it under the terms of the GNU General Public License as published by  
+ * it under the terms of the GNU Lesser General Public License as published by  
  * the Free Software Foundation, version 3.
  *
  * This program is distributed in the hope that it will be useful, but 
  * WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
- * General Public License for more details.
+ * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU Lesser General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Sound.hpp"
 //#include "SoundChannel.hpp"
 
-namespace rz
+namespace rz::sound
 {
 
 bool CSound::Init(const TCoreEnv &aCoreEnv)
 {
 	mCoreEnv.pLog->TraceInit("Sound");
-	mCoreEnv.pLog->Info("Sound: Null");
+	
+	if(mpImpl)
+		return mpImpl->Init();
+	
 	return true;
 };
 
 void CSound::Shutdown()
 {
+	if(mpImpl)
+		mpImpl->Shutdown();
 };
 
 void CSound::Update()
@@ -53,22 +58,20 @@ ISoundChannel *CSound::CreateChannel()
 };
 */
 
-const ISoundWorld &CSound::CreateWorld()
+ISoundWorld &CSound::CreateWorld()
 {
-	return new CSoundWorldNull();
+	return new CSoundWorld();
 };
 
 void CSound::DestroyWorld(ISoundWorld &aWorld)
 {
-	delete &aWorld;
+	delete std::addressof(aWorld);
 };
 
 void CSound::SetCurrentWorld(const ISoundWorld &aWorld)
 {
-	if(*mpWorld != aWorld)
-		*mpWorld = aWorld;
+	if(std::addressof(mpWorld) != aWorld)
+		std::addressof(mpWorld) = aWorld;
 };
 
-//ISoundWorld *CSound::GetCurrentWorld() const {return mpWorld;}
-
-}; // namespace rz
+}; // namespace rz::sound
