@@ -1,8 +1,5 @@
 project(RZ-Sound)
 
-# Set the output name for this lib
-set(PROJECT_TARGET_SOUND RZSound)
-
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
@@ -13,9 +10,9 @@ file(GLOB PROJECT_SOURCES
 )
 
 # Build as shared lib
-add_library(${PROJECT_TARGET_SOUND} MODULE ${PROJECT_SOURCES})
+add_library(${PROJECT_NAME} MODULE ${PROJECT_SOURCES})
 
 # Set properties
-set_target_properties(${PROJECT_TARGET_SOUND} PROPERTIES
-	PREFIX ""
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	OUTPUT_NAME "RZSound"
 )
