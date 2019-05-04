@@ -1,8 +1,5 @@
 project(RZ-Network)
 
-# Set the output name for this lib
-set(PROJECT_TARGET_NETWORK RZNetwork)
-
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
@@ -12,10 +9,10 @@ file(GLOB PROJECT_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
-# Build as shared lib
-add_library(${PROJECT_TARGET_NETWORK} MODULE ${PROJECT_SOURCES})
+# Build as a shared lib
+add_library(${PROJECT_NAME} MODULE ${PROJECT_SOURCES})
 
 # Set properties
-set_target_properties(${PROJECT_TARGET_NETWORK} PROPERTIES
-	PREFIX ""
+set_target_properties(${PROJECT_NAME} PROPERTIES
+	OUTPUT_NAME "RZNetwork"
 )
